@@ -13,13 +13,13 @@ class CampaignMonitorList extends CampaignMonitorBase {
 	public $registration_text;
 
 	private function get_defaults() {
-		return [
+		return array(
 			'name'          => 'New List',
 			'comments'      => 0,
 			'comments_text' => '',
 			'registration'      => 0,
 			'registration_text' => '',
-		];
+		);
 	}
 
 	function __construct() {

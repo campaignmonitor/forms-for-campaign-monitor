@@ -2,9 +2,9 @@
 Contributors: vibhorchhabra
 Donate link: N/A
 Tags: Campaign Monitor, Email Marketing, Sign-Up Forms, Sign Up Forms
-Requires at least: 3.0.1
-Tested up to: 4.4.1
-Stable tag: 1.5
+Requires at least: 3.9
+Tested up to: 4.4.2
+Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Make it easy for customers to subscribe to your Campaign Monitor mailing lists u
 
 The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site to sign up to a Campaign Monitor subscriber list, so you can create and send beautiful, personalized emails to your audience. Create and customize subscribe forms from your WordPress dashboard, place one on every page or specific pages you select, and A/B test which form type is more successful for you.
 
-* Slide out — Position a floating tab at the top, bottom, left or right of the screen. Clicking it will slide out a subscribe form. The "Form Title" text will show inside the tab.
+* Slide-Out — Position a floating tab at the top, bottom, left or right of the screen. Clicking it will slide out a subscribe form. The "Form Title" text will show inside the tab.
 * Lightbox — Overlay a subscribe form while dimming the background of the site. You can show it immediately, after a specific amount of time, or after a user has scrolled a specific amount of pixels or percentage of the page.
 * Bar — A strap along the top or bottom of a page, that contains all the fields needed to sign up to the newsletter.
 * Button — Generate a button shortcode that can be inserted in a page or post. Loads the signup form as a lightbox.
@@ -59,6 +59,8 @@ The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site
 7. Easy to add a new form. Just select the form type, choose the Campaign Monitor List where  data will be collected, and you are done.
 
 == Changelog ==
+= 1.5.2 =
+* Recoded to provide PHP 5.3 backwards compatibility. Please be advised that every PHP version before 5.4.24 contains security issues.
 
 = 1.0 =
 * Launched Campaign Monitor for WordPress plugin.

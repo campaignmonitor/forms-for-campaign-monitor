@@ -20,7 +20,7 @@ class CampaignMonitor extends CampaignMonitorBase{
 	/**
 	 * @var string
 	 */
-	public $version = '1.5.0';
+	public $version = '1.5.2';
 
 	/**
 	 * @var CampaignMonitor The single instance of the class
@@ -385,7 +385,7 @@ class CampaignMonitor extends CampaignMonitorBase{
 
 			if ( array_key_exists( $key, $_POST) ) {
 				$add = true;
-				if ( in_array( $field->DataType, ['MultiSelectMany','MultiSelectOne']) ) {
+				if ( in_array( $field->DataType, array('MultiSelectMany','MultiSelectOne')) ) {
 					if ( 'MultiSelectMany' == $field->DataType ) {
 						foreach( $_POST[$key] as $submission ) {
                             $submission = str_replace( array( "\\'" ), array( "'" ), $submission);

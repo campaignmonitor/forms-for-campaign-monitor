@@ -53,7 +53,7 @@ $states = "Alabama\r\nAlaska\r\nArizona\r\nArkansas\r\nCalifornia\r\nColorado\r\
 		<input type="email" name="email" required="required" class="cm-email <?php echo $this->get_field_data( 'email', 'css_classes' ); ?>" placeholder="<?php echo stripslashes($this->get_field_data( 'email', 'placeholder' )); ?>">
 	</div>
 	<?php foreach( $fields as $key => $field ):
-			if ( in_array( $key, ['email', 'userInformation'] )  || empty( $field['FieldName'] ) || !isset($field['enabled']) || 1 != $field['enabled'] ) {
+			if ( in_array( $key, array('email', 'userInformation') )  || empty( $field['FieldName'] ) || !isset($field['enabled']) || 1 != $field['enabled'] ) {
 				continue;
 			}
 			$name = str_replace("\\","", $field['FieldName']);
@@ -72,7 +72,7 @@ $states = "Alabama\r\nAlaska\r\nArizona\r\nArkansas\r\nCalifornia\r\nColorado\r\
 				<?php elseif ( $addEmptyLabel ): ?>
 					<label for="cc-form-<?php echo $this->id ?>-<?php echo $key ?>" class="cm-label">&nbsp;</label>
 				<?php endif; ?>
-				<?php if ( in_array( $field['DataType'], ['MultiSelectOne']) ) : ?>
+				<?php if ( in_array( $field['DataType'], array('MultiSelectOne')) ) : ?>
 					<div class="cm-select-wrapper">
 						<select data-name="<?php echo $name ;?>" name="<?php echo $key; ?>" class="<?php echo $this->get_field_data( $key, 'css_classes' ); ?>" <?php if ( '1' == $this->get_field_data( $key, 'required' ) ): ?>required="required"<?php endif ?>>
 							<?php foreach(  explode( "\r\n", $field['Options'] ) as $option ):
@@ -81,7 +81,7 @@ $states = "Alabama\r\nAlaska\r\nArizona\r\nArkansas\r\nCalifornia\r\nColorado\r\
 							<?php endif; endforeach; ?>
 						</select>
 					</div>
-				<?php elseif ( in_array( $field['DataType'], ['MultiSelectMany']) ) : ?>
+				<?php elseif ( in_array( $field['DataType'], array('MultiSelectMany')) ) : ?>
 
 					<?php if ( '1' == $this->get_field_data( $key, 'required' ) ): ?><div class="required-checkboxes"><?php endif ?>
 					<?php $index = 0;
@@ -92,7 +92,7 @@ $states = "Alabama\r\nAlaska\r\nArizona\r\nArkansas\r\nCalifornia\r\nColorado\r\
 						<?php $index++;
 					endif; endforeach; ?>
 					<?php if ( '1' == $this->get_field_data( $key, 'required' ) ): ?></div><?php endif ?>
-				<?php elseif ( in_array( $field['DataType'], ['Date']) ) : ?>
+				<?php elseif ( in_array( $field['DataType'], array('Date')) ) : ?>
 					<div class="cm-date-wrapper">
 						<div class="cm-select-wrapper">
 							<select data-name="<?php echo $name ;?>-month" name="<?php echo $key; ?>-month" class="<?php echo $this->get_field_data( $key, 'css_classes' ); ?>" <?php if ( '1' == $this->get_field_data( $key, 'required' ) ): ?>required="required"<?php endif ?>>

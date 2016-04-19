@@ -99,7 +99,7 @@
 
                 <tbody id="list-custom-fields">
                     <?php foreach( $fields as $field ):
-                      $key = str_replace( [ "\\'"], [""], $field->Key);
+                      $key = str_replace( array("\\'"), array(""), $field->Key);
                       $cleanKey = str_replace(array( '[', ']' ), '', $key);
                       $fieldName = str_replace( "\\", "", $form->get_field_data( $cleanKey, 'FieldName' ));
                       if ( empty($fieldName ) ) {
@@ -126,7 +126,7 @@
                                 <input type="button" value="<?php echo __('Done', 'campaign-monitor'); ?>" class="button-secondary bt-change-name">
                             </div>
                             <input type="hidden" name="fields<?php echo $key;?>[DataType]" value="<?php echo $field->DataType; ?>" />
-                            <?php if ( in_array( $field->DataType, ['Text', 'Number', 'Date'] ) ): ?>
+                            <?php if ( in_array( $field->DataType, array('Text', 'Number', 'Date') ) ): ?>
                             <p class="description"><?php echo __('Placeholder text (optional)', 'campaign-monitor'); ?></p><input type="text" name="fields<?php echo $key;?>[placeholder]" value="<?php echo str_replace( "\\", "", $form->get_field_data( $cleanKey, 'placeholder' )); ?>" class="regular-text">
                             <?php endif; ?>
                             
@@ -134,7 +134,7 @@
                             <input type="text" name="fields<?php echo $key;?>[css_classes]" value="<?php echo str_replace( "\\", "", $form->get_field_data( $cleanKey, 'css_classes' )); ?>" class="regular-text" placeholder="">
                             
                             
-                            <?php if ( in_array( $field->DataType, ['MultiSelectOne', 'MultiSelectMany'] ) ): ?>
+                            <?php if ( in_array( $field->DataType, array('MultiSelectOne', 'MultiSelectMany') ) ): ?>
 <p class="description"><?php echo __('Field Options (One per line)', 'campaign-monitor'); ?></p>                                    
 <textarea name="fields<?php echo $field->Key ?>[Options]"  rows="10" cols="30" class="options-field required-options">
 <?php foreach( $field->FieldOptions as $option):?>
@@ -216,7 +216,7 @@
                         <input id="wizardFieldsHasBadge" type="checkbox" name="hasBadge" value="1" <?php if ( isset($form->data['hasBadge']) && 1 == $form->data['hasBadge'] ): ?>checked="checked"<?php endif; ?>> 
                         <label for="wizardFieldsHasBadge">
                             <?php echo __('Show ', 'campaign-monitor'); ?>  
-                            <img class="badge-img" src="<?php echo plugins_url( '../img/cm-logo-horizontal.png', dirname(__FILE__) ); ?>" alt="<?php echo __('Powered by Campaign Monitor ', 'campaign-monitor'); ?>">
+                            <img class="badge-img" src="<?php echo plugins_url( '../img/cm-logo-horizontal.png', dirname(__FILE__) ); ?>" srcset="<?php echo plugins_url( '../img/cm-logo-horizontal.png', dirname(__FILE__) ); ?>, <?php echo plugins_url( '../img/cm-logo-horizontal@2x.png', dirname(__FILE__) ); ?> 2x" alt="<?php echo __('Powered by Campaign Monitor ', 'campaign-monitor'); ?>">
                             <?php echo __('on your form', 'campaign-monitor'); ?>
                         </label>
                         <?php 

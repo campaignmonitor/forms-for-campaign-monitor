@@ -86,9 +86,9 @@ class CampaignMonitorOAuth extends CampaignMonitorBase {
 	}
 
 	public function get_auth_creds() {
-		return [
+		return array(
 		  		'api_key' => CampaignMonitorPluginInstance()->get_option( 'api_key' ),
-		];
+		);
 	}
 
 	public function get_list( $list_id ) {

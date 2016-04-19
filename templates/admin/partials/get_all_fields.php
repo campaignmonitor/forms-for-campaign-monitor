@@ -18,7 +18,7 @@ foreach( CampaignMonitorPluginInstance()->connection->get_clients() as $client )
                 $is_visible = "";
             }
             
-            $key = str_replace( [ "\\'"], [""], $field->Key);
+            $key = str_replace( array("\\'"), array(""), $field->Key);
             $cleanKey = str_replace(array( '[', ']' ), '', $key);
 
             $allFields .= '<tr class="additional-field">
@@ -40,7 +40,7 @@ foreach( CampaignMonitorPluginInstance()->connection->get_clients() as $client )
                         <input type="button" value="'.__('Done', 'campaign-monitor').'" class="button-secondary bt-change-name" id="bt-change-name">
                     </div>';
             
-            if ( in_array( $field->DataType, ['Text', 'Number', 'Date'] ) ){
+            if ( in_array( $field->DataType, array('Text', 'Number', 'Date') ) ){
                     $allFields .= 
                     '<p class="description">'.__('Placeholder text (optional)', 'campaign-monitor').'</p>
                     <input type="text" name="fields'.$key.'[placeholder]" value="" class="regular-text">';
@@ -51,7 +51,7 @@ foreach( CampaignMonitorPluginInstance()->connection->get_clients() as $client )
                     <input type="text" name="fields'.$key.'[css_classes]" value="" class="regular-text">';
             
             
-            if ( in_array( $field->DataType, ['MultiSelectOne', 'MultiSelectMany'] ) ){
+            if ( in_array( $field->DataType, array('MultiSelectOne', 'MultiSelectMany') ) ){
                 $allFields .= '<p class="description">'.__('Field Options (One per line)', 'campaign-monitor').'</p><textarea name="fields'.$field->Key.'[Options]" cols="30" rows="10" class="options-field required-options">';
                         
                 foreach( $field->FieldOptions as $option){

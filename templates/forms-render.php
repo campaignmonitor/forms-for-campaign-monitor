@@ -101,7 +101,7 @@ if (isset($this->data['hasBadge']) && $this->data['hasBadge'] == 1){$hasBadge = 
 				<?php elseif ( $addEmptyLabel ): ?>
 				  <label for="cc-form-<?php echo $this->id ?>-<?php echo $key ?>" class="cm-label">&nbsp;</label>
 				<?php endif; ?>
-				<?php if ( in_array( $field->DataType, ['MultiSelectOne']) ) : ?>
+				<?php if ( in_array( $field->DataType, array('MultiSelectOne')) ) : ?>
 					<div class="cm-select-wrapper">
 						<select data-name="<?php echo $name ;?>" name="<?php echo $key; ?>" class="<?php echo $this->get_field_data( $this->clean_key( $field->Key ), 'css_classes' ); ?>" <?php if ( 'MultiSelectMany' == $field->DataType ): ?>multiple="multiple"<?php endif ?> <?php if ( '1' == $this->get_field_data( $key, 'required' ) ): ?>required="required"<?php endif ?>>
 							<?php foreach( $field->FieldOptions as $option ): ?>
@@ -109,7 +109,7 @@ if (isset($this->data['hasBadge']) && $this->data['hasBadge'] == 1){$hasBadge = 
 							<?php endforeach; ?>
 						</select>
 					</div>
-				<?php elseif ( in_array( $field->DataType, ['MultiSelectMany']) ) : ?>
+				<?php elseif ( in_array( $field->DataType, array('MultiSelectMany')) ) : ?>
 
                     <?php if ( '1' == $this->get_field_data( $key, 'required' ) ): ?><div class="required-checkboxes"><?php endif ?>
                         <?php $index = 0;
@@ -119,7 +119,7 @@ if (isset($this->data['hasBadge']) && $this->data['hasBadge'] == 1){$hasBadge = 
                         <?php $index++;
                         endforeach; ?>
                     <?php if ( '1' == $this->get_field_data( $key, 'required' ) ): ?></div><?php endif ?>
-				<?php elseif ( in_array( $field->DataType, ['Date']) ) : ?>
+				<?php elseif ( in_array( $field->DataType, array('Date')) ) : ?>
 					<div class="cm-date-wrapper">
 					    <div class="cm-select-wrapper">
 					        <select data-name="<?php echo $name ;?>-month" name="<?php echo $key; ?>-month" class="<?php echo $this->get_field_data( $this->clean_key( $field->Key ), 'css_classes' ); ?>" <?php if ( '1' == $this->get_field_data( $key, 'required' ) ): ?>required="required"<?php endif ?>>

@@ -114,7 +114,8 @@
                     <input id="wizardFieldsHasBadge" type="checkbox" name="hasBadge" value="1" checked> 
                     <label for="wizardFieldsHasBadge">
                         <?php echo __('Show ', 'campaign-monitor'); ?>  
-                        <img class="badge-img" src="<?php echo plugins_url( '../../img/cm-logo-horizontal.png', dirname(__FILE__) ); ?>" alt="<?php echo __('Powered by Campaign Monitor ', 'campaign-monitor'); ?>">
+                        <img class="badge-img" src="<?php echo plugins_url( '../../img/cm-logo-horizontal.png', dirname(__FILE__) ); ?>" srcset="<?php echo plugins_url( '../../img/cm-logo-horizontal.png', dirname(__FILE__) ); ?>, <?php echo plugins_url( '../../img/cm-logo-horizontal@2x.png', dirname(__FILE__) ); ?> 2x" alt="<?php echo __('Powered by Campaign Monitor ', 'campaign-monitor'); ?>">
+                        
                         <?php echo __('on your form', 'campaign-monitor'); ?>
                     </label>
                     <?php 

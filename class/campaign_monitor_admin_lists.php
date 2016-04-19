@@ -86,7 +86,7 @@ class CampaignMonitorAdminLists extends CampaignMonitorBase {
 					CampaignMonitorPluginInstance()->connection->last_error = $response->response;
 				} else {
 					if ( ! $this->add_list( $response->response->Title, $response->response->ListID ) ) {
-						CampaignMonitorPluginInstance()->connection->last_error = (object)['Message' => __( 'List already added', 'campaign-monitor' )];
+						CampaignMonitorPluginInstance()->connection->last_error = (object)array('Message' => __( 'List already added', 'campaign-monitor' ));
 					} else {
 						wp_redirect( admin_url("admin.php?page=campaign-monitor-lists") );
 					}
@@ -153,7 +153,7 @@ class CampaignMonitorAdminLists extends CampaignMonitorBase {
 				} else {
 					$response = CampaignMonitorPluginInstance()->connection->get_list( $response->response );
 					if ( ! $this->add_list( $response->response->Title, $response->response->ListID ) ) {
-						CampaignMonitorPluginInstance()->connection->last_error = (object)['Message' => __( 'List already added', 'campaign-monitor' )];
+						CampaignMonitorPluginInstance()->connection->last_error = (object)array('Message' => __( 'List already added', 'campaign-monitor' ));
 					} else {
 						wp_redirect( admin_url("admin.php?page=campaign-monitor-lists") );
 					}
