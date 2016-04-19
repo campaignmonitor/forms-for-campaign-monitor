@@ -1,0 +1,1 @@
+<input type='text' name='campaign_monitor_settings[client_id]' value='<?php echo CampaignMonitorPluginInstance()->get_option('client_id'); ?>'>
