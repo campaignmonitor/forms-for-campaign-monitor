@@ -5,11 +5,13 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
  * Plugin Name: Campaign Monitor
  * Plugin URI: http://campaignmonitor.com
  * Description: Manage Campaign Monitor Lists, Custom Fields and add forms and how you show them to your users..
- * Version: 1.5.2
+ * Version: 1.5.3
  * Author: Campaign Monitor
  * Author URI: http://campaignmonitor.com
  * License: License: GPLv2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain: campaign-monitor
+ * Domain Path: /languages/
  */
 /*
 This program is free software; you can redistribute it and/or
@@ -31,6 +33,11 @@ define( 'CAMPAIGN_MONITOR_CLASS_FOLDER', plugin_dir_path(__FILE__) . 'class/' );
 define( 'CAMPAIGN_MONITOR_TEMPLATES_FOLDER', plugin_dir_path(__FILE__) . 'templates/' );
 define( 'CAMPAIGN_MONITOR_CREATESEND_FOLDER', plugin_dir_path(__FILE__) . 'createsend-php/' );
 define( 'CAMPAIGN_MONITOR_PLUGIN_URL', plugins_url('/', __FILE__) );
+
+function my_load_plugin_textdomain() {
+  load_plugin_textdomain( 'campaign-monitor', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
+add_action( 'plugins_loaded', 'my_load_plugin_textdomain' );
 
 
 require_once( CAMPAIGN_MONITOR_CLASS_FOLDER . "campaign_monitor.php" );

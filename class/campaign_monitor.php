@@ -20,7 +20,7 @@ class CampaignMonitor extends CampaignMonitorBase{
 	/**
 	 * @var string
 	 */
-	public $version = '1.5.2';
+	public $version = '1.5.3';
 
 	/**
 	 * @var CampaignMonitor The single instance of the class
@@ -84,8 +84,8 @@ class CampaignMonitor extends CampaignMonitorBase{
 			$this->enable_admin();
 		}
 	}
-    
-    
+
+
     function cm_create_virtual()
     {
         $url = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
@@ -107,7 +107,7 @@ class CampaignMonitor extends CampaignMonitorBase{
           new DJVirtualPage($args);
         }
     }
-    
+
 
 	/**
 	 * Enqueue Scripts and styles
@@ -158,17 +158,17 @@ class CampaignMonitor extends CampaignMonitorBase{
 	}
 
 	public function render_simple_form( $atts ) {
-        
+
 		if ( ! isset( $atts['id'] ) || ! is_numeric( $atts['id'] ) ) {
 			return '';
 		} else {
             $checkForm = new CampaignMonitorForm();
             $checkForm->load( $atts['id'] );
-            
+
             if ($checkForm->enabled != "1"){return '';}
         }
-        
-        
+
+
 		$form = new CampaignMonitorSimpleForm();
 		$form->load( $atts['id'] );
 		$this->elements[] = $form;
@@ -179,16 +179,16 @@ class CampaignMonitor extends CampaignMonitorBase{
 	}
 
 	public function render_button( $atts ) {
-        
+
 		if ( ! isset( $atts['id'] ) || ! is_numeric( $atts['id'] ) ) {
 			return '';
 		}else{
             $checkForm = new CampaignMonitorForm();
             $checkForm->load( $atts['id'] );
-            
+
             if ($checkForm->enabled != "1"){return '';}
         }
-        
+
 		$button = new CampaignMonitorButton();
 		$button->load( $atts['id'] );
 		$this->elements[] = $button;
@@ -213,24 +213,24 @@ class CampaignMonitor extends CampaignMonitorBase{
 
 	public function add_targeted_elements() {
 		$cm = new CampaignMonitorElement();
-        
+
         $blogUrl = str_replace("http://", "", get_bloginfo('url'));
         $hostUrl = $_SERVER['HTTP_HOST'];
-        
+
         $folder = str_replace($hostUrl, "", $blogUrl);
         $realSlug = str_replace($folder, "", $_SERVER['REQUEST_URI']);
-        
+
 		$this->elements =  array_merge( $this->elements, $cm->enableFromSlug( $realSlug ) );
 	}
 
 	public function add_targeted_abtests() {
-        
+
         $blogUrl = str_replace("http://", "", get_bloginfo('url'));
         $hostUrl = $_SERVER['HTTP_HOST'];
-        
+
         $folder = str_replace($hostUrl, "", $blogUrl);
         $realSlug = str_replace($folder, "", $_SERVER['REQUEST_URI']);
-        
+
 		for( $i = 0; $i < count($this->abtests); $i++ ) {
 			$this->abtests[$i]->with_slug( $realSlug );
 		}
@@ -274,7 +274,7 @@ class CampaignMonitor extends CampaignMonitorBase{
 				$e->render2();
 			}
 		}
-		
+
 		echo '<script type="text/javascript">CM_OBJECT = { ajax_url : "' . admin_url( 'admin-ajax.php' ) . '"}</script>';
 	}
 
@@ -293,7 +293,7 @@ class CampaignMonitor extends CampaignMonitorBase{
 				array( 'enabled' => 1 )
 		);
 	}
-    
+
     public function disconnect_elements() {
 		global $wpdb;
 		$table = 'cm_elements';
@@ -390,7 +390,7 @@ class CampaignMonitor extends CampaignMonitorBase{
 						foreach( $_POST[$key] as $submission ) {
                             $submission = str_replace( array( "\\'" ), array( "'" ), $submission);
 							if ( ! in_array( $submission, $field->FieldOptions ) ) {
-                                
+
 								$add = false;
 							}
 						}
@@ -411,7 +411,7 @@ class CampaignMonitor extends CampaignMonitorBase{
 					}
 				}
 				if ( $add ) {
-                    
+
                     if ($field->DataType == "MultiSelectOne"){
                         $subscriber['CustomFields'][] = array(
                             'Key' => $field->Key,
@@ -423,13 +423,13 @@ class CampaignMonitor extends CampaignMonitorBase{
                             'Value' => $this->clean_option($_POST[$key])
 						);
                     }
-					
+
 				}
 			}
 		}
 
 		CampaignMonitorPluginInstance()->connection->subscribe($form->data['list_id'], $subscriber);
-        
+
 		echo __('Thank you. The information has been received.','campaign-monitor');
 		die();
 	}
