@@ -59,6 +59,9 @@ The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site
 7. Easy to add a new form. Just select the form type, choose the Campaign Monitor List where  data will be collected, and you are done.
 
 == Changelog ==
+= 1.5.3 =
+* i18n Support: Added the Text Domain and load_plugin_textdomain
+
 = 1.5.2 =
 * Recoded to provide PHP 5.3 backwards compatibility. Please be advised that every PHP version before 5.4.24 contains security issues.
 

@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
  * Author URI: http://campaignmonitor.com
  * License: License: GPLv2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: campaign-monitor
+ * Text Domain: forms-for-campaign-monitor
  * Domain Path: /languages/
  */
 /*
@@ -35,10 +35,9 @@ define( 'CAMPAIGN_MONITOR_CREATESEND_FOLDER', plugin_dir_path(__FILE__) . 'creat
 define( 'CAMPAIGN_MONITOR_PLUGIN_URL', plugins_url('/', __FILE__) );
 
 function my_load_plugin_textdomain() {
-  load_plugin_textdomain( 'campaign-monitor', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+  load_plugin_textdomain( 'forms-for-campaign-monitor', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'my_load_plugin_textdomain' );
-
 
 require_once( CAMPAIGN_MONITOR_CLASS_FOLDER . "campaign_monitor.php" );
 require_once( CAMPAIGN_MONITOR_CLASS_FOLDER . "campaign_monitor_install.php" );
