@@ -88,20 +88,22 @@ class CampaignMonitorWpTableForms extends WP_List_Table {
         $enable_nonce = wp_create_nonce( 'cm_enable' );
 
 		$title = '<strong>' . sprintf('<a href="%s">%s</a>', sprintf( admin_url('admin.php?page=%s&action=%s&form=%s'), 'campaign-monitor-edit-wizard','edit',$item['id'] ) , stripcslashes($item['name']) ) . '</strong>';
-        
-            if ($item['enabled'] == 1){
-                $enabled_option = '<a href="?page='.$_REQUEST['page'].'&action=disable&form='.$item['id'].'&_wpnonce='.$disable_nonce.'">Disable</a>';
-            }else if ($item['enabled'] == 0){
-                $enabled_option = '<a href="?page='.$_REQUEST['page'].'&action=enable&form='.$item['id'].'&_wpnonce='.$enable_nonce.'">Enable</a>';
-            }
+        	
+        if ($item['enabled'] == 1){
+            $enabled_option = '<a href="?page='.$_REQUEST['page'].'&action=disable&form='.$item['id'].'&_wpnonce='.$disable_nonce.'">Disable</a>';
+        }else if ($item['enabled'] == 0){
+            $enabled_option = '<a href="?page='.$_REQUEST['page'].'&action=enable&form='.$item['id'].'&_wpnonce='.$enable_nonce.'">Enable</a>';
+        } else {
+        	$enabled_option = '';
+        }
 
-            $actions = array(
-                'edit'      => sprintf('<a href="%s">%s</a>', sprintf( admin_url('admin.php?page=%s&action=%s&form=%s'), 'campaign-monitor-edit-wizard','edit',$item['id'] ) , __('Edit', 'campaign-monitor') ),
-                'delete'    => sprintf('<a href="?page=%s&action=%s&form=%s&_wpnonce=%s">Delete</a>',$_REQUEST['page'],'delete',$item['id'],$delete_nonce),
-                'enabled'    => $enabled_option
-            );
+        $actions = array(
+            'edit'      => sprintf('<a href="%s">%s</a>', sprintf( admin_url('admin.php?page=%s&action=%s&form=%s'), 'campaign-monitor-edit-wizard','edit',$item['id'] ) , __('Edit', 'campaign-monitor') ),
+            'delete'    => sprintf('<a href="?page=%s&action=%s&form=%s&_wpnonce=%s">Delete</a>',$_REQUEST['page'],'delete',$item['id'],$delete_nonce),
+            'enabled'    => $enabled_option
+        );
 
-            return $title . $this->row_actions( $actions );
+        return $title . $this->row_actions( $actions );
 	}
 
 	/**
@@ -117,8 +119,10 @@ class CampaignMonitorWpTableForms extends WP_List_Table {
                 $list_id = $info_array['list_id'];
             
                 $list = CampaignMonitorPluginInstance()->connection->get_list( $list_id )->response;
-            
-                return stripslashes($list->Title);
+            	if (property_exists($list, 'Title')) {
+                	return stripslashes($list->Title);
+                }
+                return '<i>deleted list</i>';
             	break;
             case 'type':
                 switch( $item['type'] ) {

@@ -13,13 +13,21 @@ class CampaignMonitorOAuth extends CampaignMonitorBase {
 	private $client_secret;
 	private $api_key;
 	private $redirect_uri;
-	private $enabled = false;
+	public $enabled = false;
+	private $connected = true;
 	public  $last_error;
+	public  $connection_error;
+	public  $connection_errored;
+
+	public $last_clients;
 
 	function __construct() {
+		$this->enabled = false;
+		$this->connected = false;
+		$this->connection_errored = false;
 		$options = get_option( 'campaign_monitor_settings' );
-		if ( isset( $options['api_key'] ) ) {
-			$this->api_key = CampaignMonitorPluginInstance()->get_option('api_key');
+		$this->api_key = $options['api_key'];
+		if ( isset( $this->api_key ) and  $this->api_key  <> "") {
 			$this->enabled = true;
 		}
 		$this->redirect_uri = admin_url( '?page=campaign-monitor-oauth' );
@@ -110,9 +118,17 @@ class CampaignMonitorOAuth extends CampaignMonitorBase {
 	}
 
 	public function get_clients() {
-		$clients = new CS_REST_Clients('', $this->get_auth_creds() );
-
-		return $clients->get()->response;
+		try
+		{
+			$clients = new CS_REST_Clients('', $this->get_auth_creds() );
+			$this->last_clients = $clients->get()->response;
+			
+		} catch (Exception $e) {
+			$this->last_clients = new stdClass();
+   			$this->last_clients->Code = 'API_Error';
+   			$this->last_clients->Message = $e->getMessage();
+		}
+		return $this->last_clients;
 	}
 
 	public function get_client_lists( $client_id ) {
@@ -181,26 +197,44 @@ class CampaignMonitorOAuth extends CampaignMonitorBase {
 		return $subscription->add( $subscriber );
 	}
 
+	public function connectionAttemptFailed() {
+		return $this->enabled && !$this->connected && $this->connection_error;
+	}
+
 	public function enabled() {
 
+		if (!$this->enabled) {
+			return false;
+		}
+
+		if (!$this->connected && !$this->connection_error) {
+			$this->connect();
+		}
+		return $this->connected;
+	}
+
+	public function connect() {
+		$this->connection_error = null;
+		$this->connection_errored = false;
+		$this->connected = false;
 		if ( $this->enabled ) {
 			$response = $this->get_clients();
-
 			if ( is_array( $response ) ) {
+				$this->connected = true;
 				return true;
 			}
+			$this->connection_error = array( 'Code' => $response->Code , 'Message' => $response->Message );
+			$this->connection_errored = true;
 		}
 
 		return false;
 	}
 
     public function get_company_name() {
-	  $user = new CS_REST_General( $this->get_auth_creds() );
-	  $client = $user->get_clients();
-	  if ( 1 < count( $client->response ) ){
+	  if ( 1 < count( $this->last_clients ) ){
 	  	return ' An Agency';
 	  } else {
-		return $client->response[0]->Name;
+		return $this->last_clients[0]->Name;
 	  }
 	}
 }

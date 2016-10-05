@@ -1,9 +1,9 @@
 === Campaign Monitor ===
-Contributors: vibhorchhabra
+Contributors: aidinsadighi, vibhorchhabra
 Donate link: N/A
 Tags: Campaign Monitor, Email Marketing, Sign-Up Forms, Sign Up Forms
 Requires at least: 3.9
-Tested up to: 4.4.2
+Tested up to: 4.5.3
 Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -60,7 +60,7 @@ The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site
 
 == Changelog ==
 = 1.5.3 =
-* i18n Support: Added the Text Domain and load_plugin_textdomain
+* Fixed performance issues. Fixed fatal errors caused by network. Fixed errors during the installation, if another package with the same dependencies are installed.
 
 = 1.5.2 =
 * Recoded to provide PHP 5.3 backwards compatibility. Please be advised that every PHP version before 5.4.24 contains security issues.

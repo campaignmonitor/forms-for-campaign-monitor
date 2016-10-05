@@ -1,18 +1,20 @@
 <?php $current_user = wp_get_current_user(); ?>
+
+
 <div class="wrap">
-	<h2><?php echo __('Campaign Monitor for WordPress Settings', 'campaign-monitor'); ?></h2>
-	<?php if ( ! CampaignMonitorPluginInstance()->connection->enabled() ): ?>
-		<form method="post" action="options.php">
-			<?php
-			settings_fields( 'campaign-monitor-options' );
-			do_settings_sections( 'campaign-monitor-options' );
-			submit_button();
-			?>
-		</form>
-	<?php else: 
+    <h2><?php echo __('Campaign Monitor for WordPress Settings', 'campaign-monitor'); ?></h2>
+    <?php if ( ! CampaignMonitorPluginInstance()->connection->enabled() ): ?>
+        <form method="post" action="options.php">
+            <?php
+            settings_fields( 'campaign-monitor-options' );
+            do_settings_sections( 'campaign-monitor-options' );
+            submit_button();
+            ?>
+        </form>
+    <?php else: 
     
         if (isset($_GET['settings-updated'])){
-			CampaignMonitorPluginInstance()->reconnect_elements();
+            CampaignMonitorPluginInstance()->reconnect_elements();
             echo '<div class="updated"><p>';
             echo __('Congratulations! You have successfully activated the Campaign Monitor plug-in.', 'campaign-monitor'); 
             echo ' <a href="'.admin_url("admin.php?page=campaign-monitor-forms").'">';
@@ -49,13 +51,13 @@
             </label>
         </form>
         
-        
-	    <!-- <p><?php echo __('You are connected as', 'campaign-monitor'); ?> <?php echo CampaignMonitorPluginInstance()->connection->get_company_name(); ?></p> -->
-		<p><?php echo __('To disconnect Campaign Monitor for WordPress and remove all in-app form customization, click below', 'campaign-monitor'); ?>.</p>
-		<a href="<?php echo admin_url("admin.php?page=campaign-monitor-logout"); ?>" class="button"><?php echo __('Log Out', 'campaign-monitor'); ?></a>
-	<?php endif; ?>
+        <p><?php echo __('To disconnect Campaign Monitor for WordPress and remove all in-app form customization, click below', 'campaign-monitor'); ?>.</p>
+        <a href="<?php echo admin_url("admin.php?page=campaign-monitor-logout"); ?>" class="button"><?php echo __('Log Out', 'campaign-monitor'); ?></a>        
+    <?php endif; ?>
 </div>
-
+<?php if (CampaignMonitorPluginInstance()->connection->connectionAttemptFailed()) {
+    echo '<div><strong>We could not connect to campaign monitor. Please try again in a few minutes or contact <a href="mailto:support@campaignmonitor.com">support@campaignmonitor.com</a>.</strong></div>';
+}?>
 
 <style>
     .badge-form{

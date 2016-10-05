@@ -1,5 +1,21 @@
 # createsend-php history
 
+## v5.0.2 - 18 July, 2016
+
+* Prevent definition re-declarations
+
+## v5.0.1 - 14 December, 2015
+
+* Changed the fatal error thrown when unable to communicate with the API into a catchable Exception
+
+## v5.0.0 - 8 December, 2015
+
+* Added PHP7 support
+
+## v4.1.1 - 9 September, 2015
+
+* Fixed the transactional smart email call for get_list() so it now passes the client id
+
 ## v4.1.0 - 5 August, 2014
 
 * Added support for Transactional Email
