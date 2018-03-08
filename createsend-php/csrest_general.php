@@ -11,7 +11,7 @@ if (!class_exists('CS_REST_General')) {
     class CS_REST_General extends CS_REST_Wrapper_Base {
 
         /**
-         * Get the authorization URL for your application, given the application's
+         * get the authorization URL for your application, given the application's
          * Client ID, Client Secret, Redirect URI, Scope, and optional state data.
          *
          * @param $client_id int The Client ID of your registered OAuth application.
@@ -192,7 +192,7 @@ if (!class_exists('CS_REST_General')) {
         }
 
         /**
-         * Get a URL which initiates a new external session for the user with the given email.
+         * get a URL which initiates a new external session for the user with the given email.
          * Full details: http://www.campaignmonitor.com/api/account/#single_sign_on
          *
          * @param $session_options array Options for initiating the external login session.

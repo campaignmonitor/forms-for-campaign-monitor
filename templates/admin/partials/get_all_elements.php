@@ -119,7 +119,7 @@ $allJsFields['button'] =
         <tr>
             <th scope="row">'.__('Button Shortcode', 'campaign-monitor').'</th>
             <td>
-                <input type="text" name="button_shortcode" id="wizardButtonShortcode" value="[cm_button id='.$thisFormId.']" class="regular-text" disabled>
+                <input type="text" name="button_shortcode" id="wizardButtonShortcode" value="[cm_button id='.$thisFormId.']" class="regular-text" readonly>
                 <p class="description">'.__('Copy and paste the shortcode above to the pages or posts where you\'d like your button to appear', 'campaign-monitor').'</p>
 
                 <input type="hidden" name="isGlobal" value="0">
@@ -132,7 +132,7 @@ $allJsFields['simple_form'] =
         <tr>
             <th scope="row">'.__('Embedded Code', 'campaign-monitor').'</th>
             <td>
-                <input type="text" name="embedded_code" id="wizardFormEmbed" value="[cm_simple_form id='.$thisFormId.']" class="regular-text" disabled>
+                <input type="text" name="embedded_code" id="wizardFormEmbed" value="[cm_simple_form id='.$thisFormId.']" class="regular-text" readonly>
                 <p class="description">'.__('Copy and paste the shortcode above to the pages or posts where you\'d like your form to appear', 'campaign-monitor').'</p>
                 <input type="hidden" name="isGlobal" value="2">
             </td>

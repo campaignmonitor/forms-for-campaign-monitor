@@ -1,16 +1,19 @@
 === Campaign Monitor ===
-Contributors: aidinsadighi, vibhorchhabra
+Contributors: vibhorchhabra
 Donate link: N/A
 Tags: Campaign Monitor, Email Marketing, Sign-Up Forms, Sign Up Forms
 Requires at least: 3.9
-Tested up to: 4.5.3
-Stable tag: 1.5.3
+Tested up to: 4.7.5
+Version: 2.6.2
+Stable tag: 2.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Make it easy for customers to subscribe to your Campaign Monitor mailing lists using any of the 5 elegant sign-up forms.
 
 == Description ==
+
+<strong>Campaign Monitor for Wordpress has recently received a major usability, security, and performance update. Please upgrade to v2.0 immediately.</strong>
 
 The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site to sign up to a Campaign Monitor subscriber list, so you can create and send beautiful, personalized emails to your audience. Create and customize subscribe forms from your WordPress dashboard, place one on every page or specific pages you select, and A/B test which form type is more successful for you.
 
@@ -33,20 +36,6 @@ The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site
 
 
 == Frequently Asked Questions ==
-**I have a Campaign Monitor Direct Customer Account, how do I find my API key?**
-
-* Log in to Campaign Monitor.
-* Click on your account name (top right).
-* Click on Manage Account.
-* Click on API Keys.
-* Click on Show API Key.
-
-**I have a Campaign Monitor Agency Account, how do I find my API key?**
-
-* Log in to Campaign Monitor.
-* Click on your account name (top left).
-* Click on Account Settings.
-* Click on Show API Key.
 
 
 == Screenshots ==
@@ -59,8 +48,68 @@ The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site
 7. Easy to add a new form. Just select the form type, choose the Campaign Monitor List where  data will be collected, and you are done.
 
 == Changelog ==
-= 1.5.3 =
-* Fixed performance issues. Fixed fatal errors caused by network. Fixed errors during the installation, if another package with the same dependencies are installed.
+
+= 2.5.8 =
+
+* Address some issues where jquery is not available making it possible to subscribe people without it.
+
+= 2.5.7 =
+
+* Minor maintenance
+
+= 2.5.6 =
+
+* Fixes some jquery conflict.
+* You can now see debug information on settings page.
+
+
+= 2.5.5 =
+
+* Fixes problems where you weren't able to see all the available pages and posts.
+* Fixes problem in which jquery was already in include in front end of website.
+* Added debug options to help troubleshoot problems.
+* Added the ability to reset form font to default.
+
+= 2.5.4 =
+
+
+
+
+= 2.5.3 =
+
+* You can now change the success message of the form
+* minor jquery fixes.
+
+= 2.5.2 =
+
+* Fixes jquery conflicts.
+* You can now choose from a variety of custom google fonts to use in your forms
+
+
+= 2.5.1 =
+
+* Fixes some problems with html height.
+
+= 2.4.1 =
+
+* Fixes some conflict with jquery in cases where other plugin authors have errors in their plugins.
+
+= 2.3.1 =
+* Fixes some issues with embedded form
+* Fixes some conflict with jquery.
+
+= 2.1.1 =
+* Fixes some conflict with jquery.
+
+= 2.0.0 =
+* Completely customize each form's colors and styling.
+* Add captcha to your forms to prevent spam.
+* Connect Campaign Monitor and Wordpress using <a href="https://en.wikipedia.org/wiki/OAuth">OAuth</a> for better security.
+* Performance improvements.
+* Tons of bug fixes.
+
+= 1.5.5 =
+* remove library
 
 = 1.5.2 =
 * Recoded to provide PHP 5.3 backwards compatibility. Please be advised that every PHP version before 5.4.24 contains security issues.
@@ -72,6 +121,12 @@ The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site
 
 
 == Upgrade Notice ==
+= 2.0.0 =
+* Completely customize each form's colors and styling.
+* Add captcha to your forms to prevent spam.
+* Connect Campaign Monitor and Wordpress using <a href="https://en.wikipedia.org/wiki/OAuth">OAuth</a> for better security.
+* Performance improvements.
+* Tons of bug fixes.
 = 1.4 =
 Fixed some errors, added show campaign monitor badge option.
 = 1.2 =

@@ -1,5 +1,8 @@
 jQuery( document ).ready(function($) {
-        
+
+    $('input[readonly]').click(function () {
+        $(this).select();
+    });
     // Scroll to top
     function scrollToTop() {
         $("html, body").animate({
@@ -14,6 +17,8 @@ jQuery( document ).ready(function($) {
         return false;
       }
     });
+
+
     
     
     ///////////////////////////////////////////

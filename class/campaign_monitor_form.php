@@ -5,6 +5,8 @@ require_once( CAMPAIGN_MONITOR_CLASS_FOLDER . 'campaign_monitor_base.php' );
 
 class CampaignMonitorForm extends CampaignMonitorBase {
 	private $tableName = 'cm_elements';
+    private $_success_message_title = 'Thank you!';
+    private $_success_message = 'Your subscription has been confirmed. <br> You\'ll hear from us soon.';
 	public $data;
 	public $id;
 	public $name;
@@ -12,6 +14,43 @@ class CampaignMonitorForm extends CampaignMonitorBase {
 	public $element_id =0;
 	public $abtest_id = 0;
 	public $previewing = false;
+
+
+    /**
+     * @return string
+     */
+    public function getSuccessMessageTitle()
+    {
+        $title = (isset($this->data['success_message_title'])) ? $this->data['success_message_title'] : $this->_success_message_title;
+        return  $title;
+    }
+
+    /**
+     * @param string $sent_message_title
+     */
+    public function setSuccessMessageTitle( $sent_message_title )
+    {
+        $this->_success_message_title = $sent_message_title;
+        $this->data['success_message_title'] = $sent_message_title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSuccessMessage()
+    {
+        $message = (isset($this->data['success_message'])) ? $this->data['success_message'] : $this->_success_message;
+        return  $message;
+    }
+
+    /**
+     * @param string $sent_message
+     */
+    public function setSuccessMessage( $sent_message )
+    {
+        $this->_success_message = $sent_message;
+        $this->data['success_message'] = $sent_message;
+    }
 
 	private function get_defaults() {
 		return array(
@@ -22,6 +61,8 @@ class CampaignMonitorForm extends CampaignMonitorBase {
 			'data' => array(
 				'submitText' => 'Submit Form',
 				'list_id' => '',
+                'success_message_title' => htmlspecialchars('Thank you!'),
+                'success_message' => htmlspecialchars("Your subscription has been confirmed. You'll hear from us soon."),
 				'fields'  => array(),
 			),
 		);

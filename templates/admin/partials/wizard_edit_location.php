@@ -166,7 +166,7 @@ switch ( $form->type ) {
         <tr>
             <th scope="row"><?php echo __('Button Shortcode', 'campaign-monitor'); ?></th>
             <td>
-                <input type="text" name="button_shortcode" id="wizardButtonShortcode" value="[cm_button id=<?php echo $form->id; ?>]" class="regular-text" disabled>
+                <input type="text" name="button_shortcode" id="wizardButtonShortcode" value="[cm_button id=<?php echo $form->id; ?>]" class="regular-text" readonly>
                 <p class="description"><?php echo __('Copy and paste the shortcode above to the pages or posts where you\'d like your form to appear', 'campaign-monitor'); ?></p>
 
                 <input type="hidden" name="global" value="1">
@@ -184,7 +184,7 @@ switch ( $form->type ) {
         <tr>
             <th scope="row"><?php echo __('Embedded Code', 'campaign-monitor'); ?></th>
             <td>
-                <input type="text" name="embedded_code" id="wizardFormEmbed" value="[cm_simple_form id=<?php echo $form->id; ?>]" class="regular-text" disabled>
+                <input type="text" name="embedded_code" id="wizardFormEmbed" value="[cm_simple_form id=<?php echo $form->id; ?>]" class="regular-text" readonly>
 
                 <input type="hidden" name="global" value="2">
             </td>

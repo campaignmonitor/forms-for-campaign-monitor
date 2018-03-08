@@ -64,9 +64,10 @@ class CampaignMonitorAdminForms extends CampaignMonitorBase {
 				$form = new CampaignMonitorForm();
 				$form->name = sanitize_text_field( $_POST['title'] );
 				$form->data['list_id'] = sanitize_text_field( $_POST['list_id'] );
+                $form->data['success_message'] = sanitize_text_field( $_POST['success_message'] );
+                $form->data['success_message_title'] = sanitize_text_field( $_POST['success_message_title'] );
 				$form->save();
 				wp_redirect( admin_url("admin.php?page=campaign-monitor-edit-form&form=".$form->id ) );
-                
 
 			} else {
 				wp_nonce_ays( 'campaign-monitor-add-form' );
@@ -89,6 +90,8 @@ class CampaignMonitorAdminForms extends CampaignMonitorBase {
 			if ( wp_verify_nonce( $_REQUEST['_wpnonce'], 'campaign-monitor-edit-form' ) ) {
 				$form->name = sanitize_text_field( $_POST['title'] );
 				$form->data['submitText'] = sanitize_text_field( $_POST['submitText'] );
+				$form->data['success_message'] = sanitize_text_field( $_POST['success_message'] );
+				$form->data['success_message_title'] = sanitize_text_field( $_POST['success_message_title'] );
 				$form->data['fields'] = $_POST['fields'];
 				$form->save();
 				wp_redirect( admin_url("admin.php?page=campaign-monitor-forms") );

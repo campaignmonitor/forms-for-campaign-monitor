@@ -10,7 +10,6 @@
                     <th colspan="2"><?php echo __('Fields', 'campaign-monitor'); ?></th>	
                 </tr>
             </thead>
-
             <tbody id="main-fields">
                 <tr>
                     <th class="check-column">			
@@ -106,6 +105,18 @@
                 <th scope="row"><?php echo __('Submission Button Text', 'campaign-monitor'); ?></th>
                 <td>
                     <input type='text' name='submitText' id="wizardButtonText" value='' class="regular-text">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php echo __('Success Message Title', 'campaign-monitor'); ?></th>
+                <td>
+                    <input type='text' name='success_message_title' id="successMsgTitle" value='Thank you!' class="regular-text">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php echo __('Success Message', 'campaign-monitor'); ?></th>
+                <td>
+                    <textarea style="width: 100%" title="" name='success_message' id="successMsg">Your subscription has been confirmed. You'll hear from us soon.</textarea>
                 </td>
             </tr>
             <tr>

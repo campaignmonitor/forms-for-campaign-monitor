@@ -136,7 +136,8 @@ class CampaignMonitorAdminWizard extends CampaignMonitorBase {
 
 				$form_fields = array();
                 foreach( $_POST['fields'] as $k => $field ) {
-					$field['FieldName'] = stripslashes($field['FieldName']);
+                    $fieldName = array_key_exists( 'FieldName', $field ) ? stripslashes($field['FieldName']) : '';
+					$field['FieldName'] = $fieldName;
 					if ( is_numeric( $k ) ) {
 						$new_field = CampaignMonitorPluginInstance()->connection->add_list_fields( $form->data['list_id'], $field );
 						$key = str_replace( array( "\\'" ), array( "" ), $new_field->response);
@@ -164,6 +165,8 @@ class CampaignMonitorAdminWizard extends CampaignMonitorBase {
                 $form->data['form_title'] = stripslashes( sanitize_text_field( $_POST['form_title'] ) );
                 $form->data['form_summary'] = stripslashes( sanitize_text_field( $_POST['form_summary'] ) );
                 $form->data['submitText'] = stripslashes( sanitize_text_field( $_POST['submitText'] ) );
+                $form->data['success_message'] = htmlspecialchars(sanitize_text_field( $_POST['success_message'] ));
+                $form->data['success_message_title'] = htmlspecialchars(sanitize_text_field( $_POST['success_message_title'] ));
                 $form->data['hasBadge'] = sanitize_text_field( $_POST['hasBadge'] );
 				$form->data['fields'] = $form_fields;
                 
@@ -262,6 +265,8 @@ class CampaignMonitorAdminWizard extends CampaignMonitorBase {
                 $form->data['form_title'] = sanitize_text_field( $_POST['form_title'] );
                 $form->data['form_summary'] = sanitize_text_field( $_POST['form_summary'] );
                 $form->data['submitText'] = sanitize_text_field( $_POST['submitText'] );
+                $form->data['success_message'] = htmlspecialchars(sanitize_text_field( $_POST['success_message'] ));
+                $form->data['success_message_title'] = htmlspecialchars(sanitize_text_field( $_POST['success_message_title'] ));
                 $form->data['hasBadge'] = sanitize_text_field( $_POST['hasBadge'] );
                 $form->data['fields'] = $form_fields;
                 
