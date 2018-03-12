@@ -1,0 +1,1179 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Forms for Campaign Monitor 2.0\n"
+"POT-Creation-Date: 2016-12-02 12:43-0800\n"
+"PO-Revision-Date: 2016-12-02 12:48-0800\n"
+"Last-Translator: \n"
+"Language-Team: Sunrise Integration <leandro@sunriseintegration.com>\n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ../../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: campaign-monitor.php:37
+msgid " Campaign Monitor requires at least PHP Version 5.3.0, version: "
+msgstr "Campaign Monitor requiert au moins la version 5.3.0 de PHP"
+
+#: class/campaign_monitor_admin_abtests.php:52
+#: class/campaign_monitor_admin_settings.php:25
+msgid "Settings"
+msgstr "Reglages"
+
+#: class/campaign_monitor_admin_lists.php:89
+#: class/campaign_monitor_admin_lists.php:156
+msgid "List already added"
+msgstr ""
+
+#: class/campaign_monitor_admin_settings.php:47
+msgid "Campaign Monitor API"
+msgstr ""
+
+#: class/campaign_monitor_admin_settings.php:54
+msgid "API Key"
+msgstr ""
+
+#: class/campaign_monitor_admin_settings.php:71
+msgid ""
+"Please enter your API Key from Campaign Monitor below. More information on "
+"where to find your API key can be found in our <a target=\"_blank\" href="
+"\"http://help.campaignmonitor.com/topic.aspx?t=206\">help documentation</a>."
+msgstr ""
+
+#: class/campaign_monitor_admin_settings.php:78
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: class/campaign_monitor_admin_wizard.php:32
+#: class/wp_tables/campaign_monitor_wp_table_forms.php:22
+#: templates/admin/forms-wp_table.php:4
+#: templates/admin/partials/wizard_step_1.php:5
+#: templates/admin/partials/wizard_step_2.php:3
+#: templates/admin/partials/wizard_step_3.php:3
+#: templates/admin/wizard-edit.php:51
+msgid "Forms"
+msgstr ""
+
+#: class/campaign_monitor_admin_wizard.php:42 templates/admin/forms-add.php:2
+#: templates/admin/forms-add.php:27 templates/admin/forms-edit.php:8
+msgid "Add Form"
+msgstr ""
+
+#: class/campaign_monitor_admin_wizard.php:51
+msgid "Edit Form"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_abtests.php:21
+msgid "A/B Test"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_abtests.php:22
+#: templates/admin/abtests-wp_table.php:4
+msgid "A/B Tests"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_abtests.php:34
+#: class/wp_tables/campaign_monitor_wp_table_elements.php:34
+#: class/wp_tables/campaign_monitor_wp_table_forms.php:34
+#: class/wp_tables/campaign_monitor_wp_table_lists.php:34
+#: templates/admin/partials/wizard_step_2.php:36
+#: templates/admin/wizard-edit.php:87
+msgid "Name"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_abtests.php:35
+msgid "Tested forms"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_abtests.php:36
+#: class/wp_tables/campaign_monitor_wp_table_abtests.php:107
+#: class/wp_tables/campaign_monitor_wp_table_elements.php:36
+#: templates/admin/wizard-edit.php:275 templates/admin/wizard-edit.php:285
+msgid "Enabled"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_abtests.php:37
+#: class/wp_tables/campaign_monitor_wp_table_forms.php:38
+msgid "Location"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_abtests.php:38
+msgid "Created"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_abtests.php:90
+#: class/wp_tables/campaign_monitor_wp_table_elements.php:89
+#: class/wp_tables/campaign_monitor_wp_table_forms.php:101
+#: class/wp_tables/campaign_monitor_wp_table_lists.php:91
+#: templates/admin/wizard-edit.php:279
+msgid "Edit"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_abtests.php:100
+msgid "Wherever both elements are rendered"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_abtests.php:102
+#: class/wp_tables/campaign_monitor_wp_table_elements.php:106
+msgid "Targeted"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_abtests.php:107
+#: templates/admin/wizard-edit.php:275 templates/admin/wizard-edit.php:286
+msgid "Disabled"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_elements.php:21
+msgid "Element"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_elements.php:22
+#: templates/admin/abtests-edit.php:81 templates/admin/elements-wp_table.php:4
+msgid "Elements"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_elements.php:35
+#: class/wp_tables/campaign_monitor_wp_table_forms.php:36
+msgid "Type"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_elements.php:37
+msgid "Global / Targeted"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_elements.php:104
+msgid "Global"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_elements.php:115
+msgid "Use shortcode to enable"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_elements.php:117
+msgid "enabled"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_elements.php:117
+msgid "disabled"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_forms.php:21
+#: forms/views/admin/ab-testing-edit.php:63 templates/admin/abtests-edit.php:86
+#: templates/admin/bars-edit.php:20 templates/admin/buttons-edit.php:12
+#: templates/admin/elements-add.php:29 templates/admin/lightboxs-edit.php:20
+#: templates/admin/simple_forms-edit.php:12 templates/admin/sliders-edit.php:20
+msgid "Form"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_forms.php:35
+#: class/wp_tables/campaign_monitor_wp_table_lists.php:21
+#: templates/admin/lists-import.php:29
+msgid "List"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_forms.php:37
+msgid "Status"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_lists.php:22
+#: templates/admin/lists-wp_table.php:4
+msgid "Lists"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_lists.php:35
+msgid "Subscribers"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_lists.php:36
+msgid "In Registration"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_lists.php:37
+msgid "In Comments"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_lists.php:38
+msgid "Imported"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_lists.php:90
+msgid "Edit Custom Fields"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_lists.php:115
+msgid "Yes"
+msgstr ""
+
+#: class/wp_tables/campaign_monitor_wp_table_lists.php:115
+msgid "No"
+msgstr ""
+
+#: forms/core/Application.php:841
+msgid "Done!"
+msgstr "Terminé!"
+
+#: forms/views/admin/ab-testing-edit.php:120
+msgid "AB Testing "
+msgstr ""
+
+#: forms/views/admin/ab-testing-edit.php:127 templates/admin/abtests-add.php:9
+#: templates/admin/abtests-edit.php:23
+msgid "A/B Test Title"
+msgstr ""
+
+#: forms/views/admin/update.php:10
+msgid "Welcome"
+msgstr "Bienvenue"
+
+#: forms/views/admin/update.php:11
+#, php-format
+msgid "Before proceeding sure to back up all your files. Update version: %s"
+msgstr ""
+"Avant de procéder à sauvegarder tous vos fichiers. Version de mise à jour: %s"
+
+#: templates/admin/abtests-add.php:3
+msgid "Add A/B Test"
+msgstr ""
+
+#: templates/admin/abtests-add.php:17
+msgid "First Form"
+msgstr ""
+
+#: templates/admin/abtests-add.php:31
+msgid "Second Form"
+msgstr ""
+
+#: templates/admin/abtests-add.php:44
+msgid "Add A/B testing"
+msgstr ""
+
+#: templates/admin/abtests-edit.php:9
+msgid "Edit A/B Test"
+msgstr ""
+
+#: templates/admin/abtests-edit.php:15
+msgid "Enable this A/B Test"
+msgstr ""
+
+#: templates/admin/abtests-edit.php:52
+msgid "Show only on these pages"
+msgstr ""
+
+#: templates/admin/abtests-edit.php:63
+msgid "Both Elements are global"
+msgstr ""
+
+#: templates/admin/abtests-edit.php:69
+msgid ""
+"Both Elements are shortcodes, this A/B Testing will be enabled whenever both "
+"shortcodes appear on the same rendered page."
+msgstr ""
+
+#: templates/admin/abtests-edit.php:75
+msgid ""
+"As one element is a shortcode, this A/B Testing will be enabled whenever "
+"both elements appear on the same rendered page."
+msgstr ""
+
+#: templates/admin/abtests-edit.php:87
+msgid "Impressions"
+msgstr ""
+
+#: templates/admin/abtests-edit.php:88
+msgid "Submissions"
+msgstr ""
+
+#: templates/admin/abtests-edit.php:89
+msgid "Submission Rate"
+msgstr ""
+
+#: templates/admin/abtests-edit.php:108
+msgid "Save A/B Test"
+msgstr ""
+
+#: templates/admin/abtests-wp_table.php:5
+#: templates/admin/elements-wp_table.php:5 templates/admin/forms-wp_table.php:5
+msgid "Add New"
+msgstr ""
+
+#: templates/admin/bars-edit.php:6
+msgid "Edit Bar"
+msgstr ""
+
+#: templates/admin/bars-edit.php:12
+msgid "Enable this Bar"
+msgstr ""
+
+#: templates/admin/bars-edit.php:33
+msgid "Bar Title"
+msgstr ""
+
+#: templates/admin/bars-edit.php:41
+msgid "Bar Text"
+msgstr ""
+
+#: templates/admin/bars-edit.php:49
+#: templates/admin/partials/get_all_elements.php:103
+#: templates/admin/partials/wizard_edit_location.php:145
+msgid "Bar Position"
+msgstr ""
+
+#: templates/admin/bars-edit.php:72
+msgid "Save Bar"
+msgstr ""
+
+#: templates/admin/buttons-edit.php:6
+msgid "Edit Button"
+msgstr ""
+
+#: templates/admin/buttons-edit.php:25
+msgid "Button Title"
+msgstr ""
+
+#: templates/admin/buttons-edit.php:33
+#: templates/admin/partials/get_all_elements.php:114
+#: templates/admin/partials/wizard_edit_location.php:161
+msgid "Button Text"
+msgstr ""
+
+#: templates/admin/buttons-edit.php:41 templates/admin/simple_forms-edit.php:33
+msgid "Additional CSS"
+msgstr ""
+
+#: templates/admin/buttons-edit.php:49
+msgid "Save Button"
+msgstr ""
+
+#: templates/admin/elements-add.php:2 templates/admin/elements-add.php:41
+msgid "Add Element"
+msgstr ""
+
+#: templates/admin/elements-add.php:8
+msgid "Element Type"
+msgstr ""
+
+#: templates/admin/elements-add.php:21
+msgid "Element Title"
+msgstr ""
+
+#: templates/admin/forms-add.php:8 templates/admin/forms-edit.php:14
+msgid "Campaign Monitor List"
+msgstr ""
+
+#: templates/admin/forms-add.php:20 templates/admin/forms-edit.php:22
+#: templates/admin/partials/wizard_step_2.php:92
+#: templates/admin/wizard-edit.php:195
+msgid "Form Title"
+msgstr ""
+
+#: templates/admin/forms-edit.php:30
+msgid "Submit Button Copy"
+msgstr ""
+
+#: templates/admin/forms-edit.php:38
+#: templates/admin/partials/wizard_step_2.php:10
+#: templates/admin/wizard-edit.php:60
+msgid "Fields"
+msgstr ""
+
+#: templates/admin/forms-edit.php:51 templates/admin/forms-edit.php:87
+#: templates/admin/forms-edit.php:129
+#: templates/admin/partials/get_all_fields.php:33
+#: templates/admin/partials/wizard_step_2.php:21
+#: templates/admin/partials/wizard_step_2.php:38
+#: templates/admin/wizard-edit.php:17 templates/admin/wizard-edit.php:72
+#: templates/admin/wizard-edit.php:89 templates/admin/wizard-edit.php:120
+#: templates/admin/wizard-form.php:22
+msgid "Show Label"
+msgstr ""
+
+#: templates/admin/forms-edit.php:59 templates/admin/forms-edit.php:95
+#: templates/admin/forms-edit.php:137
+msgid "CSS Additional Classes"
+msgstr ""
+
+#: templates/admin/forms-edit.php:67 templates/admin/forms-edit.php:159
+msgid "Placeholder"
+msgstr ""
+
+#: templates/admin/forms-edit.php:79 templates/admin/forms-edit.php:121
+msgid "Enable this field"
+msgstr ""
+
+#: templates/admin/forms-edit.php:103
+msgid "Show User Information As"
+msgstr ""
+
+#: templates/admin/forms-edit.php:146
+msgid "Default Selected Value"
+msgstr ""
+
+#: templates/admin/forms-edit.php:170
+msgid "Save Form"
+msgstr ""
+
+#: templates/admin/lightboxs-edit.php:6
+msgid "Edit Lightbox"
+msgstr ""
+
+#: templates/admin/lightboxs-edit.php:12
+msgid "Enable this Lightbox"
+msgstr ""
+
+#: templates/admin/lightboxs-edit.php:33
+msgid "Lightbox Title"
+msgstr ""
+
+#: templates/admin/lightboxs-edit.php:41
+msgid "Lightbox Text"
+msgstr ""
+
+#: templates/admin/lightboxs-edit.php:49
+msgid "Show Once Per Page"
+msgstr ""
+
+#: templates/admin/lightboxs-edit.php:57
+msgid "Show lightbox after page scroll"
+msgstr ""
+
+#: templates/admin/lightboxs-edit.php:65
+msgid "Scrolled Pixels or %"
+msgstr ""
+
+#: templates/admin/lightboxs-edit.php:73
+msgid "Seconds elapsed to show lightbox"
+msgstr ""
+
+#: templates/admin/lightboxs-edit.php:76
+msgid "seconds"
+msgstr ""
+
+#: templates/admin/lightboxs-edit.php:92
+msgid "Save Lightbox"
+msgstr ""
+
+#: templates/admin/lists-add.php:36 templates/admin/lists-add.php:94
+msgid "Add List"
+msgstr ""
+
+#: templates/admin/lists-add.php:40 templates/admin/lists-edit.php:22
+#: templates/admin/lists-fields.php:10 templates/admin/lists-import.php:6
+msgid "Dismiss this notice."
+msgstr ""
+
+#: templates/admin/lists-add.php:48 templates/admin/lists-import.php:12
+#: templates/admin/partials/wizard_step_1.php:77
+msgid "Client"
+msgstr ""
+
+#: templates/admin/lists-add.php:60 templates/admin/lists-edit.php:30
+msgid "List Title"
+msgstr ""
+
+#: templates/admin/lists-add.php:68 templates/admin/lists-edit.php:38
+msgid "Confirmed Opt-in"
+msgstr ""
+
+#: templates/admin/lists-add.php:76 templates/admin/lists-edit.php:46
+msgid "Confirmation Success Page URL"
+msgstr ""
+
+#: templates/admin/lists-add.php:84 templates/admin/lists-edit.php:54
+msgid "When the user unsubscribes"
+msgstr ""
+
+#: templates/admin/lists-add.php:88 templates/admin/lists-edit.php:58
+msgid "Unsubscribe from this list only"
+msgstr ""
+
+#: templates/admin/lists-add.php:89 templates/admin/lists-edit.php:59
+msgid "Unsubscribe from all lists"
+msgstr ""
+
+#: templates/admin/lists-edit.php:18
+msgid "Edit List"
+msgstr ""
+
+#: templates/admin/lists-edit.php:65
+msgid "Show on Comments"
+msgstr ""
+
+#: templates/admin/lists-edit.php:73
+msgid "Opt-in text for comments"
+msgstr ""
+
+#: templates/admin/lists-edit.php:81
+msgid "Show on Registration Form"
+msgstr ""
+
+#: templates/admin/lists-edit.php:89
+msgid "Opt-in text for registration form"
+msgstr ""
+
+#: templates/admin/lists-edit.php:96
+msgid "Save List"
+msgstr ""
+
+#: templates/admin/lists-fields.php:6
+#, php-format
+msgid "Edit Custom Fields for %s"
+msgstr ""
+
+#: templates/admin/lists-fields.php:13
+#: templates/admin/partials/wizard_step_2.php:82
+#: templates/admin/wizard-edit.php:185
+msgid "Add New Field"
+msgstr ""
+
+#: templates/admin/lists-fields.php:27 templates/admin/lists-fields.php:101
+msgid "Field Name (max. 30 chars)"
+msgstr ""
+
+#: templates/admin/lists-fields.php:35 templates/admin/lists-fields.php:109
+#: templates/admin/partials/wizard_step_2.php:65
+#: templates/admin/wizard-edit.php:168
+msgid "Data Type"
+msgstr ""
+
+#: templates/admin/lists-fields.php:44 templates/admin/lists-fields.php:120
+msgid "Enter Field Options<br>(One per line)"
+msgstr ""
+
+#: templates/admin/lists-fields.php:58
+msgid "Save Changes"
+msgstr ""
+
+#: templates/admin/lists-import.php:2
+msgid "Import List From Campaign Monitor"
+msgstr ""
+
+#: templates/admin/lists-import.php:41
+msgid "Import List"
+msgstr ""
+
+#: templates/admin/lists-wp_table.php:5
+msgid "Use Existing Campaign Monitor List"
+msgstr ""
+
+#: templates/admin/lists-wp_table.php:6
+msgid "Create New"
+msgstr ""
+
+#: templates/admin/logout.php:2
+msgid "Campaign Monitor Settings"
+msgstr ""
+
+#: templates/admin/logout.php:5
+msgid "Are you sure you want to logout and remove Campaign Monitor Keys?"
+msgstr ""
+
+#: templates/admin/logout.php:6
+msgid ""
+"Campaign Monitor plugin will not be functional until you add keys and log in "
+"again"
+msgstr ""
+
+#: templates/admin/logout.php:7
+msgid "All your forms will be disabled"
+msgstr ""
+
+#: templates/admin/logout.php:8
+msgid "Yes, I understand"
+msgstr ""
+
+#: templates/admin/logout.php:8
+msgid "No, it was a mistake"
+msgstr ""
+
+#: templates/admin/oauth-page.php:3
+msgid "OAuth Error!"
+msgstr ""
+
+#: templates/admin/oauth-page.php:4
+msgid "We have an error communicating with CampaignMonitor. The error is:"
+msgstr ""
+
+#: templates/admin/oauth-page.php:7
+msgid "Try again?"
+msgstr ""
+
+#: templates/admin/oauth-page.php:7
+#: templates/admin/partials/wizard_step_2.php:147
+#: templates/admin/partials/wizard_step_3.php:17
+msgid "or"
+msgstr ""
+
+#: templates/admin/oauth-page.php:7
+msgid "Go to CampaignMonitor.com"
+msgstr ""
+
+#: templates/admin/oauth-page.php:7
+msgid "and fix the problem"
+msgstr ""
+
+#: templates/admin/options-form.php:5
+msgid "Campaign Monitor for WordPress Settings"
+msgstr ""
+
+#: templates/admin/options-form.php:19
+msgid ""
+"Congratulations! You have successfully activated the Campaign Monitor plug-"
+"in."
+msgstr ""
+
+#: templates/admin/options-form.php:21
+msgid "Create your first form"
+msgstr ""
+
+#: templates/admin/options-form.php:48
+#: templates/admin/partials/wizard_step_2.php:127
+#: templates/admin/wizard-edit.php:231
+msgid "Show "
+msgstr ""
+
+#: templates/admin/options-form.php:49
+#: templates/admin/partials/wizard_step_2.php:128
+#: templates/admin/wizard-edit.php:232
+msgid "Powered by Campaign Monitor "
+msgstr ""
+
+#: templates/admin/options-form.php:50
+#: templates/admin/partials/wizard_step_2.php:130
+#: templates/admin/wizard-edit.php:233
+msgid "on your form"
+msgstr ""
+
+#: templates/admin/options-form.php:54
+msgid ""
+"To disconnect Campaign Monitor for WordPress and remove all in-app form "
+"customization, click below"
+msgstr ""
+
+#: templates/admin/options-form.php:55
+msgid "Log Out"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:19
+#: templates/admin/partials/wizard_edit_location.php:32
+msgid "Insert the route of the page (one per line), i.e. \"/example-page/\""
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:44
+#: templates/admin/partials/wizard_edit_location.php:76
+msgid "Lightbox Location"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:46
+#: templates/admin/partials/get_all_elements.php:74
+#: templates/admin/partials/get_all_elements.php:96
+#: templates/admin/partials/wizard_edit_location.php:78
+#: templates/admin/partials/wizard_edit_location.php:111
+#: templates/admin/partials/wizard_edit_location.php:138
+msgid "Show on every page"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:48
+#: templates/admin/partials/get_all_elements.php:76
+#: templates/admin/partials/get_all_elements.php:98
+#: templates/admin/partials/wizard_edit_location.php:80
+#: templates/admin/partials/wizard_edit_location.php:113
+#: templates/admin/partials/wizard_edit_location.php:140
+msgid "Only show on specific pages"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:53
+#: templates/admin/partials/wizard_edit_location.php:85
+msgid "Lightbox Delay"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:55
+#: templates/admin/partials/wizard_edit_location.php:87
+msgid "Show Immediately"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:57
+#: templates/admin/partials/wizard_edit_location.php:89
+msgid "Show after a specific amount of time"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:59
+#: templates/admin/partials/wizard_edit_location.php:91
+msgid "Time delay (seconds)"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:61
+#: templates/admin/partials/wizard_edit_location.php:93
+msgid "Show after a user has scrolled a specific amount"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:63
+msgid "Scroll delay (px or %)"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:72
+#: templates/admin/partials/wizard_edit_location.php:109
+msgid "Slide-Out Location"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:81
+#: templates/admin/partials/wizard_edit_location.php:118
+msgid "Slide-Out Position"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:83
+#: templates/admin/partials/get_all_elements.php:105
+#: templates/admin/partials/wizard_edit_location.php:120
+#: templates/admin/partials/wizard_edit_location.php:147
+msgid "Top"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:84
+#: templates/admin/partials/get_all_elements.php:106
+#: templates/admin/partials/wizard_edit_location.php:121
+#: templates/admin/partials/wizard_edit_location.php:148
+msgid "Bottom"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:85
+#: templates/admin/partials/wizard_edit_location.php:122
+msgid "Left"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:86
+#: templates/admin/partials/wizard_edit_location.php:123
+msgid "Right"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:94
+#: templates/admin/partials/wizard_edit_location.php:136
+msgid "Bar Location"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:120
+#: templates/admin/partials/wizard_edit_location.php:167
+msgid "Button Shortcode"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:123
+msgid ""
+"Copy and paste the shortcode above to the pages or posts where you'd like "
+"your button to appear"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:133
+#: templates/admin/partials/wizard_edit_location.php:185
+msgid "Embedded Code"
+msgstr ""
+
+#: templates/admin/partials/get_all_elements.php:136
+#: templates/admin/partials/wizard_edit_location.php:170
+msgid ""
+"Copy and paste the shortcode above to the pages or posts where you'd like "
+"your form to appear"
+msgstr ""
+
+#: templates/admin/partials/get_all_fields.php:30
+#: templates/admin/wizard-edit.php:15 templates/admin/wizard-edit.php:117
+#: templates/admin/wizard-form.php:20
+msgid "Rename"
+msgstr ""
+
+#: templates/admin/partials/get_all_fields.php:30
+#: templates/admin/wizard-edit.php:16 templates/admin/wizard-edit.php:117
+#: templates/admin/wizard-form.php:21
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/partials/get_all_fields.php:35
+#: templates/admin/partials/wizard_step_2.php:22
+#: templates/admin/partials/wizard_step_2.php:39
+#: templates/admin/wizard-edit.php:18 templates/admin/wizard-edit.php:73
+#: templates/admin/wizard-edit.php:90 templates/admin/wizard-edit.php:122
+#: templates/admin/wizard-form.php:23
+msgid "Required"
+msgstr ""
+
+#: templates/admin/partials/get_all_fields.php:40
+#: templates/admin/wizard-edit.php:19 templates/admin/wizard-edit.php:127
+#: templates/admin/wizard-form.php:24
+msgid "Done"
+msgstr ""
+
+#: templates/admin/partials/get_all_fields.php:45
+#: templates/admin/partials/wizard_step_2.php:24
+#: templates/admin/partials/wizard_step_2.php:41
+#: templates/admin/wizard-edit.php:20 templates/admin/wizard-edit.php:75
+#: templates/admin/wizard-edit.php:92 templates/admin/wizard-edit.php:131
+#: templates/admin/wizard-form.php:25
+msgid "Placeholder text (optional)"
+msgstr ""
+
+#: templates/admin/partials/get_all_fields.php:50
+#: templates/admin/partials/wizard_step_2.php:26
+#: templates/admin/partials/wizard_step_2.php:43
+#: templates/admin/wizard-edit.php:21 templates/admin/wizard-edit.php:77
+#: templates/admin/wizard-edit.php:94 templates/admin/wizard-edit.php:134
+#: templates/admin/wizard-form.php:26
+msgid "Additional class (optional)"
+msgstr ""
+
+#: templates/admin/partials/get_all_fields.php:55
+#: templates/admin/wizard-edit.php:22 templates/admin/wizard-edit.php:139
+#: templates/admin/wizard-form.php:27
+msgid "Field Options (One per line)"
+msgstr ""
+
+#: templates/admin/partials/wizard_edit_location.php:67
+msgid "Location Settings"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:6
+msgid "Add new form"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:10
+msgid "What type of form would you like to create?"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:38
+msgid "Name this form"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:46
+msgid "Select a list"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:59
+msgid ""
+"Select the list subscribers will be added to when they complete this form or"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:59
+msgid "create a new list"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:69
+msgid "Create New List"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:71
+msgid "Enter the detais to create a new list or"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:71
+msgid "use existing list"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:92
+msgid "List Name"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:98
+msgid "List Type"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:101
+msgid "Single opt-in (no confirmation required)"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:102
+msgid "Confirmed opt-in (confirmation required)"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:104
+msgid "Single opt-in"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:104
+msgid ""
+"means new subscribers are added to this list as soon as they complete the "
+"subscribe form"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:104
+msgid "Confirmed opt-in"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:104
+msgid ""
+"means a confirmation email will be sent with a link they must click to "
+"validate their address"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:108
+msgid "Confirmation URL (optional)"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:111
+msgid ""
+"Set the URL that the user will be redirected to after confirming "
+"subscription. If empty, will redirect to a default page with a simple "
+"confirmation message."
+msgstr ""
+
+#: templates/admin/partials/wizard_step_1.php:119
+#: templates/admin/partials/wizard_step_2.php:145
+msgid "Next"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:3
+#: templates/admin/partials/wizard_step_3.php:3
+msgid "New Form"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:4
+#: templates/admin/partials/wizard_step_3.php:4
+#: templates/admin/wizard-edit.php:54
+msgid "Customize your form"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:19
+#: templates/admin/wizard-edit.php:70 templates/forms-preview-render.php:49
+#: templates/forms-render.php:87
+msgid "Email"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:61
+#: templates/admin/wizard-edit.php:164
+msgid "New Field"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:62
+#: templates/admin/wizard-edit.php:165
+msgid "Field Name (100 character max)"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:67
+#: templates/admin/wizard-edit.php:170
+msgid "Text"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:68
+#: templates/admin/wizard-edit.php:171
+msgid "Number"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:69
+#: templates/admin/wizard-edit.php:172
+msgid "Multiple Options (can only select one)"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:70
+#: templates/admin/wizard-edit.php:173
+msgid "Multiple Options (can select many)"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:71
+#: templates/admin/wizard-edit.php:174
+msgid "Date"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:72
+#: templates/admin/wizard-edit.php:175
+msgid "Country"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:73
+#: templates/admin/wizard-edit.php:176
+msgid "US State"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:76
+#: templates/admin/wizard-edit.php:179
+msgid "Create Field"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:98
+#: templates/admin/wizard-edit.php:201
+msgid "Form Summary"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:98
+msgid "(optional)"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:101
+#: templates/admin/wizard-edit.php:204
+msgid ""
+"Encourage people to subscribe by explaining the type of content you'll be "
+"sending"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:105
+#: templates/admin/wizard-edit.php:208
+msgid "Submission Button Text"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:111
+#: templates/admin/wizard-edit.php:214
+msgid "Success Message Title"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:117
+#: templates/admin/wizard-edit.php:220
+msgid "Success Message"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:123
+#: templates/admin/wizard-edit.php:227
+msgid "Form footer"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:136
+#: templates/admin/wizard-edit.php:239
+msgid "This function is currently disabled. Please turn it on in "
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:138
+#: templates/admin/wizard-edit.php:241
+msgid "Permanently disable this badge in the plugin settings"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_2.php:147
+#: templates/admin/partials/wizard_step_3.php:17
+msgid "go back"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_3.php:3
+msgid "Customize"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_3.php:15
+msgid "Enable Form"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_3.php:24
+#: templates/admin/wizard-edit.php:316
+msgid "Preview Form"
+msgstr ""
+
+#: templates/admin/partials/wizard_step_3.php:26
+msgid ""
+"See how your form is looking at any time by viewing a preview in a new "
+"window."
+msgstr ""
+
+#: templates/admin/partials/wizard_step_3.php:27
+#: templates/admin/wizard-edit.php:319
+msgid "Preview"
+msgstr ""
+
+#: templates/admin/simple_forms-edit.php:6
+msgid "Edit Simple Form"
+msgstr ""
+
+#: templates/admin/simple_forms-edit.php:25
+msgid "Simple Form Title"
+msgstr ""
+
+#: templates/admin/simple_forms-edit.php:41
+msgid "Save Simple Form"
+msgstr ""
+
+#: templates/admin/sliders-edit.php:6
+msgid "Edit Slider"
+msgstr ""
+
+#: templates/admin/sliders-edit.php:12
+msgid "Enable this Slider"
+msgstr ""
+
+#: templates/admin/sliders-edit.php:33
+msgid "Slider Title"
+msgstr ""
+
+#: templates/admin/sliders-edit.php:41
+msgid "Slider Tab Text"
+msgstr ""
+
+#: templates/admin/sliders-edit.php:49
+msgid "Slider Position"
+msgstr ""
+
+#: templates/admin/sliders-edit.php:73
+msgid "Save Slider"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:23 templates/admin/wizard-form.php:28
+msgid ""
+"Are you sure you want to delete this custom field, including all its data?"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:24 templates/admin/wizard-edit.php:289
+#: templates/admin/wizard-form.php:29
+msgid "Cancel"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:46 templates/admin/wizard-form.php:56
+msgid "Oops!"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:46 templates/admin/wizard-form.php:56
+msgid "Please fill in all the fields below correctly"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:52
+msgid "Edit form"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:76
+msgid "Email address"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:201
+msgid "optional"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:264
+msgid "Publish Changes"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:273
+msgid "Form Status"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:275
+msgid "Disconnected"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:288
+msgid "OK"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:293
+msgid "This form is linked to an account which has been disconnected."
+msgstr ""
+
+#: templates/admin/wizard-edit.php:306
+msgid "Save"
+msgstr ""
+
+#: templates/admin/wizard-edit.php:318
+msgid ""
+"See how your form is looking at any time by viewing a preview in a new window"
+msgstr ""
+
+#: templates/bar-render.php:19 templates/slider-render.php:17
+msgid "Close"
+msgstr ""
+
+#: templates/forms-preview-render.php:40 templates/forms-render.php:60
+msgid "Full Name"
+msgstr ""
+
+#: templates/forms-preview-render.php:99 templates/forms-render.php:126
+msgid "Month"
+msgstr ""
+
+#: templates/forms-preview-render.php:107 templates/forms-render.php:134
+msgid "Day"
+msgstr ""
+
+#: templates/forms-preview-render.php:115 templates/forms-render.php:142
+msgid "Year"
+msgstr ""

@@ -46,7 +46,7 @@ class CS_REST_TestSocketTransport extends UnitTestCase {
             'host' => $host
         );
 
-        $request = 'Get me some data!';
+        $request = 'get me some data!';
         $body = 'Some data';
         $headers = '
 HTTP/1.1 200 OK

@@ -3,6 +3,7 @@
     $form->load( $_GET['form'] );
     $list = CampaignMonitorPluginInstance()->connection->get_list( $form->data['list_id'] )->response;
     $fields = CampaignMonitorPluginInstance()->connection->get_list_fields( $list->ListID )->response;
+
 ?>
 
 <!--Stylesheet-->
@@ -207,6 +208,18 @@
                     <th scope="row"><?php echo __('Submission Button Text', 'campaign-monitor'); ?></th>
                     <td>
                         <input type='text' name='submitText' id="wizardButtonText" value="<?php echo stripslashes( $form->data['submitText'] );?>" class="regular-text">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Success Message Title', 'campaign-monitor'); ?></th>
+                    <td>
+                        <input type='text'  name='success_message_title' id="wizardButtonText" value="<?php echo stripslashes( $form->getSuccessMessageTitle() );?>" class="regular-text">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __('Success Message', 'campaign-monitor'); ?></th>
+                    <td>
+                        <textarea style="width: 100%" title="" name='success_message' id="successMsg" ><?php echo stripslashes( $form->getSuccessMessage() );?></textarea>
                     </td>
                 </tr>
                 

@@ -11,7 +11,7 @@ defined('CS_REST_CUSTOM_FIELD_TYPE_USSTATE') or define('CS_REST_CUSTOM_FIELD_TYP
 
 defined('CS_REST_LIST_WEBHOOK_SUBSCRIBE') or define('CS_REST_LIST_WEBHOOK_SUBSCRIBE', 'Subscribe');
 defined('CS_REST_LIST_WEBHOOK_DEACTIVATE') or define('CS_REST_LIST_WEBHOOK_DEACTIVATE', 'Deactivate');
-defined('CS_REST_LIST_WEBHOOK_UPDATE') or define('CS_REST_LIST_WEBHOOK_UPDATE', 'Update');
+defined('CS_REST_LIST_WEBHOOK_UPDATE') or define('CS_REST_LIST_WEBHOOK_UPDATE', 'update');
 defined('CS_REST_LIST_UNSUBSCRIBE_SETTING_ALL_CLIENT_LISTS') or define('CS_REST_LIST_UNSUBSCRIBE_SETTING_ALL_CLIENT_LISTS', 'AllClientLists');
 defined('CS_REST_LIST_UNSUBSCRIBE_SETTING_ONLY_THIS_LIST') or define('CS_REST_LIST_UNSUBSCRIBE_SETTING_ONLY_THIS_LIST', 'OnlyThisList');
 
@@ -513,7 +513,7 @@ if (!class_exists('CS_REST_Lists')) {
          * array(
          *     {
          *         'WebhookID' => The if of
-         *         'Events' => An array of the events this webhook is subscribed to ('Subscribe', 'Update', 'Deactivate')
+         *         'Events' => An array of the events this webhook is subscribed to ('Subscribe', 'update', 'Deactivate')
          *         'Url' => The url the webhook data will be POSTed to
          *         'Status' => The current status of this webhook
          *         'PayloadFormat' => The format in which data will be POSTed

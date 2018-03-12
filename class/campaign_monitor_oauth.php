@@ -197,6 +197,11 @@ class CampaignMonitorOAuth extends CampaignMonitorBase {
 		return $subscription->add( $subscriber );
 	}
 
+	public function isSubscribe( $list_id, $subscriber ) {
+		$subscription = new CS_REST_Subscribers( $list_id, $this->get_auth_creds() );
+		return $subscription->get( $subscriber );
+	}
+
 	public function connectionAttemptFailed() {
 		return $this->enabled && !$this->connected && $this->connection_error;
 	}

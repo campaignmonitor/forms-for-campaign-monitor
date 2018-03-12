@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="63.983" height="63.039" viewBox="0 0 271 267">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 154.167px;
+        fill: #fd0303;
+        font-family: Arial;
+      }
+
+      .cls-2 {
+        fill: #ff0101;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <text id="x" class="cls-1" x="97.14" y="173.177">x</text>
+  <path class="cls-2" d="M136,9A125,125,0,1,1,11,134,125,125,0,0,1,136,9Zm0,7A118,118,0,1,1,18,134,118,118,0,0,1,136,16Z"/>
+</svg>

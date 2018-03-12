@@ -114,7 +114,7 @@ class CampaignMonitor extends CampaignMonitorBase{
 	 */
 	function add_scripts() {
 		wp_enqueue_style( 'lightbox', CAMPAIGN_MONITOR_PLUGIN_URL. 'css/lightbox.css' );
-		wp_enqueue_script( 'lightboxjs', CAMPAIGN_MONITOR_PLUGIN_URL.'js/lightbox.js', array(), '1.0.0', true );
+		wp_enqueue_script( 'lightboxjs', CAMPAIGN_MONITOR_PLUGIN_URL.'js/lightbox.js', array('jquery'), '1.0.0', true );
 	}
 
 
@@ -339,6 +339,7 @@ class CampaignMonitor extends CampaignMonitorBase{
 	public function form_submission() {
 		$form = new CampaignMonitorForm();
 		$form->load( intval( $_POST['form_id'] ) );
+        $emailAddress = $_POST['email'];
 		if ( 0 == $form->id ) {
 			die();
 		}
@@ -428,9 +429,23 @@ class CampaignMonitor extends CampaignMonitorBase{
 			}
 		}
 
-		CampaignMonitorPluginInstance()->connection->subscribe($form->data['list_id'], $subscriber);
-        
-		echo __('Thank you. The information has been received.','campaign-monitor');
+		$results = CampaignMonitorPluginInstance()->connection->isSubscribe($form->data['list_id'], $emailAddress);
+
+        $message = new stdClass();
+
+        if ( $results->http_status_code == 200 ) {
+            $message->title = stripslashes_deep('Email Already Exist');
+            $message->message = stripslashes_deep('');
+            $message->error = true;
+            wp_send_json($message) ;
+            die();
+        } else {
+            CampaignMonitorPluginInstance()->connection->subscribe($form->data['list_id'], $subscriber);
+            $message->title = stripslashes_deep($form->getSuccessMessageTitle());
+            $message->message = stripslashes_deep($form->getSuccessMessage());
+        }
+
+        wp_send_json($message) ;
 		die();
 	}
 
