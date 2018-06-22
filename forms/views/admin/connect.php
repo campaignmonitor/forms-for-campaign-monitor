@@ -5,8 +5,6 @@ use forms\core\Request;
 use forms\core\Settings;
 use forms\core\FormType;
 
-$file = Helper::getPluginDirectory( '/campaign-monitor/csrest_general.php' );
-require_once $file;
 
 $appSettings  = Settings::get();
 $redirectUrl = Helper::getRedirectUrl();

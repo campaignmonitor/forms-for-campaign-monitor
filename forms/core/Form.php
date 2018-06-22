@@ -226,6 +226,7 @@ class Form
     {
         if (is_null($campaignMonitorClientAr))
         {
+        	// TODO for refactoring
             $clients = Settings::get("campaign_monitor_clients");
             $campaignMonitorClientAr = array();
             foreach ($clients as $client)

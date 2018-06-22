@@ -6,8 +6,6 @@ use forms\core\Settings;
 use forms\core\Application;
 use \forms\core\FormType;
 
-$file = Helper::getPluginDirectory( '/campaign-monitor/csrest_general.php' );
-require_once $file;
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
