@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
  * Plugin Name: Campaign Monitor
  * Plugin URI: http://campaignmonitor.com
  * Description: Manage Campaign Monitor Lists, Custom Fields and add forms and how you show them to your users..
- * Version: 2.6.2
+ * Version: 2.7.0
  * Author: Campaign Monitor
  * Author URI: http://campaignmonitor.com
  * License: License: GPLv2 or later
@@ -42,17 +42,9 @@ if($version < 5.3) {
         deactivate_plugins( __FILE__, true);
     });
 } else {
-    defined('CAMPAIGN_MONITOR_CLASS_FOLDER') or define( 'CAMPAIGN_MONITOR_CLASS_FOLDER', plugin_dir_path(__FILE__) . 'class/' );
-    defined('CAMPAIGN_MONITOR_TEMPLATES_FOLDER') or define( 'CAMPAIGN_MONITOR_TEMPLATES_FOLDER', plugin_dir_path(__FILE__) . 'templates/' );
-    defined('CAMPAIGN_MONITOR_CREATESEND_FOLDER') or define( 'CAMPAIGN_MONITOR_CREATESEND_FOLDER', plugin_dir_path(__FILE__) . 'createsend-php/' );
-    defined('CAMPAIGN_MONITOR_PLUGIN_URL') or define( 'CAMPAIGN_MONITOR_PLUGIN_URL', plugins_url('/', __FILE__) );
-
-
-    require_once( CAMPAIGN_MONITOR_CLASS_FOLDER . "campaign_monitor.php" );
-    require_once( CAMPAIGN_MONITOR_CLASS_FOLDER . "campaign_monitor_install.php" );
-    require_once( CAMPAIGN_MONITOR_CLASS_FOLDER . "virtual_pages.php" );
 
     spl_autoload_register(function ($class_name) {
+
         $location = __DIR__ . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $class_name)  . '.php';
         if (file_exists($location)) {
             try{
@@ -60,6 +52,18 @@ if($version < 5.3) {
                 return;
             } catch(Exception $e){
                 throw new Exception($e->getMessage());
+            }
+        }
+        else
+        {
+            $location = __DIR__ . DIRECTORY_SEPARATOR . 'forms'. DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $class_name)  . '.php';
+            if (file_exists($location)) {
+                try{
+                    require_once $location;
+                    return;
+                } catch(Exception $e){
+                    throw new Exception($e->getMessage().'  (CM API not found)');
+                }
             }
         }
     });
@@ -80,5 +84,3 @@ if($version < 5.3) {
 
 
 }
-
-

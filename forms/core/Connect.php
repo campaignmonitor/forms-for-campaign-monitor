@@ -28,6 +28,13 @@ class Connect
 
     }
 
+	/**
+	 * @param $data
+	 * @param string $endpoint
+	 * @param array $options
+	 * @param array $headers
+	 * @deprecated This function will be removed in the next release
+	 */
     public static function request($data, $endpoint = '', $options = array("type" => "urlencode"), $headers = array())
     {
 
@@ -62,13 +69,28 @@ class Connect
 
 
         if (empty($headers)){
-            $headers = array('contentType' => 'application/x-www-form-urlencoded');
+            $headers = array(
+            	'contentType' => 'application/x-www-form-urlencoded',
+	            'X-Forwarded-For' => self::getRemoteUserIp(),
+            );
         }
-
 
 
         $result = $client->request($postUrl, $dataToPost, 'POST', $headers);
         return $result;
     }
+
+	private static function getRemoteUserIp() {
+		if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+			//check ip from share internet
+			$ip = $_SERVER['HTTP_CLIENT_IP'];
+		} elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+			//to check ip is pass from proxy
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		} else {
+			$ip = $_SERVER['REMOTE_ADDR'];
+		}
+		return $ip;
+	}
 
 }

@@ -147,8 +147,6 @@ class Application
 
         } else {
 
-
-
             if (!empty($error)){
                 $description = Request::get('error_description');
                 // there was something wrong
@@ -252,7 +250,10 @@ class Application
         $refreshToken = Settings::get('refresh_token');
         self::$CampaignMonitor = new CampaignMonitor($accessToken, $refreshToken);
 
-        Application::authenticate();
+	    if ( ! Application::isConnected() ) {
+		    Application::authenticate();
+	    }
+
         // install app
         Application::init();
 
@@ -639,10 +640,14 @@ class Application
             $appSettings = (object)$appSettings;
             $auth = array( 'access_token' => $appSettings->access_token,
                 'refresh_token' => $appSettings->refresh_token );
+            
+
             $clients = Application::$CampaignMonitor->get_clients( $auth );
             Settings::add( 'campaign_monitor_clients', $clients );
+	        Log::write( $clients );
 
-            if (count( $clients ) === 1) {
+	        // TODO needs display errors
+            if (count( $clients ) === 1 && !empty($clients[0])) {
                 $CID = $clients[0]->ClientID;
                 Settings::add( 'default_client', $CID );
             }
@@ -1198,13 +1203,6 @@ class Application
                             $abTest->save($testToUpdate);
                         }
                     }
-
-
-
-
-
-
-
 
                     $message = urlencode('AB Testing have been successfully saved');
 

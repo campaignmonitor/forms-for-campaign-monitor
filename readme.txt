@@ -3,9 +3,8 @@ Contributors: vibhorchhabra
 Donate link: N/A
 Tags: Campaign Monitor, Email Marketing, Sign-Up Forms, Sign Up Forms
 Requires at least: 3.9
-Tested up to: 4.7.5
-Version: 2.6.2
-Stable tag: 2.6.2
+Tested up to: 4.9.6
+Stable tag: 2.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +12,7 @@ Make it easy for customers to subscribe to your Campaign Monitor mailing lists u
 
 == Description ==
 
-Campaign Monitor for Wordpress has recently received a major usability, security, and performance update. Please upgrade to v2.0 immediately.
+<strong>Campaign Monitor for Wordpress has recently received a major usability, security, and performance update. Please upgrade to v2.0 immediately.</strong>
 
 The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site to sign up to a Campaign Monitor subscriber list, so you can create and send beautiful, personalized emails to your audience. Create and customize subscribe forms from your WordPress dashboard, place one on every page or specific pages you select, and A/B test which form type is more successful for you.
 
@@ -48,6 +47,11 @@ The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site
 7. Easy to add a new form. Just select the form type, choose the Campaign Monitor List where  data will be collected, and you are done.
 
 == Changelog ==
+
+= 2.7.0 =
+
+* Address issues with serialize/unserialize functions
+* Support for php 7.1 and up
 
 = 2.5.8 =
 
