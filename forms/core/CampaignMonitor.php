@@ -1,15 +1,27 @@
 <?php
 namespace forms\core;
 
+use SunriseIntegration\CampaignMonitor\Api;
+use SunriseIntegration\CampaignMonitor\Authorization;
+
 class CampaignMonitor
 {
     protected $auth = array();
     protected static $errors = array();
 
+    private $api;
+
     public function __construct($accessToken, $refreshToken)
     {
         $this->auth = array('access_token' => $accessToken,
             'refresh_token' => $refreshToken);
+
+        $auth = new Authorization();
+        $auth->setAccessToken($accessToken);
+        $auth->setRefreshToken($refreshToken);
+        $auth->setType(Authorization::OAUTH);
+
+        $this->api = new Api($auth, new \SunriseIntegration\CampaignMonitor\Http\Request\CurlWP());
     }
 
     public function get_last_error(){
@@ -25,49 +37,28 @@ class CampaignMonitor
      */
     public function refresh_token($auth = array())
     {
-
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_general.php');
-        require_once $clientsClass;
-
-
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-        $instance = new \CS_REST_General($auth);
-        return $instance->refresh_token();
+	   return $this->api->refreshToken();
     }
     /**
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of clients
      */
-    public function get_clients($auth = array())
+    public function get_clients($credentials = array())
     {
 
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_general.php');
-        require_once $clientsClass;
+	    if ( ! empty( $credentials ) ) {
+		    $auth = new Authorization();
+		    $auth->setAccessToken($credentials['access_token']);
+		    $auth->setRefreshToken($credentials['refresh_token']);
+		    $auth->setType(Authorization::OAUTH);
 
+		    $this->api->setAuthorization( $auth );
+	    }
 
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
+	    $clients = $this->api->getClients();
 
-        $instance = new \CS_REST_General($auth);
-        $result = $instance->get_clients();
+	    return $clients !== null ? json_decode($clients) : $clients;
 
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-            // TODO log exception
-            self::$errors[] = $result->response;
-
-            Log::write( $result );
-            return $result->response;
-
-           //$requestResults->status_code = $result->http_status_code;
-        }
-
-        return null;
     }
     /**
      * @param array $auth override the class authentication credentials
@@ -76,11 +67,11 @@ class CampaignMonitor
     public function instantiate_url($integrationKey, $uri, $scope, $state = false)
     {
 
-        $params["integration_key"] = $integrationKey;
-        $params["domain_uri"] = $uri;
-        $params["scope"] = $scope;
+        $params['integration_key'] = $integrationKey;
+        $params['domain_uri'] = $uri;
+        $params['scope'] = $scope;
         if ($state) {
-            $params["state"] = $state;
+            $params['state'] = $state;
         }
 
         $url = http_build_query($params);
@@ -91,47 +82,35 @@ class CampaignMonitor
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of clients
      */
-    public function authorize_url( $client_id, $redirect_uri, $scope)
-    {
+    public function authorize_url( $client_id, $redirect_uri, $scope, $state = NULL) {
+	    $params = [];
 
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_general.php');
-        require_once $clientsClass;
+	    $params['client_id']    = $client_id;
+	    $params['redirect_uri'] = $redirect_uri;
+	    $params['scope']        = $scope;
+	    $params['x-forwarded-for'] =  $this->api !== null  ? $this->api->getRemoteUserIp() : 0;
+	    if ( $state ) {
+		    $params['state'] = $state;
+	    }
 
+	    $queryString = http_build_query( $params );
 
-        return \CS_REST_General::authorize_url($client_id, $redirect_uri , $scope );
-
+	    return 'https://api.createsend.com/oauth' . '?' . $queryString;
     }
+
+
+
     /**
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of timezones
      */
     public function get_timezones($auth = array())
     {
+	    $timezones = json_encode( $this->api->getTimezones() );
 
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_general.php');
-        require_once $clientsClass;
-
-
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-        $instance = new \CS_REST_General($auth);
-        $result = $instance->get_timezones();
-
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-            // TODO log exception
-            self::$errors[] = $result->response;
-
-            Log::write( $result );
-            return $result->response;
-           //$requestResults->status_code = $result->http_status_code;
-        }
-
-        return null;
+	    return $timezones;
     }
+
     /**
      * @param array $clientObject array(
                                     'CompanyName' => 'Clients company name',
@@ -144,59 +123,21 @@ class CampaignMonitor
     public function create_client($clientObject, $auth = array())
     {
 
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_clients.php');
-        require_once $clientsClass;
+	    $response = $this->api->createClient( $clientObject );
 
-
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-        $instance = new \CS_REST_Clients(NULL, $auth);
-        $result = $instance->create($clientObject);
-
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-            // TODO log exception
-            self::$errors[] = $result->response;
-            Log::write( $result );
-            return $result->response;
-           //$requestResults->status_code = $result->http_status_code;
-        }
-
-        return null;
+	    return $response !== null ? json_decode( $response ) : $response;
     }
 
     /**
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of clients
      */
-    public function get_subscriber($listId, $auth = array())
+    public function get_subscriber($listId, $email, $auth = array())
     {
+	    $subscriber = $this->api->getSubscriber( $listId, $email );
 
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_subscribers.php');
-        require_once $clientsClass;
+        return $subscriber !== null ? json_decode($subscriber) : $subscriber;
 
-
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-        $instance = new \CS_REST_Subscribers($listId, $auth);
-        $result = $instance->get();
-
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-            // TODO log exception
-
-           self::$errors[] = $result->response;
-            Log::write( $result );
-           //$requestResults->status_code = $result->http_status_code;
-        }
-
-        return null;
     }
     /**
      * @param array $auth override the class authentication credentials
@@ -204,76 +145,27 @@ class CampaignMonitor
      */
     public function get_stats($listId, $auth = array())
     {
-
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_lists.php');
-        require_once $clientsClass;
-
-
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-        $instance = new \CS_REST_Lists($listId, $auth);
-        $result = $instance->get_stats();
-
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-            // TODO log exception
-
-           self::$errors[] = $result->response;
-            Log::write( $result );
-           //$requestResults->status_code = $result->http_status_code;
-        }
-
-        return null;
+	    return json_decode( $this->api->getStats( $listId ) );
     }
+
     /**
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of clients
      */
     public function get_list_details($listId, $auth = array())
     {
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_lists.php');
-        require_once $clientsClass;
+	    $listDetails = json_decode( $this->api->getListDetails( $listId ) );
 
-
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-        $instance = new \CS_REST_Lists($listId, $auth);
-        $result = $instance->get();
-
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-           Log::write($result);
-           self::$errors[] = $result->response;
-        }
-
-        return null;
+	    return $listDetails;
     }
 
     /**
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of clients
      */
-    public function send_email($to, $listName, $message = array(), $auth = array())
-    {
+    public function send_email($to, $listName, $message = array(), $auth = array()) {
 
-
-        $postUrl = 'https://integrationstore-5d74b11ccbdb8fa8.microservice.createsend.com/campaign-monitor-for-woo-commerce/email/data-synced';
-
-        $data = array();
-        $data['ToEmail'] = $to;
-        $data['ListName'] = $listName;
-        $data['SubscriberCount'] = $message['subscribers_count'];
-        $options = array("type" => "json");
-        $headers = array('Authorization: Bearer ' . Settings::get('access_token'), 'Content-Type: application/json', 'Cache-Control: no-cache');
-
-        Connect::request($data, $postUrl, $options, $headers );
-        return;
+	    $this->api->sendEmail( $to, $listName, $message, 'json' );
     }
     /**
      * @param array $auth override the class authentication credentials
@@ -282,30 +174,7 @@ class CampaignMonitor
     public function import_subscribers($listId, $data, $auth = array())
     {
 
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_subscribers.php');
-        require_once $clientsClass;
-
-
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-        $instance = new \CS_REST_Subscribers($listId, $auth);
-        $resubscribe = false;
-        $queueSubscriptionBasedAutoResponders = true;
-        $restartSubscriptionBasedAutoResponders = false;
-        $result = $instance->import($data, $resubscribe, $queueSubscriptionBasedAutoResponders, $restartSubscriptionBasedAutoResponders);
-
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-
-           Log::write($result);
-           self::$errors[] = $result->response;
-
-        }
-
-        return null;
+	    return $this->api->importSubscribers( $listId, $data );
     }
     /**
      * @param array $auth override the class authentication credentials
@@ -314,27 +183,9 @@ class CampaignMonitor
     public function add_subscriber($listId, $data, $auth = array())
     {
 
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_subscribers.php');
-        require_once $clientsClass;
+	    $result = $this->api->addSubscriber( $listId, $data );
 
-
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-        $instance = new \CS_REST_Subscribers($listId, $auth);
-        $result = $instance->add($data);
-
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-
-           Log::write($result);
-           self::$errors[] = $result->response;
-
-        }
-
-        return null;
+	    return json_decode( $result );
     }
 
     /**
@@ -347,31 +198,7 @@ class CampaignMonitor
     public function create_segment($listId, $segment, $auth = array())
     {
 
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_segments.php');
-        require_once $clientsClass;
-
-
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-//        $segmentOptions = array('Title' => $name,'RuleGroups' => array());
-
-        $instance = new \CS_REST_Segments(NULL, $auth);
-
-
-        $result = $instance->create($listId, $segment);
-
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-            // TODO log exception
-            Log::write($result);
-            self::$errors[] = $result->response;
-            return $result->response;
-        }
-
-        return null;
+	   return  $this->api->createSegment( $listId, $segment );
     }
 
     /**
@@ -382,32 +209,14 @@ class CampaignMonitor
     public function update_custom_field($listId,$fieldKey, $fieldName, $visibleInPreferenceCenter = true, $auth = array())
     {
 
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_lists.php');
-        require_once $clientsClass;
-        $requestResults = new \stdClass();
-
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-        $instance = new \CS_REST_Lists($listId, $auth);
-        $params = array(
+        $field = array(
             'FieldName' => $fieldName,
             'VisibleInPreferenceCenter'=> $visibleInPreferenceCenter
         );
-        $result = $instance->update_custom_field($fieldKey, $params);
 
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-            // TODO log exception
-            $result->response->name = $fieldName;
-            Log::write($result);
-           self::$errors[] = $result->response;
-           //$requestResults->status_code = $result->http_status_code;
-        }
+        $createdField = $this->api->updateCustomField($listId, $fieldKey, $field);
 
-        return null;
+	    return $createdField !== null ? json_decode( $createdField ) : $createdField;
     }
     /**
      * @param $clientId for which client to get the lists
@@ -417,67 +226,26 @@ class CampaignMonitor
     public function create_custom_field($listId,$fieldName, $dataType, $options = array(), $visibleInPreferenceCenter = true, $auth = array())
     {
 
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_lists.php');
-        require_once $clientsClass;
-        $requestResults = new \stdClass();
+	    $fieldData = array(
+		    'FieldName' => $fieldName,
+		    'DataType' => $dataType,
+		    'Options' => $options,
+		    'VisibleInPreferenceCenter'=> $visibleInPreferenceCenter
+	    );
 
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
+	    return $this->api->createCustomField( $listId, $fieldData );
 
-        Log::write( $auth );
-
-        $instance = new \CS_REST_Lists($listId, $auth);
-        $params = array(
-            'FieldName' => $fieldName,
-            'DataType' => $dataType,
-            'Options' => $options,
-            'VisibleInPreferenceCenter'=> $visibleInPreferenceCenter
-        );
-        $result = $instance->create_custom_field($params);
-
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-            // TODO log exception
-            $result->response->name = $fieldName;
-            Log::write($result);
-           self::$errors[] = $result->response;
-           //$requestResults->status_code = $result->http_status_code;
-        }
-
-        return $result;
     }
 
     /**
      * @param $clientId for which client to get the lists
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of clients
+     * @deprecated
      */
     public function get_client_list($clientId, $auth = array())
     {
-
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_clients.php');
-        require_once $clientsClass;
-        $requestResults = new \stdClass();
-
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-        $clients = new \CS_REST_Clients($clientId, $auth);
-        $result = $clients->get_lists();
-
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-            // TODO log exception
-            Log::write($result);
-           self::$errors[] = $result->response;
-           //$requestResults->status_code = $result->http_status_code;
-        }
-
-        return null;
+        return json_decode($this->api->getLists($clientId)) ;
     }
 
     /**
@@ -487,36 +255,16 @@ class CampaignMonitor
      */
     public function create_list($clientId, $listTitle, $confirmedOptIn = false, $unsubscribePage = '', $confirmationPage = '', $auth = array())
     {
-            $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_lists.php');
-            require_once $clientsClass;
-            $requestResults = new \stdClass();
-
-            if (empty($auth)) {
-                $auth = $this->auth;
-            }
-
-            $instance = new \CS_REST_Lists(NULL, $auth);
-
-
-            $listOptions = array(
+        $listOptions = array(
                 'Title' => $listTitle,
                 'UnsubscribePage' => $unsubscribePage,
                 'ConfirmedOptIn' => $confirmedOptIn,
                 'ConfirmationSuccessPage' => $confirmationPage,
-                'UnsubscribeSetting' => CS_REST_LIST_UNSUBSCRIBE_SETTING_ALL_CLIENT_LISTS
+                'UnsubscribeSetting' => 'AllClientLists'
             );
 
-            $result = $instance->post_request($instance->_base_route . 'lists/' . $clientId . '.json', $listOptions);
+        return json_decode($this->api->createList($clientId,$listOptions));
 
-            if ($result->was_successful()) {
-                return $result->response;
-            } else {
-                self::$errors[] = $result->response;
-                Log::write($result);
-                return  $result->response;
-            }
-
-        return null;
     }
 
     /**
@@ -527,27 +275,9 @@ class CampaignMonitor
      */
     public function get_custom_fields($listId, $auth = array())
     {
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_lists.php');
-        require_once $clientsClass;
-        $requestResults = new \stdClass();
+	    $customFields = json_decode( $this->api->getCustomFields( $listId ) );
 
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-        $customFields = new \CS_REST_Lists($listId, $auth );
-        $result = $customFields->get_custom_fields();
-
-        if ($result->was_successful()) {
-             return $result->response;
-        } else {
-            // TODO log exception
-            Log::write($result);
-           self::$errors[] = $result->response;
-           //$requestResults->status_code = $result->http_status_code;
-        }
-
-        return null;
+	    return $customFields;
     }
 
     /**
@@ -556,43 +286,27 @@ class CampaignMonitor
      * @param array $auth override the class authentication credentials
      * @return mixed|null segments list
      */
-    public function get_segments($listId, $getDetails = false, $auth = array())
-    {
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_lists.php');
-        require_once $clientsClass;
-        $requestResults = new \stdClass();
+    public function get_segments($listId, $getDetails = false, $auth = array()) {
 
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
+	    $segments = $this->api->getSegments( $listId );
 
-        $customFields = new \CS_REST_Lists($listId, $auth );
-        $result = $customFields->get_segments();
+	    if ( ! empty( $segments ) ) {
+		    $segments = json_decode( $segments );
 
-        if ($result->was_successful()) {
-              $segments = $result->response;
+		    if ( $getDetails ) {
+			    foreach ( $segments as $segment ) {
+				    $details = $this->api->getSegmentDetails( $segment->SegmentID );
+				    if ( null !== $details ) {
+					    $segment->Details = $details;
+				    }
+			    }
+			    return $segments;
+		    }
 
-            if (!empty($segments)){
-                if ($getDetails){
-                    foreach ($segments as $segment){
-                        $details = $this->get_segment($segment->SegmentID);
-                        if (null != $details){
-                            $segment->Details = $details;
-                        }
-                    }
-                    return $segments;
-                } else {
-                    return $segments;
-                }
-            }
-        } else {
-            // TODO log exception
-           self::$errors[] = "Error trying to get segments: ". $result->response;
-            Log::write( $result );
-           //$requestResults->status_code = $result->http_status_code;
-        }
+		    return $segments;
 
-        return null;
+	    }
+	    return null;
     }
     /**
      *
@@ -602,53 +316,8 @@ class CampaignMonitor
      */
     public function get_segment($segmentID, $auth = array())
     {
-        $clientsClass = Helper::getPluginDirectory('campaign-monitor/csrest_segments.php');
-        require_once $clientsClass;
-        $requestResults = new \stdClass();
-
-        if (empty($auth)) {
-            $auth = $this->auth;
-        }
-
-        $segmentInstance = new \CS_REST_Segments($segmentID, $auth);
-        $result = $segmentInstance->get();
-
-        if ($result->was_successful()) {
-            $segment = $result->response;
-            return $segment;
-        } else {
-            // TODO log exception
-            $message = "Error trying to get segment with id:$segmentID  ". print_r($result->response, true);
-           self::$errors[] = $message;
-            Log::write($message);
-        }
-
-        return null;
+	    $segment = $this->api->getSegmentDetails( $segmentID );
+        return $segment !== null ? json_decode($segment) : $segment;
     }
 
-
-    function get_list_segments($listId, $include_details=0)
-    {
-        $wrap = $this->get_wrap_list($listId);
-        $result = $wrap->get_segments();
-        $return_val = $this->process_api_return($result);
-
-
-        if ($include_details && is_array($return_val))
-        {
-            foreach ($return_val as $k=>$seg)
-            {
-                $result=$this->get_segment_details($seg->SegmentID);
-                if (is_object($result))
-                {
-                    if (!empty($result->SegmentID))
-                    {
-                        $return_val[$k]->details = $result;
-                    }
-                }
-            }
-        }
-
-        return $return_val;
-    }
 }

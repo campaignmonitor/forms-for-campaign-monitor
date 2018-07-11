@@ -1,0 +1,15 @@
+{
+  "name": "campaignmonitor/api",
+  "description": "Campaign Monitor",
+  "type": "project",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "sunrise Integration",
+      "email": "developer@sunriseintegration.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": { "SunriseIntegration\\CampaignMonitor\\": "" }
+  }
+}
