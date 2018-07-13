@@ -646,11 +646,30 @@ class Application
             Settings::add( 'campaign_monitor_clients', $clients );
 	        Log::write( $clients );
 
-	        // TODO needs display errors
-            if (count( $clients ) === 1 && !empty($clients[0])) {
-                $CID = $clients[0]->ClientID;
-                Settings::add( 'default_client', $CID );
-            }
+	        if ( ! empty( $clients ) ) {
+		        if ( \is_array( $clients ) ) {
+			        if (count( $clients ) === 1 && !empty($clients[0])) {
+				        $CID = $clients[0]->ClientID;
+				        Settings::add( 'default_client', $CID );
+			        }
+		        } else {
+
+			        if ( ! empty( $clients->Message ) && strpos($clients->Message, 'Authorization') !== false ) {
+				        $message = 'To refresh your credentials please click on the "Disconnect Account" button';
+				        $message .= ' and then follow the on screen instruction to re-connect again!';
+				        $message = \urlencode( $message );
+			            ?>
+                        <div class="update-nag error is-dismissible notice">
+                            <p>
+                                There seems to be a problem with your credentials please disconnect and reconnect your account on the
+                                <a href="<?php echo  get_admin_url() . '/admin.php?page=campaign_monitor_settings_page&notice[description]='.$message.'&notice[title]=Notice!' ?>"> Campaign Monitor Settings </a> page
+                            </p>
+                        </div>
+                        <?php
+			        }
+                }
+	        }
+
         }
 
 

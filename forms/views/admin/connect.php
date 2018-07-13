@@ -247,7 +247,8 @@ function htmlDecodeEncode($str)
                             if (!empty($cmListId))
                             {
                                 $cmListInfo=\forms\core\Application::$CampaignMonitor->get_list_details($cmListId);
-                                if (count($cmListInfo)>0)
+
+                                if (!empty($cmListInfo->Title))
                                 {
                                     $listName=trim($cmListInfo->Title);
                                 }
