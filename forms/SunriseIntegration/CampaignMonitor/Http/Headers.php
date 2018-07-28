@@ -28,6 +28,12 @@ class Headers extends AbstractObject
 		return null;
 	}
 
+	public function remove( $key ) {
+		if ( array_key_exists( $key, $this->_headers ) ) {
+			unset( $this->_headers[ $key ]);
+		}
+	}
+
 
 	public function toArray() {
 		return $this->_headers;

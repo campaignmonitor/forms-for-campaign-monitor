@@ -38,15 +38,16 @@ class CurlWP implements IRequest
 			    $method = 'DELETE';
 			    break;
 	    }
-
+	    $headers = $request->getHeaders()->toArray();
         $response = wp_safe_remote_request( $request->getUri(), array(
         	'method' => $method,
-            'headers' => $request->getHeaders()->toArray(),
+            'headers' => $headers,
             'body' => $request->getBody() )
         );
 
+	    $request->getHeaders()->remove( 'Authorization' );
 
-	    $this->setLastRequest( $request );
+	    $this->setLastRequest( ['response' => $response, 'request' => $request ] );
 
         $response = wp_remote_retrieve_body( $response );
 

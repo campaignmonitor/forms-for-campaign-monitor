@@ -225,7 +225,6 @@ abstract class Ajax
 
 
         }
-        Log::write( $customFieldValAr );
 
         $dataAr = array(
             "EmailAddress" => $email,

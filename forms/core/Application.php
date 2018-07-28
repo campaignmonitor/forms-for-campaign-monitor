@@ -73,7 +73,7 @@ class Application
         $error = Request::get( 'error' );
         $queriedPage = Request::get( 'page' );
 
-        $isError = (!empty($error)) && ($queriedPage === 'campaign-monitor-for-wordpress');
+        $isError = !empty($error) && ($queriedPage === 'campaign-monitor-for-wordpress');
 
         if ($isError) {
             $title = $error;
@@ -100,7 +100,6 @@ class Application
         if (!empty($fileContent)){
             $credentials = json_decode($fileContent);
 
-            Log::write( $fileContent);
             if (!empty($credentials) && (isset($credentials->ClientId) && isset($credentials->ClientSecret))){
 
                 // extract client id and client secret from post request
@@ -644,7 +643,7 @@ class Application
 
             $clients = Application::$CampaignMonitor->get_clients( $auth );
             Settings::add( 'campaign_monitor_clients', $clients );
-	        Log::write( $clients );
+
 
 	        if ( ! empty( $clients ) ) {
 		        if ( \is_array( $clients ) ) {
