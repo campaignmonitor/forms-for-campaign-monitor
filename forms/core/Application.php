@@ -806,14 +806,11 @@ class Application
 
 
         }
-        add_filter('admin_body_class', array(__CLASS__, 'addBodyClass'));
         add_action('admin_post_handle_cm_form_request', array(__CLASS__, 'handleRequest'));
         add_action('admin_post_nopriv', array(__CLASS__, 'handleRequest'));
         add_action('admin_init', array(__CLASS__, 'adminRedirects'));
 
         add_action( 'wp', array(__CLASS__, 'loadCheckPage' ));
-
-
     }
 
     public static function removeScripts($hook_suffix) {
@@ -1071,11 +1068,6 @@ class Application
         wp_localize_script(Helper::tokenize('ajax-script-public'), 'ajax_request', array(
             'ajax_url' => admin_url('admin-ajax.php')
         ));
-    }
-
-    public static function addBodyClass($classes)
-    {
-        return $classes;
     }
 
     public static function successNotice()
