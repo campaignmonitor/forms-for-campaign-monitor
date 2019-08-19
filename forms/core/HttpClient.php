@@ -17,7 +17,7 @@ class HttpClient{
             'timeout' => 50,
             'redirection' => 5,
             'httpversion' => '1.1',
-            'user-agent' => 'WordPress/version;URL',
+            'user-agent' => 'CM_WP_PLUGIN/version;URL',
             'reject_unsafe_urls' => false,
             'blocking' => true,
             'headers' => $headers,
