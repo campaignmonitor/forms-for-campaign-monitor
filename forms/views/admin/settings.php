@@ -62,7 +62,7 @@ if (!empty( $notices )) {
             <p>Please enter your client ID and client secret.</p>
             <p>To retrieve them:</p>
             <ol>
-                <li>In your Campaign Monitor account, select <strong>Integrations</strong> tab in the top navigation.
+                <li>In your Campaign Monitor account, select <strong>App Store</strong> tab in the top navigation.
                 If you don't see it, you are using the multi-client edition of Campaign Monitor, and will need to select a client first. </li>
             <li>
                 In the "OAuth Registrations" section, find Wordpress, then select <strong>View</strong> next to the Wordpress icon.
