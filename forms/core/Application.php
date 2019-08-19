@@ -1073,9 +1073,9 @@ class Application
         ));
     }
 
-    public static function addBodyClass()
+    public static function addBodyClass($classes)
     {
-
+        return $classes;
     }
 
     public static function successNotice()
