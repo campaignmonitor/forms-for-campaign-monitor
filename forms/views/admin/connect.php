@@ -337,11 +337,12 @@ function htmlDecodeEncode($str)
                         ?><tr><td colspan="6">You currently don't have any forms. <a href="<?php echo get_admin_url(); ?>admin.php?page=campaign_monitor_create_form">Create a form</a>.</td></tr><?php
                     endif; ?>
 
-                    </tbody><tfoot>
+                    </tbody>
+                    <?php /*<tfoot>
                     <tr>
-                        <?php /*<td id="cb" class="manage-column column-cb check-column">
+                        <td id="cb" class="manage-column column-cb check-column">
                                             <label class="screen-reader-text" for="cb-select-all-1">Select All</label><input id="cb-select-all-1" type="checkbox">
-                                        </td>*/ ?>
+                                        </td>
                         <th scope="col" id="title2" class="manage-column column-title column-primary sortable <?php echo $nameAscOrDesc; ?>">
                             <a href="<?php echo $urlSelfStart; ?>&amp;order_by=name&amp;asc_or_desc=<?php echo $nameAscOrDesc; ?>"><span>Title</span><span class="sorting-indicator"></span></a>
                         </th>
@@ -365,7 +366,7 @@ function htmlDecodeEncode($str)
                         </th>
                     </tr>
                     </tfoot>
-
+                    */ ?>
                 </table>
 
 
