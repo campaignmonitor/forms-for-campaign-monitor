@@ -171,8 +171,10 @@ if (!empty( $notices )) {
                             }
 
 
-                            $aFormName=$aImpressions=$aSubmissions=$aImpressions=$aFormId=$aSubmissionRate="";
-                            $bFormName=$bImpressions=$bSubmissions=$bImpressions=$bFormId=$bSubmissionRate="";
+                            $aFormName="";
+                            $aImpressions=$aSubmissions=$aFormId=$aSubmissionRate=0;
+                            $bFormName="";
+                            $bImpressions=$bSubmissions=$bFormId=$bSubmissionRate=0;
                             $t=$test->getTests();
                             if (isset($t[0]))
                             {
