@@ -55,7 +55,7 @@ class Options extends Config
         $optionName = self::getName() . '_' . $name;
         $option = get_option($optionName,$default);
         if (!is_array($option)) {            
-            $option = array();
+            $option = [];
         }
         return $option;
     }
