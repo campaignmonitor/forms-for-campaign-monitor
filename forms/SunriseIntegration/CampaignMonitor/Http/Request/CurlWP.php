@@ -21,45 +21,46 @@ class CurlWP implements IRequest
 	 *
 	 * @return array|mixed|string|void|\WP_Error
 	 */
-    public function send(Request $request)
-    {
-	    $method = 'POST';
-	    switch ( $request->getMethod() ) {
-		    case IRequest::METHOD_POST:
-			    $method = 'POST';
-			    break;
-		    case IRequest::METHOD_GET:
-			    $method = 'GET';
-			    break;
-		    case IRequest::METHOD_PUT :
-			    $method = 'PUT';
-			    break;
-		    case IRequest::METHOD_DELETE :
-			    $method = 'DELETE';
-			    break;
-	    }
+	public function send(Request $request)
+	{
+		$method = 'POST';
+		switch ( $request->getMethod() ) {
+			case IRequest::METHOD_POST:
+				$method = 'POST';
+				break;
+			case IRequest::METHOD_GET:
+				$method = 'GET';
+				break;
+			case IRequest::METHOD_PUT :
+				$method = 'PUT';
+				break;
+			case IRequest::METHOD_DELETE :
+				$method = 'DELETE';
+				break;
+		}
+		$headers = $request->getHeaders()->toArray();
+		$response = wp_safe_remote_request( $request->getUri(), array(
+				'method' => $method,
+				'headers' => $headers,
+				'body' => $request->getBody() )
+		);
 
-        $response = wp_safe_remote_request( $request->getUri(), array(
-        	'method' => $method,
-            'headers' => $request->getHeaders()->toArray(),
-            'body' => $request->getBody() )
-        );
+		$request->getHeaders()->remove( 'Authorization' );
 
+		$this->setLastRequest( ['response' => $response, 'request' => $request ] );
 
-	    $this->setLastRequest( $request );
+		$response = wp_remote_retrieve_body( $response );
 
-        $response = wp_remote_retrieve_body( $response );
+		return  $response;
 
-        return  $response;
-
-    }
+	}
 
 	public function getLastRequest() {
 		return $this->lastRequest;
 	}
 
 	private function setLastRequest($request){
-    	$this->lastRequest = $request;
-    	return $this;
+		$this->lastRequest = $request;
+		return $this;
 	}
 }
