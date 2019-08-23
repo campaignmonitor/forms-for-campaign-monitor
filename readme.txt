@@ -51,6 +51,7 @@ The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site
 = 2.8.0 =
 * Addressed connection issues with PHP7
 * Support for Wordpress 5.2.2 
+* Minor issue fixes
 
 = 2.7.0 =
 
