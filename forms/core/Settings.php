@@ -30,7 +30,7 @@ class Settings {
     }
 
     public static function clear(){
-        return Options::update(self::name, []);
+        return Options::update(self::name, array());
     }
 
     /**
