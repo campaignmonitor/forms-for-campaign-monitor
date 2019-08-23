@@ -2,6 +2,7 @@
 namespace SunriseIntegration\CampaignMonitor;
 
 use SunriseIntegration\CampaignMonitor\Http\Request;
+use forms\core\Log;
 
 class Api
 {
@@ -14,11 +15,11 @@ class Api
 	/**
 	 * @var \SunriseIntegration\CampaignMonitor\IRequest
 	 */
-    private $request;
+	private $request;
 	/**
 	 * @var \SunriseIntegration\CampaignMonitor\Authorization
 	 */
-    private $authorization = null;
+	private $authorization = null;
 
 	/**
 	 * @return \SunriseIntegration\CampaignMonitor\Authorization
@@ -116,7 +117,9 @@ class Api
 
 		$request->setUri( self::API_URL . $endpoint );
 
-		return $this->getRequest()->send($request);
+		$result = $this->getRequest()->send($request);
+		$this->logData( $this->getRequest()->getLastRequest() );
+		return $result;
 	}
 
 
@@ -166,7 +169,13 @@ class Api
 				break;
 		}
 		$request->setUri( self::API_URL . "/$endpoint.$extension" );
-		return $this->getRequest()->send($request);
+		$result = $this->getRequest()->send($request);
+		$this->logData( $this->getRequest()->getLastRequest() );
+		return $result;
+	}
+
+	private function logData($data){
+		Log::write( base64_encode(print_r($data, true)) );
 	}
 
 	public function refreshToken($token = '') {

@@ -5,7 +5,7 @@ namespace SunriseIntegration\CampaignMonitor\Http;
 use SunriseIntegration\CampaignMonitor\AbstractObject;
 
 /**
- * Stores and formats the parameters for the request 
+ * Stores and formats the parameters for the request
  */
 class Headers extends AbstractObject
 {
@@ -26,6 +26,12 @@ class Headers extends AbstractObject
 		}
 
 		return null;
+	}
+
+	public function remove( $key ) {
+		if ( array_key_exists( $key, $this->_headers ) ) {
+			unset( $this->_headers[ $key ]);
+		}
 	}
 
 
