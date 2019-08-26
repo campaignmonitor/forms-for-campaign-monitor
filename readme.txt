@@ -12,7 +12,7 @@ Make it easy for customers to subscribe to your Campaign Monitor mailing lists u
 
 == Description ==
 
-<strong>Campaign Monitor for Wordpress has recently received a major usability, security, and performance update. Please upgrade to v2.0 immediately.</strong>
+<strong>Campaign Monitor for WordPress 2.8.0 addresses the connectivity issues with PHP 7. Please update and reconnect to your Campaign Monitor account.</strong>
 
 The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site to sign up to a Campaign Monitor subscriber list, so you can create and send beautiful, personalized emails to your audience. Create and customize subscribe forms from your WordPress dashboard, place one on every page or specific pages you select, and A/B test which form type is more successful for you.
 
