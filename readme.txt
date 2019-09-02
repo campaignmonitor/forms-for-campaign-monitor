@@ -1,4 +1,4 @@
-﻿=== Campaign Monitor === [![Build Status](https://travis-ci.org/campaignmonitor/wordpress-plugin.svg?branch=master)](https://travis-ci.org/campaignmonitor/wordpress-plugin)
+﻿=== Campaign Monitor ===
 Contributors: vibhorchhabra
 Donate link: N/A
 Tags: Campaign Monitor, Email Marketing, Sign-Up Forms, Sign Up Forms
