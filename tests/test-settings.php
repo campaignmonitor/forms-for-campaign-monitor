@@ -32,7 +32,7 @@ class TestSettings extends WP_UnitTestCase {
 
 	public function test_InvalidSettingsAndAddNewSettings_ShouldReSetEmptyArrayAndAddItem() {
 		// Arrange.
-		Options::update( Settings::NAME, 'InvalidString' );
+		Options::update( Settings::name, 'InvalidString' );
 
 		// Act.
 		Settings::add( 'client_secret', 'test_secret' );      
@@ -48,7 +48,7 @@ class TestSettings extends WP_UnitTestCase {
 
 		// Act.		
 		Settings::clear();  
-		$cm_settings = Options::get( Settings::NAME );
+		$cm_settings = Options::get( Settings::name );
 
 		// Assert.		
 		$this->assertSame( $cm_settings, [] );
