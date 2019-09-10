@@ -35,6 +35,22 @@ class Options extends Config
      * wrapper for the wordpress options
      *
      * @param $name
+     * @param array $default
+     * @return mixed|void
+     */
+    public static function getArray( $name, $default = []){
+        $optionName = self::getName() . '_' . $name;
+        $option = get_option($optionName,$default);
+        if (!is_array($option)) {            
+            $option = [];
+        }
+        return $option;
+    }
+
+    /**
+     * wrapper for the wordpress options
+     *
+     * @param $name
      * @param bool $mixed
      * @return mixed|void
      */

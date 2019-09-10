@@ -100,14 +100,14 @@ $openTextFieldLabel = $form->getOpenTextFieldLabel();
 $hasGenderField = $form->getHasGenderField();
 $hasCampMonLogo = $form->getHasCampMonLogo();
 $submitButtonBgHex = $form->getSubmitButtonBgHex();
-$submitButtonBgHex = str_replace( '#', '', $submitButtonBgHex );
+$submitButtonBgHex = str_replace( '#', '', filter_var($submitButtonBgHex, FILTER_SANITIZE_STRING));
 
 $submitButtonTextHex = $form->getSubmitButtonTextHex();
-$submitButtonTextHex = str_replace( '#', '', $submitButtonTextHex );
+$submitButtonTextHex = str_replace( '#', '', filter_var($submitButtonTextHex, FILTER_SANITIZE_STRING));
 $backgroundHex = $form->getBackgroundHex();
-$backgroundHex = str_replace( '#', '', $backgroundHex );
+$backgroundHex = str_replace( '#', '', filter_var($backgroundHex, FILTER_SANITIZE_STRING));
 $textHex = $form->getTextHex();
-$textHex = str_replace( '#', '', $textHex );
+$textHex = str_replace( '#', '', filter_var($textHex, FILTER_SANITIZE_STRING));
 $submitButtonText = $form->getSubmitButtonText();
 $formEmbedCode = $form->getFormEmbedCode();
 $isActive = $form->getIsActive();
@@ -173,7 +173,7 @@ if ($isUpdated)
         <?php if (!empty($notices))
         {
             ?>
-            <div id="message" class="updated notice notice-success is-dismissible"><p><?php echo $notices; ?></p></div>
+            <div id="message" class="updated notice notice-success is-dismissible"><p><?php echo filter_var($notices, FILTER_SANITIZE_STRING); ?></p></div>
 
             <?php
         }
@@ -212,14 +212,14 @@ if ($isUpdated)
                     <form id="signupFormForm" action="<?php echo get_admin_url(); ?>admin-post.php" method="post">
                         <input type="hidden" name="action" value="handle_cm_form_request">
                         <input type="hidden" name="data[type]" value="save">
-                        <input type="hidden" name="formId" value="<?php echo $id; ?>">
+                        <input type="hidden" name="formId" value="<?php echo filter_var($id, FILTER_SANITIZE_STRING); ?>">
                         <input type="hidden" name="createDate" value="<?php echo htmlDecodeEncode($createDate); ?>">
                         <input type="hidden" name="data[app_nonce]" value="<?php echo wp_create_nonce( 'app_nonce' ); ?>">
 
                         <div><label>Form name</label><?php echo Field::text('formName',htmlDecodeEncode($name), 'id="formName" maxlength="255"'); ?></div>
 
                         <div><label>Client</label><?php
-                            echo Field::select('campaignMonitorClientId',$campaignMonitorClientAr, $campaignMonitorClientId,'id="campaignMonitorClientId" class="postAjax"');
+                            echo Field::select('campaignMonitorClientId',filter_var($campaignMonitorClientAr, FILTER_SANITIZE_STRING), filter_var($campaignMonitorClientId, FILTER_SANITIZE_STRING),'id="campaignMonitorClientId" class="postAjax"');
                             ?></div>
 
                         <div id="campaignMonitorListIdCon" style="display:none;"><label>List &nbsp; <span style="float:right;">
@@ -230,7 +230,7 @@ if ($isUpdated)
 
 
                             echo Field::select('campaignMonitorListId',array(), "", 'id="campaignMonitorListId"');
-                            echo Field::hidden('campaignMonitorListIdCurrent',$campaignMonitorListId,'id="campaignMonitorListIdCurrent"');
+                            echo Field::hidden('campaignMonitorListIdCurrent', filter_var($campaignMonitorListId, FILTER_SANITIZE_STRING),'id="campaignMonitorListIdCurrent"');
                             ?></div>
                         <div id="campaignMonitorListUpdateMessage" style="display:none;"><em>Updating Lists...</em></div>
 
@@ -263,7 +263,7 @@ if ($isUpdated)
                         </div>
                         <div></div>
 
-                        <div><label>Form type</label><div><?php echo Field::select("formType",$typeAr,$type, 'id="formType"'); ?></div></div>
+                        <div><label>Form type</label><div><?php echo Field::select("formType",$typeAr, filter_var($type, FILTER_SANITIZE_STRING), 'id="formType"'); ?></div></div>
 
                         <div><label>Page(s) this form appears on</label><div class="newPageInputCon">
                                 <?php
@@ -398,10 +398,10 @@ if ($isUpdated)
                         <div id="formAppearsLightboxCon"><label>Form appears</label>
                             <div><input type="radio" name="formAppearsLightbox" class="styledRadio" id="formAppearsLightboxSeconds" value="seconds"<?php if ($formAppearsLightbox=="seconds") {echo " checked=\"checked\"";} ?> />
                                 <label for="formAppearsLightboxSeconds" id="formAppearsLightboxSecondsLabel"><span><span></span></span>
-                                    After <?php echo Field::text("lightboxSeconds", $lightboxSeconds, 'id="lightboxSeconds" maxlength="3"'); ?> seconds</label></div>
+                                    After <?php echo Field::text("lightboxSeconds", filter_var($lightboxSeconds, FILTER_SANITIZE_STRING), 'id="lightboxSeconds" maxlength="3"'); ?> seconds</label></div>
                             <div><input type="radio" name="formAppearsLightbox" class="styledRadio" id="formAppearsLightboxScroll" value="scroll"<?php if ($formAppearsLightbox=="scroll") {echo " checked=\"checked\"";} ?> />
                                 <label for="formAppearsLightboxScroll" id="formAppearsLightboxScrollLabel"><span><span></span></span>
-                                    After scrolling <?php echo Field::text("lightboxScrollPercent", $lightboxScrollPercent, 'id="lightboxScrollPercent"'); ?> %</label></div>
+                                    After scrolling <?php echo Field::text("lightboxScrollPercent", filter_var($lightboxScrollPercent, FILTER_SANITIZE_STRING), 'id="lightboxScrollPercent"'); ?> %</label></div>
                         </div>
 
                         <div id="formPlacementCon"><label>Form slides out from</label>
@@ -459,11 +459,11 @@ if ($isUpdated)
                             foreach ($formFields as $formField) :
                                 $index++;
 
-                                echo Field::hidden('origCustomFieldKey'.$index, $formField->getKey(), 'class="origCustomFieldKey" id="origCustomFieldKey'.$index.'"');
-                                echo Field::hidden('origCustomFieldName'.$index, $formField->getName(), 'id="origCustomFieldName'.$index.'"');
-                                echo Field::hidden('origCustomFieldLabel'.$index, $formField->getLabel(), 'id="origCustomFieldLabel'.$index.'"');
-                                echo Field::hidden('origCustomFieldOptions'.$index, implode("\n",$formField->getOptions()), 'id="origCustomFieldOptions'.$index.'"');
-                                echo Field::hidden('origCustomFieldType'.$index, $formField->getType(), 'id="origCustomFieldType'.$index.'"');
+                                echo Field::hidden('origCustomFieldKey'.$index, filter_var($formField->getKey(), FILTER_SANITIZE_STRING), 'class="origCustomFieldKey" id="origCustomFieldKey'.$index.'"');
+                                echo Field::hidden('origCustomFieldName'.$index, filter_var($formField->getName(), FILTER_SANITIZE_STRING), 'id="origCustomFieldName'.$index.'"');
+                                echo Field::hidden('origCustomFieldLabel'.$index, filter_var($formField->getLabel(), FILTER_SANITIZE_STRING), 'id="origCustomFieldLabel'.$index.'"');
+                                echo Field::hidden('origCustomFieldOptions'.$index, implode("\n",filter_var($formField->getOptions(), FILTER_SANITIZE_STRING)), 'id="origCustomFieldOptions'.$index.'"');
+                                echo Field::hidden('origCustomFieldType'.$index, filter_var($formField->getType(), FILTER_SANITIZE_STRING), 'id="origCustomFieldType'.$index.'"');
                                 echo Field::hidden('origCustomFieldShowLabel'.$index, ($formField->isShowLabel()   ? 1 : 0), 'id="origCustomFieldShowLabel'.$index.'"');
                                 echo Field::hidden('origCustomFieldRequired'.$index,  ($formField->getIsRequired() ? 1 : 0), 'id="origCustomFieldRequired'.$index.'"');
                             endforeach;
@@ -513,7 +513,7 @@ if ($isUpdated)
                         <?php // REFACTOR - use the values in the color picker rather than hidden fields for efficiency.  ?>
                         <div>
                             <label>Form Font</label>
-                            <?php $currentSelectedFont =  (NULL != $selectedFont) ?$selectedFont->getFamily() : 'Open Sans'; ?>
+                            <?php $currentSelectedFont =  (NULL != $selectedFont) ? $selectedFont->getFamily() : 'Open Sans'; ?>
                             <div>
                                 <label id="currentFontLabel">Current Font:
                                     <span style="font-family: <?php echo $currentSelectedFont ?>;">
