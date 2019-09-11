@@ -173,7 +173,7 @@ if ($isUpdated)
         <?php if (!empty($notices))
         {
             ?>
-            <div id="message" class="updated notice notice-success is-dismissible"><p><?php echo filter_var($notices, FILTER_SANITIZE_STRING); ?></p></div>
+            <div id="message" class="updated notice notice-success is-dismissible"><p><?php echo $notices; ?></p></div>
 
             <?php
         }
@@ -219,7 +219,7 @@ if ($isUpdated)
                         <div><label>Form name</label><?php echo Field::text('formName',htmlDecodeEncode($name), 'id="formName" maxlength="255"'); ?></div>
 
                         <div><label>Client</label><?php
-                            echo Field::select('campaignMonitorClientId',filter_var($campaignMonitorClientAr, FILTER_SANITIZE_STRING), filter_var($campaignMonitorClientId, FILTER_SANITIZE_STRING),'id="campaignMonitorClientId" class="postAjax"');
+                            echo Field::select('campaignMonitorClientId',$campaignMonitorClientAr, filter_var($campaignMonitorClientId, FILTER_SANITIZE_STRING),'id="campaignMonitorClientId" class="postAjax"');
                             ?></div>
 
                         <div id="campaignMonitorListIdCon" style="display:none;"><label>List &nbsp; <span style="float:right;">

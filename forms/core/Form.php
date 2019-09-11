@@ -231,7 +231,7 @@ class Form
             $campaignMonitorClientAr = array();
             foreach ($clients as $client)
             {
-                $campaignMonitorClientAr[$client->ClientID] = $client->Name;
+                $campaignMonitorClientAr[$client->ClientID] = filter_var($client->Name, FILTER_SANITIZE_STRING);
             }
         }
         $this->campaignMonitorClientAr = $campaignMonitorClientAr;
