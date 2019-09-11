@@ -247,26 +247,26 @@ abstract class Ajax
 			$response->success_message = htmlspecialchars_decode($formToProcess->getSuccessMessage(), ENT_QUOTES);
 			if (!empty( $abTestId )) {
 				$abTestInstance = ABTest::get( $abTestId );
+				if ($abTestInstance !== null) {
+					$tests = $abTestInstance->getTests();
 
-				$tests = $abTestInstance->getTests();
-
-				$ids = array();
-				$index = 0;
-				foreach ($tests as $test) {
+					$ids = array();
+					$index = 0;
+					foreach ($tests as $test) {
 
 
-					if ($test->getForm()->getId() === $formId) {
+						if ($test->getForm()->getId() === $formId) {
 
-						$submissions = $test->getSubmissions();
-						$abTestInstance->getTests( $index )->setSubmissions( $submissions + 1 );
+							$submissions = $test->getSubmissions();
+							$abTestInstance->getTests( $index )->setSubmissions( $submissions + 1 );
 
+						}
+						$index++;
 					}
-					$index++;
+
+					$response->ids = $ids;
+					$abTestInstance->save( $abTestInstance->getId() );
 				}
-
-				$response->ids = $ids;
-				$abTestInstance->save( $abTestInstance->getId() );
-
 			}
 
 			$response->success = $addedEmailAddress;
