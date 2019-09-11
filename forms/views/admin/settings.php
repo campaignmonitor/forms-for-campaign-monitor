@@ -79,7 +79,7 @@ if (!empty( $notices )) {
                             <tbody><tr>
                                 <th><label for="client_id">Client ID</label></th>
                                 <td>
-                                    <input type="text" class="regular-text" value="<?php echo $clientId; ?>" id="client_id" name="client_id">
+                                    <input type="text" class="regular-text" value="<?php echo filter_var($clientId, FILTER_SANITIZE_STRING); ?>" id="client_id" name="client_id">
                                     <br>
                                     <span class="description"></span>
                                 </td>
@@ -87,7 +87,7 @@ if (!empty( $notices )) {
                             <tr>
                                 <th><label for="client_secrect">Client Secret</label></th>
                                 <td>
-                                    <input type="text" class="regular-text" value="<?php echo $clientSecret; ?>" id="client_secret" name="client_secret">
+                                    <input type="text" class="regular-text" value="<?php echo filter_var($clientSecret, FILTER_SANITIZE_STRING); ?>" id="client_secret" name="client_secret">
                                     <br>
                                     <span class="description"></span>
                                 </td>
@@ -95,7 +95,7 @@ if (!empty( $notices )) {
                             <tr>
                                 <th><label for="client_secrect">Google ReCaptcha Site Key</label></th>
                                 <td>
-                                    <input type="text" class="regular-text" value="<?php echo $recaptchaPublic; ?>" id="recaptcha_public" name="recaptcha_public">
+                                    <input type="text" class="regular-text" value="<?php echo filter_var($recaptchaPublic, FILTER_SANITIZE_STRING); ?>" id="recaptcha_public" name="recaptcha_public">
                                     <br>
                                     <span class="description">
 
@@ -104,7 +104,7 @@ if (!empty( $notices )) {
                             </tr>                            <tr>
                                 <th><label for="client_secrect">Google ReCaptcha Secret Key</label></th>
                                 <td>
-                                    <input type="text" class="regular-text" value="<?php echo $recaptchaKey; ?>" id="recaptcha_key" name="recaptcha_key">
+                                    <input type="text" class="regular-text" value="<?php echo filter_var($recaptchaKey, FILTER_SANITIZE_STRING); ?>" id="recaptcha_key" name="recaptcha_key">
                                     <br>
                                     <span class="description">
                                         reCAPTCHA is a free service that protects your site from spam and abuse.<br>
@@ -280,9 +280,9 @@ if (!empty( $notices )) {
                         <?php endif; ?>
                         <?php foreach ($environment as $settingTitle => $settingValue) : ?>
                             <tr>
-                                <th><label ><?php echo $settingTitle;?></label></th>
+                                <th><label ><?php echo filter_var($settingTitle, FILTER_SANITIZE_STRING);?></label></th>
                                 <td>
-                                   <?php echo $settingValue; ?>
+                                   <?php echo filter_var($settingValue, FILTER_SANITIZE_STRING); ?>
                                     <span class="description"></span>
                                 </td>
                             </tr>

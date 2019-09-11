@@ -86,7 +86,7 @@ $pages = Helper::getPages();
                     <input type="hidden" name="action" value="handle_cm_form_request">
                     <input type="hidden" name="data[type]" value="save_ab_test">
                     <input type="hidden" name="data[app_nonce]" value="<?php echo wp_create_nonce( 'app_nonce' ); ?>">
-                    <input type="hidden" name="test_id" value="<?php echo ($currentTest==null) ? "" : $currentTest->getId(); ?>" />
+                    <input type="hidden" name="test_id" value="<?php echo ($currentTest==null) ? "" : filter_var($currentTest->getId(), FILTER_SANITIZE_STRING); ?>" />
 
                     <?Php if ($currentTest !== null ) : ?>
                         <lable>Test Title: </lable>
@@ -134,13 +134,13 @@ $pages = Helper::getPages();
                                             <span class="screen-reader-text">Show more details</span></button>
                                     </td>
                                     <td class="type column-type" data-colname="Type">
-                                        <?php echo $test->getImpressions(); ?>
+                                        <?php echo filter_var($test->getImpressions(), FILTER_SANITIZE_STRING); ?>
                                     </td>
                                     <td class="pages column-pages" data-colname="Type">
-                                        <?php echo $test->getSubmissions(); ?>
+                                        <?php echo filter_var($test->getSubmissions(), FILTER_SANITIZE_STRING);; ?>
                                     </td>
                                     <td class="pages column-pages" data-colname="Type">
-                                        <?php echo round($test->getSubmissionRate(), 2) * 100; ?>%
+                                        <?php echo filter_var(round($test->getSubmissionRate(), 2) * 100, FILTER_SANITIZE_STRING); ?>%
                                     </td>
                                 </tr>
                             <?php  endforeach; ?>
@@ -179,7 +179,7 @@ $pages = Helper::getPages();
                                 <td>
                                     <select name="form_primary" class="regular-text wide-select" id="form_primary" >
                                         <option>Select</option>
-                                        <?php echo $availableOptions; ?>
+                                        <?php echo filter_var($availableOptions, FILTER_SANITIZE_STRING); ?>
                                     </select>
 
                                 </td>
@@ -189,7 +189,7 @@ $pages = Helper::getPages();
                                 <td>
                                     <select name="form_secondary" class="regular-text wide-select" id="form_secondary" >
                                         <option>Select</option>
-                                        <?php echo $availableOptions; ?>
+                                        <?php echo filter_var($availableOptions, FILTER_SANITIZE_STRING); ?>
                                     </select>
 
                                 </td>
