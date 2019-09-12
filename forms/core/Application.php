@@ -987,8 +987,8 @@ class Application
     public static function createMenu()
     {
         //create new top-level menu
-        $pageTitle = "Campaign Monitor";
-        $menuTitle = "Campaign <br/>Monitor";
+        $pageTitle = "Campaign Monitor for WordPress";
+        $menuTitle = "Subscribe forms";
         $capability = 'administrator';
         $menuSlug = 'campaign-monitor-for-wordpress';
         $callable = 'generateConnectPage';
