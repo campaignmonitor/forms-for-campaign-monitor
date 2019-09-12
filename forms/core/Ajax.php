@@ -279,7 +279,7 @@ abstract class Ajax
 					$redirectUrl = $_SERVER['HTTP_REFERER'];
 				}
 
-				echo sprintf("<div style='text-align: center; padding: 2em;'>%s<br><br>Click here to <a href='%s'>go back</a></div>", $response->success_message, $redirectUrl);
+                echo sprintf("<div style='text-align: center; padding: 2em;'>%s<br><br>Click here to <a href='%s'>go back</a></div>", filter_var($response->success_message, FILTER_SANITIZE_STRING), filter_var($redirectUrl, FILTER_SANITIZE_STRING));
 				exit();
 			}
 

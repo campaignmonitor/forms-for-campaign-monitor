@@ -49,7 +49,7 @@ function htmlDecodeEncode($str)
 
     <?php if ( (is_array($notices) && !in_array('connected_list_notice',$notices, TRUE ) ) && !empty($currentList)) : ?>
         <div data-method="connected_list_notice" class="updated notice cm-plugin-ad is-dismissible">
-            <p>Your Wordpress customer data can be accessed in the list, <strong><?php echo $currentList->Title; ?></strong>, in
+            <p>Your Wordpress customer data can be accessed in the list, <strong><?php echo htmlDecodeEncode($currentList->Title); ?></strong>, in
                 <a href="https://www.campaignmonitor.com/" target="_blank">Campaign Monitor</a>.&nbsp;
                 We've also created 6 segments for you there.
             </p>
@@ -271,7 +271,7 @@ function htmlDecodeEncode($str)
                                                 <span class="edit">
                                                     <a href="<?php echo get_admin_url(); ?>admin.php?page=campaign_monitor_create_builder&formId=<?php echo urlencode($currentFormId); ?>" aria-label="Edit Form">Edit</a>
                                                      | </span><span class="trash">
-                                                    <a href="<?php echo get_admin_url(); ?>admin.php?page=campaign_monitor_create_builder&formId=<?php echo urlencode($form->getId()); ?>&amp;action=delete" data-id="submitdelete_<?php echo $currentFormId; ?>" class="submitdelete" aria-label="Move “Cart” to the Trash">Trash</a><?php /* |
+                                                    <a href="<?php echo get_admin_url(); ?>admin.php?page=campaign_monitor_create_builder&formId=<?php echo urlencode($form->getId()); ?>&amp;action=delete" data-id="submitdelete_<?php echo filter_var($currentFormId, FILTER_SANITIZE_STRING); ?>" class="submitdelete" aria-label="Move “Cart” to the Trash">Trash</a><?php /* |
                                                 </span><span class="view"><a href="http://localhost/wp/cart/" rel="permalink" aria-label="View “Cart”">View</a>*/ ?>
                                                 </span></div><button type="button" class="toggle-row"><span class="screen-reader-text">Show more details</span></button></td>
                             <td class="status column-status" data-colname="Status"><?php
