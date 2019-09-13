@@ -99,9 +99,8 @@ class FormField {
                 $this->_html = '<div class="'.$class.' cm-multi">';
                 $this->_html .= '<div>';
 
-
-                $this->_html .= '<ul>';
                 $this->_html .=  $label;
+                $this->_html .= '<ul>';
                 $x=0;
                 $rand = rand(1,10000);
                 foreach ($options as $option) {
