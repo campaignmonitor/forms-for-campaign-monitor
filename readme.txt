@@ -20,7 +20,10 @@ With our plugin, you can create and customize subscribe forms from your WordPres
 * Bar — A strap along the top or bottom of a page, that contains all the fields needed to sign up.
 * Button — Generate a button shortcode and insert it in a page or post. The form will appear as a Lightbox.
 * Embedded — Generate a shortcode and add your signup form in a page or post.
- 
+
+== What is Campaign Monitor? ==
+Campaign Monitor makes it radically easy to create, send and measure the impact of your email marketing campaigns. **Don’t have a Campaign Monitor account? [Sign up for free](https://www.campaignmonitor.com/signup?utm_source=wordpress-plugin&utm_medium=referral)**.
+
 == Installation ==
 1. Log in to your WordPress Admin and go to the Plugins section.
 2. Click “Add New” and search for “Campaign Monitor for WordPress”.
@@ -159,6 +162,3 @@ fixed typo on sanitize function
 includes all files needed
 = 1.0 =
 Fixes image rendering
-
-== What is Campaign Monitor? ==
-Campaign Monitor makes it radically easy to create, send and measure the impact of your email marketing campaigns. **Don’t have a Campaign Monitor account? [Sign up for free](https://www.campaignmonitor.com/signup?utm_source=wordpress-plugin&utm_medium=referral)**.
