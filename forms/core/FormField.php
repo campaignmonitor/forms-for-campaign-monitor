@@ -29,6 +29,7 @@ class FormField {
      */
     public function getHtml($class = '')
     {
+        alert('this is getHtml');
         $fieldType = $this->getType();
 
         $class  .= ' campaign-monitor-custom-field';
@@ -86,7 +87,7 @@ class FormField {
                 $this->_html .= '</option>';
                 foreach ($options as $option) {
                     $this->_html .= '<option value="'. htmlDecodeEncode($option) .'" data-index="'.$optionIndex.'">';
-                    $this->_html .=  $option;
+                    $this->_html .=  $htmlDecodeEncode($option);
                     $this->_html .= '</option>';
                     $optionIndex++;
                 }
@@ -110,7 +111,7 @@ class FormField {
                     $fieldId = 'op_'.$rand.'_'.$x;
                     //placeholder="'.$placeholder.'"
                     $this->_html .= '<input type="checkbox" data-index="'.$optionIndex.'" name="custom_fields['.$name.']['.$optionIndex.']" value="'.htmlDecodeEncode($option).'" id="'.$fieldId.'" />'.
-                        ' <label for="'.$fieldId.'">' . $option.'</label>';
+                        ' <label for="'.$fieldId.'">' . htmlDecodeEncode($option).'</label>';
                     $this->_html .= '</li>';
                     $optionIndex++;
 
