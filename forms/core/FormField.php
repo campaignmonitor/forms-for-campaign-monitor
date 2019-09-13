@@ -86,7 +86,7 @@ class FormField {
                 $this->_html .= '</option>';
                 foreach ($options as $option) {
                     $this->_html .= '<option value="'. htmlDecodeEncode($option) .'" data-index="'.$optionIndex.'">';
-                    $this->_html .=  $htmlDecodeEncode($option);
+                    $this->_html .=  htmlDecodeEncode($option);
                     $this->_html .= '</option>';
                     $optionIndex++;
                 }
