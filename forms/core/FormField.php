@@ -39,9 +39,9 @@ class FormField {
         $formLabel = htmlDecodeEncode( $formLabel );
         $isRequired = $this->getIsRequired();
 
-        if (!empty($formLabel))
+        if (empty($formLabel))
         {
-            $name=$formLabel;
+            $formLabel=$name;
         }
 
         $label='';
@@ -49,7 +49,7 @@ class FormField {
 
         if ($this->isShowLabel() || $fieldType !== DataType::TEXT) {
             $label = '<label for="custom_fields['.str_replace(" ","_",$name).']">';
-            $label .= $name;
+            $label .= $formLabel;
             if ($isRequired)
             {
                 $label .= " *";
