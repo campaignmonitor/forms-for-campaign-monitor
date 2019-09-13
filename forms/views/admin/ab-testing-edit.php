@@ -179,7 +179,7 @@ $pages = Helper::getPages();
                                 <td>
                                     <select name="form_primary" class="regular-text wide-select" id="form_primary" >
                                         <option>Select</option>
-                                        <?php echo filter_var($availableOptions, FILTER_SANITIZE_STRING); ?>
+                                        <?php echo $availableOption; ?>
                                     </select>
 
                                 </td>
@@ -189,7 +189,7 @@ $pages = Helper::getPages();
                                 <td>
                                     <select name="form_secondary" class="regular-text wide-select" id="form_secondary" >
                                         <option>Select</option>
-                                        <?php echo filter_var($availableOptions, FILTER_SANITIZE_STRING); ?>
+                                        <?php echo $availableOptions; ?>
                                     </select>
 
                                 </td>

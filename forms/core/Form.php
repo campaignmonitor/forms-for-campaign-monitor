@@ -334,7 +334,7 @@ class Form
     {
         $forms = Options::get('forms');
 
-        $forms = (count($forms) >  0) ? $forms : array();
+        $forms = is_array($forms) && (count($forms) >  0) ? $forms : array();
 
         if (!empty($orderBy))
         {

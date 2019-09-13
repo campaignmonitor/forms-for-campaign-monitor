@@ -416,7 +416,7 @@ if (!is_null($form))
 
                     <?php $customFieldIndex = 0; foreach ($customFormFields as $customField) : ?>
 
-                        <?php echo filter_var($customField->getHtml(), FILTER_SANITIZE_STRING); ?>
+                        <?php echo $customField->getHtml(); ?>
 
                         <?php $customFieldIndex++; endforeach; // end foreach custom field ?>
                 <?php endif; ?>
