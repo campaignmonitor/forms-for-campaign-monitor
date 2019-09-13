@@ -29,7 +29,6 @@ class FormField {
      */
     public function getHtml($class = '')
     {
-        alert('this is getHtml');
         $fieldType = $this->getType();
 
         $class  .= ' campaign-monitor-custom-field';
