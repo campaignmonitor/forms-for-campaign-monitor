@@ -179,7 +179,7 @@ $pages = Helper::getPages();
                                 <td>
                                     <select name="form_primary" class="regular-text wide-select" id="form_primary" >
                                         <option>Select</option>
-                                        <?php echo $availableOption; ?>
+                                        <?php echo $availableOptions; ?>
                                     </select>
 
                                 </td>
