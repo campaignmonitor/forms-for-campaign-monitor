@@ -2,10 +2,10 @@
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 /*
- * Plugin Name: Campaign Monitor
+ * Plugin Name: Campaign Monitor for WordPress
  * Plugin URI: http://campaignmonitor.com
  * Description: Manage Campaign Monitor Lists, Custom Fields and add forms and how you show them to your users..
- * Version: 2.8.0
+ * Version: 2.8.1
  * Author: Campaign Monitor
  * Author URI: http://campaignmonitor.com
  * License: License: GPLv2 or later

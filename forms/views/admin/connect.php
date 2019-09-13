@@ -50,7 +50,7 @@ function htmlDecodeEncode($str)
     <?php if ( (is_array($notices) && !in_array('connected_list_notice',$notices, TRUE ) ) && !empty($currentList)) : ?>
         <div data-method="connected_list_notice" class="updated notice cm-plugin-ad is-dismissible">
             <p>Your Wordpress customer data can be accessed in the list, <strong><?php echo htmlDecodeEncode($currentList->Title); ?></strong>, in
-                <a href="https://www.campaignmonitor.com/" target="_blank">Campaign Monitor</a>.&nbsp;
+                <a href="https://www.campaignmonitor.com?utm_source=wordpress-plugin&utm_medium=referral" target="_blank">Campaign Monitor</a>.&nbsp;
                 We've also created 6 segments for you there.
             </p>
         </div>

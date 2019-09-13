@@ -1,41 +1,55 @@
-﻿=== Campaign Monitor ===
+﻿=== Campaign Monitor for WordPress ===
 Contributors: vibhorchhabra
 Donate link: N/A
 Tags: Campaign Monitor, Email Marketing, Sign-Up Forms, Sign Up Forms
 Requires at least: 3.9
 Tested up to: 5.2.2
-Stable tag: 2.8.0
+Stable tag: 2.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Make it easy for customers to subscribe to your Campaign Monitor mailing lists using any of the 5 elegant sign-up forms.
 
 == Description ==
-
-<strong>Campaign Monitor for WordPress 2.8.0 addresses the connectivity issues with PHP 7. Please update and reconnect to your Campaign Monitor account.</strong>
-
-The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site to sign up to a Campaign Monitor subscriber list, so you can create and send beautiful, personalized emails to your audience. Create and customize subscribe forms from your WordPress dashboard, place one on every page or specific pages you select, and A/B test which form type is more successful for you.
-
-* Slide-Out — Position a floating tab at the top, bottom, left or right of the screen. Clicking it will slide out a subscribe form. The "Form Title" text will show inside the tab.
+Campaign Monitor for Wordpress allows your visitors to sign up to lists in your [campaignmonitor.com](https://www.campaignmonitor.com?utm_source=wordpress-plugin&utm_medium=referral) account, so you can create, send and measure the impact of your email marketing campaigns.
+ 
+With our plugin, you can create and customize subscribe forms from your WordPress dashboard, decide when and where to show them, and A/B test which one attracts more subscribers.
+ 
+* Slide-Out — Position a floating tab at the top, bottom, left or right of the screen. Clicking it will slide out a subscribe form.
 * Lightbox — Overlay a subscribe form while dimming the background of the site. You can show it immediately, after a specific amount of time, or after a user has scrolled a specific amount of pixels or percentage of the page.
-* Bar — A strap along the top or bottom of a page, that contains all the fields needed to sign up to the newsletter.
-* Button — Generate a button shortcode that can be inserted in a page or post. Loads the signup form as a lightbox.
-* Embedded — Generate a shortcode to insert a full signup form in a page or post.
+* Bar — A strap along the top or bottom of a page, that contains all the fields needed to sign up.
+* Button — Generate a button shortcode and insert it in a page or post. The form will appear as a Lightbox.
+* Embedded — Generate a shortcode and add your signup form in a page or post.
 
+== What is Campaign Monitor? ==
+Campaign Monitor makes it radically easy to create, send and measure the impact of your email marketing campaigns. **Don’t have a Campaign Monitor account? [Sign up for free](https://www.campaignmonitor.com/signup?utm_source=wordpress-plugin&utm_medium=referral)**.
 
 == Installation ==
-**To connect WordPress to Campaign Monitor:**
-
-* Log in to your WordPress dashboard and click Plugins in the left sidebar.
-* Click Add New at the top of the page then search for “Campaign Monitor”.
-* In search results, click the Install Now button on the “Campaign Monitor for Wordpress” plugin.
-* Click Activate Plugin.
-* In the left sidebar, click Campaign Monitor.
-* Enter your API key, and click Save Changes. If successful, you will see "You are connected as <client name>," and new options will appear under "Campaign Monitor" in the left sidebar.
-
+1. Log in to your WordPress Admin and go to the Plugins section.
+2. Click “Add New” and search for “Campaign Monitor for WordPress”.
+3. From the search results, install and activate our plugin.
+4. In the sidebar, click “Subscribe forms” and then “Connect”.
+5. Follow the steps and connect it to your Campaign Monitor account.
+6. Once connected, you will return to our plugin settings page. We recommend you setting up reCAPTCHA to protect your lists against spambots (abusive computer programs that sign up a large number of real or fake email addresses). Please note that our plugin currently supports reCAPTCHA v2.
+ 
+= Updating from 2.7+ to 2.8 =
+PHP 7 introduced connectivity issues between our plugin and Campaign Monitor. Follow these steps to solve this problem:
+ 
+1. Log in to your WordPress Admin and go to the Plugins section.
+2. Update our plugin from your list of pending updates.
+3. In the sidebar, click “Campaign Monitor / Settings” and then “Disconnect”.
+4. **Connect it again to your Campaign Monitor account**.
+ 
+= Updating from 1.x to 2.7+ =
+When we launched 2.0, we improved how our plugin saves forms in the WordPress database, but the ability to upgrade the database was last available in 2.6. Follow these steps to update:
+ 
+1. Log in to your WordPress Admin and disable the 1.x version of our plugin.
+2. [Download the 2.6.2 version](https://wordpress.org/plugins/forms-for-campaign-monitor/advanced/) to your computer.
+3. Go back to the Plugins section of your WordPress Admin, click “Add New” and then “Upload Plugin”. Select the file you downloaded in the previous step, click “Install Now” and activate the plugin.
+4. In the sidebar, click “Campaign Monitor” and then follow the instructions to upgrade your database.
+5. Only when you complete the previous step, update our plugin to the most recent version from your list of pending updates in the Plugins section.
 
 == Frequently Asked Questions ==
-
 
 == Screenshots ==
 1. Bar forms for the top/bottom of your site.
@@ -47,6 +61,10 @@ The Campaign Monitor for Wordpress plugin allows visitors to your WordPress site
 7. Easy to add a new form. Just select the form type, choose the Campaign Monitor List where  data will be collected, and you are done.
 
 == Changelog ==
+
+= 2.8.1 =
+* Rename the plugin name to be "Campaign Monitor for WordPress", in line with other Campaign Monitor's plugin
+* Minor issue fixes
 
 = 2.8.0 =
 * Addressed connection issues with PHP7
@@ -144,10 +162,3 @@ fixed typo on sanitize function
 includes all files needed
 = 1.0 =
 Fixes image rendering
-
-
-What is Campaign Monitor?
-Campaign Monitor makes it radically easy to create, send and measure the impact of your email marketing campaigns.
-
-
-This plugin allows you to import customer data form your WordPress site into your Campaign Monitor lists so you can send beautifully designed, personalized emails to your customers. Don’t have a Campaign Monitor account? Sign up for free.
