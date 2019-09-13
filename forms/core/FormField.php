@@ -36,7 +36,7 @@ class FormField {
         $name = $this->getName();
         $name = htmlDecodeEncode( $name );
         $formLabel = $this->getLabel();
-        $formLabel = htmlDecodeEncode( $name );
+        $formLabel = htmlDecodeEncode( $formLabel );
         $isRequired = $this->getIsRequired();
 
         if (!empty($formLabel))
