@@ -280,9 +280,9 @@ if (!empty( $notices )) {
                         <?php endif; ?>
                         <?php foreach ($environment as $settingTitle => $settingValue) : ?>
                             <tr>
-                                <th><label ><?php echo filter_var($settingTitle, FILTER_SANITIZE_STRING);?></label></th>
+                                <th><label ><?php echo $settingTitle;?></label></th>
                                 <td>
-                                   <?php echo filter_var($settingValue, FILTER_SANITIZE_STRING); ?>
+                                   <?php echo $settingValue; ?>
                                     <span class="description"></span>
                                 </td>
                             </tr>

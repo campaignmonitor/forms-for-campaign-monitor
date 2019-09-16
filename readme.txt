@@ -63,8 +63,10 @@ When we launched 2.0, we improved how our plugin saves forms in the WordPress da
 == Changelog ==
 
 = 2.8.1 =
+* Admin navigation item renamed to "Subscribe forms".
 * Minor fixes to A/B tests.
 * Improved security.
+
 
 = 2.8.0 =
 * Addressed connection issues with PHP7
