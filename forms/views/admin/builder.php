@@ -459,11 +459,11 @@ if ($isUpdated)
                             foreach ($formFields as $formField) :
                                 $index++;
 
-                                echo Field::hidden('origCustomFieldKey'.$index, filter_var($formField->getKey(), FILTER_SANITIZE_STRING), 'class="origCustomFieldKey" id="origCustomFieldKey'.$index.'"');
-                                echo Field::hidden('origCustomFieldName'.$index, filter_var($formField->getName(), FILTER_SANITIZE_STRING), 'id="origCustomFieldName'.$index.'"');
-                                echo Field::hidden('origCustomFieldLabel'.$index, filter_var($formField->getLabel(), FILTER_SANITIZE_STRING), 'id="origCustomFieldLabel'.$index.'"');
+                                echo Field::hidden('origCustomFieldKey'.$index, $formField->getKey(), 'class="origCustomFieldKey" id="origCustomFieldKey'.$index.'"');
+                                echo Field::hidden('origCustomFieldName'.$index, $formField->getName(), 'id="origCustomFieldName'.$index.'"');
+                                echo Field::hidden('origCustomFieldLabel'.$index, $formField->getLabel(), 'id="origCustomFieldLabel'.$index.'"');
                                 echo Field::hidden('origCustomFieldOptions'.$index, implode("\n", $formField->getOptions()), 'id="origCustomFieldOptions'.$index.'"');
-                                echo Field::hidden('origCustomFieldType'.$index, filter_var($formField->getType(), FILTER_SANITIZE_STRING), 'id="origCustomFieldType'.$index.'"');
+                                echo Field::hidden('origCustomFieldType'.$index, $formField->getType(), 'id="origCustomFieldType'.$index.'"');
                                 echo Field::hidden('origCustomFieldShowLabel'.$index, ($formField->isShowLabel()   ? 1 : 0), 'id="origCustomFieldShowLabel'.$index.'"');
                                 echo Field::hidden('origCustomFieldRequired'.$index,  ($formField->getIsRequired() ? 1 : 0), 'id="origCustomFieldRequired'.$index.'"');
                             endforeach;
