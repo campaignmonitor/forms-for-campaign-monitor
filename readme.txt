@@ -63,12 +63,12 @@ When we launched 2.0, we improved how our plugin saves forms in the WordPress da
 == Changelog ==
 
 = 2.8.1 =
-* Rename the plugin name to be "Campaign Monitor for WordPress", in line with other Campaign Monitor's plugin
-* Minor issue fixes
+* Minor fixes to A/B tests.
+* Improved security.
 
 = 2.8.0 =
 * Addressed connection issues with PHP7
-* Support for Wordpress 5.2.2 
+* Support for WordPress 5.2.2 
 * Minor issue fixes
 
 = 2.7.0 =
