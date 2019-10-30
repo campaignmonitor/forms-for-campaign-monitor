@@ -787,10 +787,10 @@ if ($isUpdated)
             #signupFormPreviewCon .customFieldPreviewCon ul {
                 list-style-type:none; margin:0;}
             #signupFormPreviewCon #signupFormPreview_bar input[type="checkbox"] {
-                width:auto;
+                width:1rem;
             }
             #signupFormPreviewCon #signupFormPreview_bar .customFieldPreviewCon ul li { display:inline-block; margin: auto 0.5em;}
-            #signupFormPreviewCon div.customFieldPreviewCon ul li input[type="checkbox"] { width:auto; margin:0; }
+            #signupFormPreviewCon div.customFieldPreviewCon ul li input[type="checkbox"] { width:1rem; margin:0; }
             #signupFormPreviewCon .fieldWrap > div.customFieldPreviewCon:not(.hideFormSec) ul li { text-align:left; }
 
             #formStatusCon > div,
