@@ -37,7 +37,7 @@ class CampaignMonitor
      */
     public function refresh_token($auth = array())
     {
-        $refreshToken = empty($auth) ? '' : $auth->refresh_token;
+        $refreshToken = empty($auth) ? '' : $auth['refresh_token'];
         return json_decode($this->api->refreshToken($refreshToken));
     }
     /**
@@ -62,6 +62,16 @@ class CampaignMonitor
 	    return $clients !== null ? json_decode($clients) : $clients;
 
     }
+
+    public function update_tokens($accessToken, $refreshToken) {
+        $auth = new Authorization();
+        $auth->setAccessToken($accessToken);
+        $auth->setRefreshToken($refreshToken);
+        $auth->setType(Authorization::OAUTH);
+
+        $this->api->setAuthorization($auth);
+    }
+
     /**
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of clients

@@ -1410,19 +1410,22 @@ class Application
 			if (isset($newCredentials->error)) {
 				// TODO: add some kind of error-handling if API returns error
 				// For now just clear out the tokens
-				Settings::add('access_token', '');
-				Settings::add('refresh_token', '');
-				Settings::add('expiry', '');
+				Application::updateTokens('', '', 0);
 				return false;
 			}
 
-			Settings::add('access_token',$newCredentials->access_token);
-			Settings::add('refresh_token',$newCredentials->refresh_token);
-			Settings::add('expiry', time() + $newCredentials->expires_in);
-
+            Application::updateTokens($newCredentials->access_token, $newCredentials->refresh_token, time() + $newCredentials->expires_in);
 			return true;
 		}
 
 		return false;
-	}
+    }
+    
+    public static function updateTokens($accessToken, $refreshToken, $expiry) {
+        Settings::add('access_token', $accessToken);
+        Settings::add('refresh_token', $refreshToken);
+        Settings::add('expiry', $expiry);
+
+        Application::$CampaignMonitor->update_tokens($accessToken, $refreshToken);
+    }
 }
