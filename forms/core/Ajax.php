@@ -40,8 +40,9 @@ abstract class Ajax
 
 	public static function ajax_handler()
 	{
+		Application::refreshTokenIfNeeded();
 		// we could further optimize the plugin with one entry point for all ajax requests
-
+		
 		$response = new \stdClass();
 
 		$requestType = Request::getPost( 'type' );
@@ -104,7 +105,7 @@ abstract class Ajax
 	// non authenticated users
 	public static function ajaxFormHandler()
 	{
-
+		Application::refreshTokenIfNeeded();
 
 		$response = new \stdClass();
 
@@ -235,7 +236,6 @@ abstract class Ajax
 		);
 
 		$CampaignMonitor = Application::$CampaignMonitor;
-		$x = $CampaignMonitor->get_clients();
 		$addedEmailAddress = $CampaignMonitor->add_subscriber( $listId, $dataAr );
 
 		$error = $CampaignMonitor->get_last_error();
