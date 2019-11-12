@@ -166,6 +166,7 @@ class Application
                         $appSettings = Settings::get();
                         // we are connected
                         Options::update('connected', TRUE );
+                        CampaignMonitor::update_tokens($credentials->access_token, $credentials->refresh_token);
                         unset($_GET['code']);
                     }
                 }
@@ -243,8 +244,8 @@ class Application
         )
          */
         $globalOptions = get_option('campaign_monitor_settings');
-
-
+        
+        // TODO: Clean up this and replace update.php with new instructions
         // if the old plugin is installed grab old forms and convert it to to the new format
         if( $existElementTable === $elementsTable && $existAbTestTable === $abTestTable ) {
 
@@ -263,11 +264,8 @@ class Application
             $formTypeMap['button'] = FormType::BUTTON;
             $formTypeMap['simple_form'] = FormType::EMBEDDED;
 
-            $clients = Application::$CampaignMonitor->get_clients();
-            if (isset($clients->error)) {
-                // TODO: handle error when it gets to this point
-                return;
-            }
+            $clients = array(); // set as empty as code is broken anyway
+            
             $activeClients = array();
 
             foreach ($clients as $client) {
@@ -594,7 +592,7 @@ class Application
             Settings::add( 'campaign_monitor_clients', $clients );
 
 	        if (!empty($clients)) {
-		        if (is_array($clients)) {
+		        if (\is_array($clients)) {
 			        if (count($clients) === 1 && !empty($clients[0])) {
 				        $CID = $clients[0]->ClientID;
 				        Settings::add( 'default_client', $CID );

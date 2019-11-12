@@ -35,16 +35,15 @@ class CampaignMonitor
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of clients
      */
-    public function refresh_token($auth = array())
+    public function refresh_token($auth)
     {
-        $refreshToken = empty($auth) ? '' : $auth['refresh_token'];
-        return json_decode($this->api->refreshToken($refreshToken));
+        return json_decode($this->api->refreshToken($auth['refresh_token']));
     }
     /**
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of clients
      */
-    public function get_clients($credentials = array())
+    public function get_clients($credentials)
     {
 	    if (empty($credentials)) {
             return (object) ['error' => true];              
