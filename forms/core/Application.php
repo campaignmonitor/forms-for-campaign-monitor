@@ -160,13 +160,9 @@ class Application
                         \wp_redirect( $settingsPage );
                         exit();
                     } else {
-                        Settings::add('access_token', $credentials->access_token);
-                        Settings::add('refresh_token', $credentials->refresh_token);
-                        Settings::add('expiry', time() + $credentials->expires_in);
-                        $appSettings = Settings::get();
+                        Application::updateTokens($credentials->access_token, $credentials->refresh_token, time() + $credentials->expires_in);
                         // we are connected
                         Options::update('connected', TRUE );
-                        CampaignMonitor::update_tokens($credentials->access_token, $credentials->refresh_token);
                         unset($_GET['code']);
                     }
                 }
