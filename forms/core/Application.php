@@ -605,7 +605,7 @@ class Application
 			        }
                 }
 	        }
-        } else if (Application::isConnected() && empty( $appSettings['client_secret'] )) {
+        } else if (Application::isConnected() && (empty( $appSettings['client_secret'] ) || empty( $appSettings['client_id']))) {
             Application::generateConnectionErrorMessage();
         }
 
