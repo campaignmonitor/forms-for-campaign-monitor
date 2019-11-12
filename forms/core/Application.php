@@ -113,8 +113,6 @@ class Application
             }
         }
 
-        $authorizationToken = Settings::get('access_token');
-
         if (!empty($error)) {
             $description = Request::get('error_description');
 
@@ -1408,9 +1406,7 @@ class Application
             $newCredentials = Application::$CampaignMonitor->refresh_token($auth);
 			
 			if (isset($newCredentials->error)) {
-				// TODO: add some kind of error-handling if API returns error
-				// For now just clear out the tokens
-				Application::updateTokens('', '', 0);
+				error_log('Failed to refresh token');
 				return false;
 			}
 

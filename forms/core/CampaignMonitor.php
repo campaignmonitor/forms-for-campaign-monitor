@@ -50,12 +50,7 @@ class CampaignMonitor
             return (object) ['error' => true];              
         }
 
-        $auth = new Authorization();
-        $auth->setAccessToken($credentials['access_token']);
-        $auth->setRefreshToken($credentials['refresh_token']);
-        $auth->setType(Authorization::OAUTH);
-
-        $this->api->setAuthorization( $auth );
+        $this->update_tokens($credentials['access_token'], $credentials['refresh_token']);
 
 	    $clients = $this->api->getClients();
 
