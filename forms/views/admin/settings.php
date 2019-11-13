@@ -13,13 +13,12 @@ $recaptchaKey = Settings::get( 'recaptcha_key' );
 $recaptchaPublic = Settings::get( 'recaptcha_public' );
 $debugMode = Settings::get( 'debug' );
 
+$connected = Options::get('connected');
 $noSSL = Options::get('no_ssl');
- $error = Options::get('post_errors');
+$error = Options::get('post_errors');
 
-if (!empty($error)){
-
+if (!empty($error)) {
     Options::update('no_ssl', false);
-    
 
     $html = '<div id="message" class="notice-error notice is-dismissible">';
     $html .= '<h2>';
@@ -31,13 +30,11 @@ if (!empty($error)){
     $html .= '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>';
     $html .= '</div><!-- .updated -->';
     echo $html;
-
 }
 
 $notices = \forms\core\Request::get( 'notice' );
 
 if (!empty( $notices )) {
-
     $html = '<div id="message" class="notice-success notice is-dismissible">';
     $html .= '<h2>';
     $html .= $notices['title'];
@@ -49,7 +46,6 @@ if (!empty( $notices )) {
     $html .= '</div><!-- .updated -->';
     echo $html;
 }
-
 
 ?>
 
@@ -79,7 +75,7 @@ if (!empty( $notices )) {
                             <tbody><tr>
                                 <th><label for="client_id">Client ID</label></th>
                                 <td>
-                                    <input type="text" class="regular-text" value="<?php echo filter_var($clientId, FILTER_SANITIZE_STRING); ?>" id="client_id" name="client_id">
+                                    <input type="text" class="regular-text" value="<?php echo filter_var($clientId, FILTER_SANITIZE_STRING); ?>" id="client_id" name="client_id" <?php echo $connected ? 'disabled' : ''?>>
                                     <br>
                                     <span class="description"></span>
                                 </td>
@@ -87,7 +83,7 @@ if (!empty( $notices )) {
                             <tr>
                                 <th><label for="client_secrect">Client Secret</label></th>
                                 <td>
-                                    <input type="text" class="regular-text" value="<?php echo filter_var($clientSecret, FILTER_SANITIZE_STRING); ?>" id="client_secret" name="client_secret">
+                                    <input type="text" class="regular-text" value="<?php echo filter_var($clientSecret, FILTER_SANITIZE_STRING); ?>" id="client_secret" name="client_secret" <?php echo $connected ? 'disabled' : ''?>>
                                     <br>
                                     <span class="description"></span>
                                 </td>
