@@ -35,31 +35,37 @@ class CampaignMonitor
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of clients
      */
-    public function refresh_token($auth = array())
+    public function refresh_token($auth)
     {
-	   return $this->api->refreshToken();
+        return json_decode($this->api->refreshToken($auth['refresh_token']));
     }
     /**
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of clients
      */
-    public function get_clients($credentials = array())
+    public function get_clients($credentials)
     {
+	    if (empty($credentials)) {
+            return (object) ['error' => true];              
+        }
 
-	    if ( ! empty( $credentials ) ) {
-		    $auth = new Authorization();
-		    $auth->setAccessToken($credentials['access_token']);
-		    $auth->setRefreshToken($credentials['refresh_token']);
-		    $auth->setType(Authorization::OAUTH);
-
-		    $this->api->setAuthorization( $auth );
-	    }
+        $this->update_tokens($credentials['access_token'], $credentials['refresh_token']);
 
 	    $clients = $this->api->getClients();
 
 	    return $clients !== null ? json_decode($clients) : $clients;
 
     }
+
+    public function update_tokens($accessToken, $refreshToken) {
+        $auth = new Authorization();
+        $auth->setAccessToken($accessToken);
+        $auth->setRefreshToken($refreshToken);
+        $auth->setType(Authorization::OAUTH);
+
+        $this->api->setAuthorization($auth);
+    }
+
     /**
      * @param array $auth override the class authentication credentials
      * @return mixed|null list of clients

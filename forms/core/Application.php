@@ -3,13 +3,9 @@
 namespace forms\core;
 
 
-
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-
-
-
 
 class Application
 {
@@ -56,7 +52,6 @@ class Application
 
     public static function doUpdate() {
         if (Application::isConnected()) {
-
             $pluginUpdate = self::UpdateStatus();
             $updatePage = Request::get('page');
             if (!$pluginUpdate && $updatePage !== 'campaign_monitor_update_page') {
@@ -69,7 +64,6 @@ class Application
 
     public static function authenticate()
     {
-
         $error = Request::get( 'error' );
         $queriedPage = Request::get( 'page' );
 
@@ -119,98 +113,58 @@ class Application
             }
         }
 
+        if (!empty($error)) {
+            $description = Request::get('error_description');
 
-        // do I have an authorization token
-        $authorizationToken = Settings::get('access_token');
+            $html = '<div class="wrap">';
+            $html .= '<h1>Campaign Monitor</h1>';
+            $html .= '<div  id="error" class="error">';
+            $html .= $error;
+            $html .= '</div><!-- end error-->';
+            $html .= '</div><!-- end wrap-->';
 
-
-        if (!empty($authorizationToken)){
-            // we are authorize
-            // check if refresh token is still good
-            $timeTillExpire = Settings::get('expiry') - time();
-            if ($timeTillExpire <  (60*60*24))
-            {
-                $auth = array(
-                    'access_token' => Settings::get('access_token'),
-                    'refresh_token' => Settings::get('refresh_token')
-                );
-
-                list($new_access_token, $new_expires_in, $new_refresh_token) = Application::$CampaignMonitor->refresh_token($auth);
-
-                Settings::add('access_token',$new_access_token);
-                Settings::add('refresh_token',$new_refresh_token);
-                // add current time
-                // convert number of seconds to  a unix timestamp
-                Settings::add('expiry', time() + $new_expires_in);
-            }
-
+            echo $html;
+            exit;
         } else {
+            // initial connect
+            $appSettings  = Settings::get();
+            $redirectUrl = Helper::getRedirectUrl();
+            $code = Request::get( 'code' );
 
-            if (!empty($error)){
-                $description = Request::get('error_description');
-                // there was something wrong
-                $html = '<div class="wrap">';
-                $html .= '<h1>Campaign Monitor</h1>';
-                $html .= '<div  id="error" class="error">';
-                $html .= $error;
-                $html .= '</div><!-- end error-->';
-                $html .= '</div><!-- end wrap-->';
+            if (!empty($code)) {
+                Options::update('code', $code);
+                $params = array('grant_type' => urlencode('authorization_code'),
+                    'client_id' => urlencode($appSettings['client_id']),
+                    'client_secret' => urlencode($appSettings['client_secret']),
+                    'code' => $code,
+                    'redirect_uri' =>  $redirectUrl);
 
-                echo $html;
-                exit;
+                $postUrl = Connect::getTransport('oauth/token', $params);
+                $endpoint = 'https://api.createsend.com/oauth/token';
+                $results =  Connect::request($params,$endpoint);
 
-            }else {
-                $appSettings  = Settings::get();
-                $redirectUrl = Helper::getRedirectUrl();
-                $code = Request::get( 'code' );
+                // Let's authenticate the user
+                if (!empty($results)) {
+                    $credentials = json_decode($results);
 
+                    if (isset($credentials->error)) {
+                        Settings::add('client_secret', '');
+                        Settings::add('client_id', '');
+                        $postError['title'] = $credentials->error;
+                        $postError['description'] = $credentials->error_description;
 
-                if (!empty($code)){
+                        // add this options so they can be access later
+                        Options::add('post_errors', $postError);
 
-                    Options::update('code', $code);
-                    $params = array('grant_type' => urlencode('authorization_code'),
-                        'client_id' => urlencode($appSettings['client_id']),
-                        'client_secret' => urlencode($appSettings['client_secret']),
-                        'code' => $code,
-                        'redirect_uri' =>  $redirectUrl);
-
-                    $postUrl = Connect::getTransport('oauth/token', $params);
-                    $endpoint = 'https://api.createsend.com/oauth/token';
-                    $results =  Connect::request($params,$endpoint);
-
-
-                    // Let's authenticate the user
-                    if (!empty($results)){
-                        $credentials = json_decode($results);
-
-
-                        if (isset($credentials->error)){
-
-
-                            Settings::add('client_secret', '');
-                            Settings::add('client_id', '');
-                            $postError['title'] = $credentials->error;
-                            $postError['description'] = $credentials->error_description;
-
-                            // add this options so they can be access later
-                            Options::add('post_errors', $postError);
-
-                            $settingsPage = get_admin_url() . 'admin.php?page=campaign_monitor_settings_page';
-                            \wp_redirect( $settingsPage );
-                            exit();
-
-                        } else {
-                            Settings::add('access_token', $credentials->access_token);
-                            Settings::add('refresh_token', $credentials->refresh_token);
-                            Settings::add('expiry', $credentials->expires_in);
-                            $appSettings = Settings::get();
-                            // we are connected
-                            Options::update('connected', TRUE );
-                            unset($_GET['code']);
-                        }
-
+                        $settingsPage = get_admin_url() . 'admin.php?page=campaign_monitor_settings_page';
+                        \wp_redirect( $settingsPage );
+                        exit();
+                    } else {
+                        Application::updateTokens($credentials->access_token, $credentials->refresh_token, time() + $credentials->expires_in);
+                        // we are connected
+                        Options::update('connected', TRUE );
+                        unset($_GET['code']);
                     }
-
                 }
             }
         }
@@ -233,8 +187,6 @@ class Application
 
     public static function run()
     {
-
-
         $logPath = Config::getRoot() .  'var' . DIRECTORY_SEPARATOR . 'log';
         Log::setDirectoryName( $logPath );
         $debug = Settings::get( 'debug' );
@@ -244,14 +196,15 @@ class Application
             ini_set( 'error_log', Log::getFileName() );
         }
 
-
         $accessToken = Settings::get('access_token');
         $refreshToken = Settings::get('refresh_token');
         self::$CampaignMonitor = new CampaignMonitor($accessToken, $refreshToken);
 
-	    if ( ! Application::isConnected() ) {
+	    if (!Application::isConnected()) {
 		    Application::authenticate();
-	    }
+	    } else {
+            Application::refreshTokenIfNeeded();
+        }
 
         // install app
         Application::init();
@@ -260,8 +213,6 @@ class Application
 
         // Listen for ajax requests
         Ajax::run();
-
-
     }
 
 
@@ -270,8 +221,6 @@ class Application
         $updateView = new View();
         $updateView->render( 'update' );
     }
-
-
 
     public static function update()
     {
@@ -291,8 +240,8 @@ class Application
         )
          */
         $globalOptions = get_option('campaign_monitor_settings');
-
-
+        
+        // TODO: Clean up this and replace update.php with new instructions
         // if the old plugin is installed grab old forms and convert it to to the new format
         if( $existElementTable === $elementsTable && $existAbTestTable === $abTestTable ) {
 
@@ -311,7 +260,8 @@ class Application
             $formTypeMap['button'] = FormType::BUTTON;
             $formTypeMap['simple_form'] = FormType::EMBEDDED;
 
-            $clients = Application::$CampaignMonitor->get_clients();
+            $clients = array(); // set as empty as code is broken anyway
+            
             $activeClients = array();
 
             foreach ($clients as $client) {
@@ -619,23 +569,16 @@ class Application
         Options::update( 'plugin_update', 2.0 );
     }
 
-
-
     public static function generateSettingsPage(){
-        // Application::authenticate();
-
         $settingsView = new View();
         $settingsView->render( 'settings' );
     }
 
     public static function generateConnectPage()
     {
-
-
         $appSettings = Settings::get();
 
-
-        if (is_array( $appSettings ) && array_key_exists( 'client_secret', $appSettings ) && !empty( $appSettings['client_secret'] ) && Application::isConnected()  ) {
+        if (is_array( $appSettings ) && array_key_exists( 'client_secret', $appSettings ) && !empty( $appSettings['client_secret'] ) && Application::isConnected()) {
             $appSettings = (object)$appSettings;
             $auth = array( 'access_token' => $appSettings->access_token,
                 'refresh_token' => $appSettings->refresh_token );
@@ -644,35 +587,38 @@ class Application
             $clients = Application::$CampaignMonitor->get_clients( $auth );
             Settings::add( 'campaign_monitor_clients', $clients );
 
-	        if ( ! empty( $clients ) ) {
-		        if ( \is_array( $clients ) ) {
-			        if (count( $clients ) === 1 && !empty($clients[0])) {
+	        if (!empty($clients)) {
+		        if (\is_array($clients)) {
+			        if (count($clients) === 1 && !empty($clients[0])) {
 				        $CID = $clients[0]->ClientID;
 				        Settings::add( 'default_client', $CID );
 			        }
 		        } else {
-
-			        if ( ! empty( $clients->Message ) && strpos($clients->Message, 'Authorization') !== false ) {
-				        $message = 'To refresh your credentials please click on the "Disconnect Account" button';
-				        $message .= ' and then follow the on screen instruction to re-connect again!';
-				        $message = \urlencode( $message );
-			            ?>
-                        <div class="update-nag error is-dismissible notice">
-                            <p>
-                                There seems to be a problem with your credentials please disconnect and reconnect your account on the
-                                <a href="<?php echo  get_admin_url() . '/admin.php?page=campaign_monitor_settings_page&notice[description]='.filter_var($message,FILTER_SANITIZE_STRING).'&notice[title]=Notice!' ?>"> Campaign Monitor Settings </a> page
-                            </p>
-                        </div>
-                        <?php
+			        if (isset($clients->error)) {
+				        Application::generateConnectionErrorMessage();
 			        }
                 }
 	        }
-
+        } else if (Application::isConnected() && (empty( $appSettings['client_secret'] ) || empty( $appSettings['client_id']))) {
+            Application::generateConnectionErrorMessage();
         }
-
 
         $connectView = new View();
         $connectView->render( 'connect' );
+    }
+
+    public static function generateConnectionErrorMessage() {
+        $message = 'To refresh your credentials please click on the "Disconnect Account" button';
+        $message .= ' and then follow the on screen instruction to re-connect again!';
+        $message = \urlencode( $message );
+        ?>
+        <div class="update-nag error is-dismissible notice">
+            <p>
+                There seems to be a problem with your credentials please disconnect and reconnect your account on the
+                <a href="<?php echo  get_admin_url() . '/admin.php?page=campaign_monitor_settings_page&notice[description]='.filter_var($message,FILTER_SANITIZE_STRING).'&notice[title]=Notice!' ?>"> Campaign Monitor Settings </a> page
+            </p>
+        </div>
+        <?php
     }
 
     public static function generateNewFormPage(){
@@ -688,17 +634,7 @@ class Application
         $createView->render( 'create' );
     }
 
-    public static function createAbTest()
-    {
-
-    }
-
-
-    public static function generateFormBuilder(){
-
-
-        // Application::authenticate();
-
+    public static function generateFormBuilder() {
         $appSettings  = Settings::get();
         $clientId = Settings::get( 'default_client' );
 
@@ -763,8 +699,6 @@ class Application
 
         $createView->setForm( $form );
         $createView->render( 'builder' );
-
-
     }
 
     protected static function UpdateStatus()
@@ -789,7 +723,6 @@ class Application
 
     }
 
-
     protected static function init()
     {
 
@@ -801,8 +734,6 @@ class Application
         add_action('admin_enqueue_scripts', array(__CLASS__, 'loadAdminScripts'), 10);
         if (!is_admin()) {
             add_action('wp_enqueue_scripts', array(__CLASS__, 'loadPublicScripts'));
-
-
         }
         add_action('admin_post_handle_cm_form_request', array(__CLASS__, 'handleRequest'));
         add_action('admin_post_nopriv', array(__CLASS__, 'handleRequest'));
@@ -827,13 +758,10 @@ class Application
             'media-views',
         );
 
-
         if (!empty($screen) && $screen->id === 'admin_page_campaign_monitor_create_builder') {
             $wp_scripts->queue = array(Helper::tokenize('ajax-script'), Helper::tokenize('app-script'), Helper::tokenize('fontselect'), 'common', 'utils');
             $wp_styles->queue = $styles;
         }
-
-
     }
 
     public static function loadTranslations(){
@@ -843,20 +771,16 @@ class Application
     }
     public static function loadCheckPage()
     {
-
         add_action( 'wp_footer', array(__CLASS__,'loadForm') );
-
     }
 
     public static function loadForm()
     {
-
         $pageId = get_the_ID();
         $forms = self::getFormByPage( $pageId );
         $formLayout = new View();
         $formLayout->setForms( $forms );
         $formLayout->render( 'formLayout', 'public' );
-
     }
 
     private static function getFormByPage($pageId)
@@ -940,7 +864,6 @@ class Application
 
     public static function abTesting()
     {
-        // Application::authenticate();
         $appSettings  = Settings::get();
         $clientId = Settings::get( 'default_client' );
 
@@ -956,7 +879,6 @@ class Application
 
     public static function abTestingEditing()
     {
-        // Application::authenticate();
         $appSettings  = Settings::get();
         $clientId = Settings::get( 'default_client' );
 
@@ -1468,4 +1390,32 @@ class Application
         return stripslashes(htmlspecialchars($string));
     }
 
+    public static function refreshTokenIfNeeded() {
+		$auth = array(
+			'access_token' => Settings::get('access_token'),
+			'refresh_token' => Settings::get('refresh_token')
+		);
+
+		if (!empty($auth['access_token']) && Settings::get('expiry') < time()) {
+            $newCredentials = Application::$CampaignMonitor->refresh_token($auth);
+			
+			if (isset($newCredentials->error)) {
+				error_log('Failed to refresh token');
+				return false;
+			}
+
+            Application::updateTokens($newCredentials->access_token, $newCredentials->refresh_token, time() + $newCredentials->expires_in);
+			return true;
+		}
+
+		return false;
+    }
+    
+    public static function updateTokens($accessToken, $refreshToken, $expiry) {
+        Settings::add('access_token', $accessToken);
+        Settings::add('refresh_token', $refreshToken);
+        Settings::add('expiry', $expiry);
+
+        Application::$CampaignMonitor->update_tokens($accessToken, $refreshToken);
+    }
 }
