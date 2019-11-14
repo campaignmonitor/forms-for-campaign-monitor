@@ -53,91 +53,93 @@ if (!empty( $notices )) {
         <div class="content">
             <div class="post-body-content">
                 <h1>Campaign Monitor Settings</h1>
+                <?php if (!$connected) { ?>
+                    <h2>Campaign Monitor Client ID and Client Secret</h2>
+                    <p>Please enter your client ID and client secret.</p>
+                    <p>To retrieve them:</p>
+                    <ol>
+                        <li>In your Campaign Monitor account, select <strong>App Store</strong> tab in the top navigation.
+                        If you don't see it, you are using the multi-client edition of Campaign Monitor, and will need to select a client first. </li>
+                    <li>
+                        In the "OAuth Registrations" section, find Wordpress, then select <strong>View</strong> next to the Wordpress icon.
+                    </li>
+                        <li>
+                            Copy paste the client ID and client secret into the fields below, then select <strong>Save Changes.</strong>
+                        </li>
+                    </ol>
+                <?php } ?>
+            
+                <form action="<?php echo get_admin_url(); ?>admin-post.php" method="post">
+                    <input type="hidden" name="action" value="handle_cm_form_request">
+                    <input type="hidden" name="data[type]" value="save_settings">
+                    <input type="hidden" name="data[app_nonce]" value="<?php echo wp_create_nonce( 'app_nonce' ); ?>">
+                    <table class="form-table cm-settings-fields">
+                        <tbody><tr>
+                            <th><label for="client_id">Client ID</label></th>
+                            <td>
+                                <input type="text" class="regular-text" value="<?php echo filter_var($clientId, FILTER_SANITIZE_STRING); ?>" id="client_id" name="client_id" <?php echo $connected ? 'disabled' : ''?>>
+                                <br>
+                                <span class="description"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="client_secrect">Client Secret</label></th>
+                            <td>
+                                <input type="text" class="regular-text" value="<?php echo filter_var($clientSecret, FILTER_SANITIZE_STRING); ?>" id="client_secret" name="client_secret" <?php echo $connected ? 'disabled' : ''?>>
+                                <br>
+                                <span class="description"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="client_secrect">Google ReCaptcha Site Key</label></th>
+                            <td>
+                                <input type="text" class="regular-text" value="<?php echo filter_var($recaptchaPublic, FILTER_SANITIZE_STRING); ?>" id="recaptcha_public" name="recaptcha_public">
+                                <br>
+                                <span class="description">
 
-            <h2>Campaign Monitor Client ID and Client Secret</h2>
-            <p>Please enter your client ID and client secret.</p>
-            <p>To retrieve them:</p>
-            <ol>
-                <li>In your Campaign Monitor account, select <strong>App Store</strong> tab in the top navigation.
-                If you don't see it, you are using the multi-client edition of Campaign Monitor, and will need to select a client first. </li>
-            <li>
-                In the "OAuth Registrations" section, find Wordpress, then select <strong>View</strong> next to the Wordpress icon.
-            </li>
-                <li>
-                    Copy paste the client ID and client secret into the fields below, then select <strong>Save Changes.</strong>
-                </li>
-            </ol>
-                    <form action="<?php echo get_admin_url(); ?>admin-post.php" method="post">
-                        <input type="hidden" name="action" value="handle_cm_form_request">
-                        <input type="hidden" name="data[type]" value="save_settings">
-                        <input type="hidden" name="data[app_nonce]" value="<?php echo wp_create_nonce( 'app_nonce' ); ?>">
-                        <table class="form-table cm-settings-fields">
-                            <tbody><tr>
-                                <th><label for="client_id">Client ID</label></th>
-                                <td>
-                                    <input type="text" class="regular-text" value="<?php echo filter_var($clientId, FILTER_SANITIZE_STRING); ?>" id="client_id" name="client_id" <?php echo $connected ? 'disabled' : ''?>>
-                                    <br>
-                                    <span class="description"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th><label for="client_secrect">Client Secret</label></th>
-                                <td>
-                                    <input type="text" class="regular-text" value="<?php echo filter_var($clientSecret, FILTER_SANITIZE_STRING); ?>" id="client_secret" name="client_secret" <?php echo $connected ? 'disabled' : ''?>>
-                                    <br>
-                                    <span class="description"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th><label for="client_secrect">Google ReCaptcha Site Key</label></th>
-                                <td>
-                                    <input type="text" class="regular-text" value="<?php echo filter_var($recaptchaPublic, FILTER_SANITIZE_STRING); ?>" id="recaptcha_public" name="recaptcha_public">
-                                    <br>
-                                    <span class="description">
+                                </span>
+                            </td>
+                        </tr>                            <tr>
+                            <th><label for="client_secrect">Google ReCaptcha Secret Key</label></th>
+                            <td>
+                                <input type="text" class="regular-text" value="<?php echo filter_var($recaptchaKey, FILTER_SANITIZE_STRING); ?>" id="recaptcha_key" name="recaptcha_key">
+                                <br>
+                                <span class="description">
+                                    reCAPTCHA is a free service that protects your site from spam and abuse.<br>
+                                    It uses advanced risk analysis techniques to tell humans and bots apart.<br>
+                                    With the new API, a significant number of your valid human users will pass the<br>
+                                    reCAPTCHA challenge without having to solve a CAPTCHA. reCAPTCHA comes in<br>
+                                    the form of a widget that you can easily add to your blog, forum, registration form, etc.
+                                    <a href="http://www.google.com/recaptcha/admin" target="_blank">
+                                        GET STARTED
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="debug_switch">Debug Mode</label></th>
+                            <td>
+                                <select  class="regular-text" style="width: 25em;" id="debug_switch" name="debug_switch">
+                                    <option value="0">No</option>
+                                    <option value="1" <?php echo $debugMode ? 'selected' : ''; ?>>Yes</option>
+                                </select>
+                                <span class="description">
 
-                                    </span>
-                                </td>
-                            </tr>                            <tr>
-                                <th><label for="client_secrect">Google ReCaptcha Secret Key</label></th>
-                                <td>
-                                    <input type="text" class="regular-text" value="<?php echo filter_var($recaptchaKey, FILTER_SANITIZE_STRING); ?>" id="recaptcha_key" name="recaptcha_key">
-                                    <br>
-                                    <span class="description">
-                                        reCAPTCHA is a free service that protects your site from spam and abuse.<br>
-                                        It uses advanced risk analysis techniques to tell humans and bots apart.<br>
-                                        With the new API, a significant number of your valid human users will pass the<br>
-                                        reCAPTCHA challenge without having to solve a CAPTCHA. reCAPTCHA comes in<br>
-                                        the form of a widget that you can easily add to your blog, forum, registration form, etc.
-                                        <a href="http://www.google.com/recaptcha/admin" target="_blank">
-                                          GET STARTED
-                                        </a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th><label for="debug_switch">Debug Mode</label></th>
-                                <td>
-                                    <select  class="regular-text" style="width: 25em;" id="debug_switch" name="debug_switch">
-                                        <option value="0">No</option>
-                                        <option value="1" <?php echo $debugMode ? 'selected' : ''; ?>>Yes</option>
-                                    </select>
-                                    <span class="description">
+                                </span>
+                            </td>
+                        </tr>
+                        </tbody>
 
-                                    </span>
-                                </td>
-                            </tr>
-                            </tbody>
+                    </table>
 
-                        </table>
+                    <button id="btnSaveSettings" type="submit" class="button button-primary regular-text ltr">
+                        Save Changes
+                    </button>
+                    <button id="btnLogOut" type="submit" name="disconnect" value="true"  class="button button-secondary regular-text ltr">
+                        Disconnect Account
+                    </button>
 
-                        <button id="btnSaveSettings" type="submit" class="button button-primary regular-text ltr">
-                            Save Changes
-                        </button>
-                        <button id="btnLogOut" type="submit" name="disconnect" value="true"  class="button button-secondary regular-text ltr">
-                            Disconnect Account
-                        </button>
-
-                    </form>
+                </form>
 
             <!-- Debug Information-->
                 <?php if ($debugMode) : ?>
