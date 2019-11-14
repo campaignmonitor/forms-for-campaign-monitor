@@ -3,6 +3,7 @@ Contributors: vibhorchhabra
 Donate link: N/A
 Tags: Campaign Monitor, Email Marketing, Sign-Up Forms, Sign Up Forms
 Requires at least: 3.9
+Requires PHP: 5.3
 Tested up to: 5.3
 Stable tag: 2.8.2
 License: GPLv2 or later
