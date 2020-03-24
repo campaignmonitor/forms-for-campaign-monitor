@@ -73,7 +73,7 @@
 
 .cmApp_signupContainer .cmApp_processing #cmApp_thankYouCheck img
 {
-    margin: 1px auto 1px;
+    display: inline;
 }
 
 .hidden {
