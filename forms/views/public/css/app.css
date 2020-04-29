@@ -70,8 +70,7 @@
     visibility: visible;
 }
 
-.cmApp_signupContainer .cmApp_processing #cmApp_thankYouCheck img
-{
+.cmApp_signupContainer .cmApp_processing #cmApp_thankYouCheck img {
     display: inline;
 }
 
