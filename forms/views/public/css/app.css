@@ -98,7 +98,7 @@
 }
 
 .cmApp_bar #cmApp_statusContainer p {
-    margin-bottom: 0;
+    margin: 0;
 }
 
 .cmApp_bar .cmApp_formInput label,
