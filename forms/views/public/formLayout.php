@@ -157,7 +157,7 @@ if (is_null($form))
 
 
                         if (!empty( $current_url )) {
-                            if (strpos($pageUrl, $current_url) !== False){
+                            if ($pageUrl === $current_url){
                                 $addThisPage = true;
 
                             }
