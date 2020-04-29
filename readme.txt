@@ -63,6 +63,9 @@ When we launched 2.0, we improved how our plugin saves forms in the WordPress da
 
 == Changelog ==
 
+= 2.8.3 =
+* Fix where form is targetting more than specified page(s).
+
 = 2.8.2 =
 * Further improvements to address connectivity issues.
 * Minor UI changes for WordPress 5.3.
