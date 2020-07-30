@@ -363,12 +363,12 @@ $campaignMonitor(function ($v) {
             var selects =$v('.ab-test-edit select');
 
 
-            if (testTitle.attr('value').length === 0) {
+            if (testTitle.val().length === 0) {
                 e.preventDefault();
                 testTitle.css('outline', '1px solid #d81818');
                 testTitle.attr('placeholder', 'required');
                 testTitle.focus();
-
+                return;
             }
 
             var values = [];
