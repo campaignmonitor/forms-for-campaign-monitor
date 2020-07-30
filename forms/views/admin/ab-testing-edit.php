@@ -169,7 +169,7 @@ $pages = Helper::getPages();
                             <tbody><tr>
                                 <th><label for="test_title"><?php _e('A/B Test Title'); ?></label></th>
                                 <td>
-                                    <input type="text" class="regular-text" id="testTitle" name="test_title">
+                                    <input type="text" class="regular-text" value="" id="testTitle" name="test_title">
                                     <br>
                                     <span class="description"></span>
                                 </td>
