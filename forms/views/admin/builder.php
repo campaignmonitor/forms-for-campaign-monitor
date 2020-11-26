@@ -2474,7 +2474,7 @@ if ($isUpdated)
                         }
                         ?>';
                     str+="</select></div>";
-                    str+="<div id=\"customFieldOptionCon\" style=\"display:none;padding:5px 0;\">Field Options (One Per Line)<br /><textarea name=\"customFieldOptions\" id=\"customFieldOptions\" style=\"width:100%;height:85px;\" maxlength=\"500\" /></div>";
+                    str+="<div id=\"customFieldOptionCon\" style=\"display:none;padding:5px 0;\">Field Options (One Per Line)<br /><textarea name=\"customFieldOptions\" id=\"customFieldOptions\" style=\"width:100%;height:85px;\" maxlength=\"500\"></textarea></div>";
                     str+="<div style='padding:8px 0;display:none;' id=\"customFieldShowLabelCon\"><input type=\"checkbox\" name=\"customFieldShowLabel\" id=\"customFieldShowLabel\" class=\"customFieldShowLabel\" /> <label for=\"customFieldShowLabel\">Show Label</label></div>";
                     str+="<div style='padding:8px 0;'><input type=\"checkbox\" name=\"customFieldRequired\" id=\"customFieldRequired\" class=\"customFieldRequired\" /> <label for=\"customFieldRequired\">Required</label></div>";
                     str+="</form>";
