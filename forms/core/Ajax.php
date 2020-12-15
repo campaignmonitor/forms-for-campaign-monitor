@@ -126,12 +126,12 @@ abstract class Ajax
 		$customFieldAr = array();
 		$formToProcess = Form::getOne( $formId );
 
-		// campaign monitor default list id
-		$listId = $formToProcess->getCampaignMonitorListId();
-
-		if (count( $formToProcess ) < 1) {
+		if (is_null($formToProcess)) {
 			die( "code:102" );
 		}
+
+		// campaign monitor default list id
+		$listId = $formToProcess->getCampaignMonitorListId();
 
 		$needSecurityCheck = $formToProcess->getHasCaptcha() && Security::canUseCaptcha();
 
