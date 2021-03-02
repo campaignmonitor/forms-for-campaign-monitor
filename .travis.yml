@@ -1,5 +1,5 @@
 sudo: false
-dist: xenial
+dist: trusty
 
 language: php
 
@@ -17,9 +17,7 @@ cache:
     - $HOME/.composer/cache
 
 matrix:
-  include:
-    - php: 8.0
-      env: WP_VERSION=latest    
+  include:  
     - php: 7.4
       env: WP_VERSION=latest
     - php: 7.3
