@@ -607,7 +607,7 @@ isJqueryReady(function($jqueryInstance) {
                 });
             });
 
-            $jqueryInstance(window).resize(function () {
+            $jqueryInstance(window).on('resize', function () {
                 cmPreviewFormHeightUpdate();
             });
 
