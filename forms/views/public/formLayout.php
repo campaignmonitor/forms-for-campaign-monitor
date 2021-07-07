@@ -1173,7 +1173,6 @@ if (!is_null($form))
             background-color:#0000FF;
             color:#FFF;
             padding:2px 10px;
-            margin-top: 0;
         }
 
         #cmApp_signupForm  .cmApp_logo {
