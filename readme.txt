@@ -65,6 +65,7 @@ When we launched 2.0, we improved how our plugin saves forms in the WordPress da
 
 = 2.8.8 =
 * Minor fixes for Wordpress 5.8.
+* Minor fixes in handling some JQuery deprecation
 
 = 2.8.7 =
 * Minor fixes for PHP 8.

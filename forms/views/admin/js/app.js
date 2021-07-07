@@ -317,7 +317,7 @@ var $campaignMonitor = jQuery.noConflict();
 })($campaignMonitor);
 
 $campaignMonitor(function ($v) {
-       $v('#textFont').fontselect().change(function(){
+       $v('#textFont').fontselect().on('change', function(){
                 // replace + signs with spaces for css
                 var font =$v(this).val().replace(/\+/g, ' ');
 
@@ -343,13 +343,13 @@ $campaignMonitor(function ($v) {
         alert('Please update form to apply changes');
     });
 
-       $v( window ).resize(function() {
+       $v( window ).on('resize', function() {
             cmPreviewFormHeightUpdate();
         });
 
         cmPreviewFormHeightUpdate();
 
-       $v('#refreshCampaignMonitorList').click(function(e){
+       $v('#refreshCampaignMonitorList').on('click', function(e){
             e.preventDefault();
             populateListDropdown();
         });
@@ -481,15 +481,13 @@ $campaignMonitor(function ($v) {
 
         });
 
-       $v('#campaignMonitorListId').change(function () {
-
+       $v('#campaignMonitorListId').on('change', function () {
             populateCustomFieldList();
-
         }); /**/
 
        $v('#campaignMonitorListId').trigger('change');
 
-       $v('#addNewFieldButton').click(function (e) {
+       $v('#addNewFieldButton').on('click', function (e) {
 
             var selectedList =$v('#campaignMonitorListId').val();
             var selectedClient =$v('#campaignMonitorClientId').val();
