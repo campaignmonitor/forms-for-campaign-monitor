@@ -1149,6 +1149,7 @@ if (!is_null($form))
             display: inline-block;
             margin: 0;
             list-style: none;
+            padding-left: 0;
         }
 
         .cmApp_signupContainer #cmApp_signupForm ul li {

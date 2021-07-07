@@ -4,8 +4,8 @@ Donate link: N/A
 Tags: Campaign Monitor, Email Marketing, Sign-Up Forms, Sign Up Forms
 Requires at least: 3.9
 Requires PHP: 5.3
-Tested up to: 5.7
-Stable tag: 2.8.7
+Tested up to: 5.8
+Stable tag: 2.8.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,7 +63,8 @@ When we launched 2.0, we improved how our plugin saves forms in the WordPress da
 
 == Changelog ==
 
-= Next version
+= 2.8.8 =
+* Minor fixes for Wordpress 5.8.
 * Minor fixes in handling some JQuery deprecation
 
 = 2.8.7 =
