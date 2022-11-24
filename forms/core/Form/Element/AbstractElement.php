@@ -64,7 +64,9 @@ abstract class AbstractElement
             $this->getForm()->addElementToCollection($element);
         }
 
-        parent::addElement($element, $after);
+        // Commenting the following line as "parent keyword without parent class" is deprecated in PHP 7.4
+        // This method doesn't seem to be used anyway and currently throwing an error due to wordpress custom hook script
+        // parent::addElement($element, $after);
         return $this;
     }
 
@@ -169,7 +171,10 @@ abstract class AbstractElement
     public function removeField($elementId)
     {
         $this->getForm()->removeField($elementId);
-        return parent::removeField($elementId);
+
+        // Commenting the following line as "parent keyword without parent class" is deprecated in PHP 7.4
+        // This method doesn't seem to be used anyway and currently throwing an error due to wordpress custom hook script
+        // return parent::removeField($elementId);
     }
 
     /**
@@ -442,7 +447,10 @@ abstract class AbstractElement
         } else {
             unset($this->_data['checked']);
         }
-        return parent::serialize($attributes, $valueSeparator, $fieldSeparator, $quote);
+
+        // Commenting the following line as "parent keyword without parent class" is deprecated in PHP 7.4
+        // This method doesn't seem to be used anyway and currently throwing an error due to wordpress custom hook script
+        // return parent::serialize($attributes, $valueSeparator, $fieldSeparator, $quote);
     }
 
     /**
