@@ -64,7 +64,9 @@ abstract class AbstractElement
             $this->getForm()->addElementToCollection($element);
         }
 
-        parent::addElement($element, $after);
+        // Commenting the following line as "parent keyword without parent class" is deprecated in PHP 7.4
+        // This method doesn't seem to be used anyway and currently throwing an error due to wordpress custom hook script
+        // parent::addElement($element, $after);
         return $this;
     }
 
