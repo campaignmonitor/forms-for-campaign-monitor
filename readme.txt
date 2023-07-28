@@ -4,8 +4,8 @@ Donate link: N/A
 Tags: Campaign Monitor, Email Marketing, Sign-Up Forms, Sign Up Forms
 Requires at least: 3.9
 Requires PHP: 5.3
-Tested up to: 6.2
-Stable tag: 2.8.11
+Tested up to: 6.3
+Stable tag: 2.8.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,9 +13,9 @@ Make it easy for customers to subscribe to your Campaign Monitor mailing lists u
 
 == Description ==
 Campaign Monitor for Wordpress allows your visitors to sign up to lists in your [campaignmonitor.com](https://www.campaignmonitor.com?utm_source=wordpress-plugin&utm_medium=referral) account, so you can create, send and measure the impact of your email marketing campaigns.
- 
+
 With our plugin, you can create and customize subscribe forms from your WordPress dashboard, decide when and where to show them, and A/B test which one attracts more subscribers.
- 
+
 * Slide-Out — Position a floating tab at the top, bottom, left or right of the screen. Clicking it will slide out a subscribe form.
 * Lightbox — Overlay a subscribe form while dimming the background of the site. You can show it immediately, after a specific amount of time, or after a user has scrolled a specific amount of pixels or percentage of the page.
 * Bar — A strap along the top or bottom of a page, that contains all the fields needed to sign up.
@@ -32,18 +32,18 @@ Campaign Monitor makes it radically easy to create, send and measure the impact 
 4. In the sidebar, click “Subscribe forms” and then “Connect”.
 5. Follow the steps and connect it to your Campaign Monitor account.
 6. Once connected, you will return to our plugin settings page. We recommend you setting up reCAPTCHA to protect your lists against spambots (abusive computer programs that sign up a large number of real or fake email addresses). Please note that our plugin currently supports reCAPTCHA v2.
- 
+
 = Updating from 2.7+ to 2.8 =
 PHP 7 introduced connectivity issues between our plugin and Campaign Monitor. Follow these steps to solve this problem:
- 
+
 1. Log in to your WordPress Admin and go to the Plugins section.
 2. Update our plugin from your list of pending updates.
 3. In the sidebar, click “Campaign Monitor / Settings” and then “Disconnect”.
 4. **Connect it again to your Campaign Monitor account**.
- 
+
 = Updating from 1.x to 2.7+ =
 When we launched 2.0, we improved how our plugin saves forms in the WordPress database, but the ability to upgrade the database was last available in 2.6. Follow these steps to update:
- 
+
 1. Log in to your WordPress Admin and disable the 1.x version of our plugin.
 2. [Download the 2.6.2 version](https://wordpress.org/plugins/forms-for-campaign-monitor/advanced/) to your computer.
 3. Go back to the Plugins section of your WordPress Admin, click “Add New” and then “Upload Plugin”. Select the file you downloaded in the previous step, click “Install Now” and activate the plugin.
@@ -62,6 +62,8 @@ When we launched 2.0, we improved how our plugin saves forms in the WordPress da
 7. Easy to add a new form. Just select the form type, choose the Campaign Monitor List where  data will be collected, and you are done.
 
 == Changelog ==
+= 2.8.12 =
+
 = 2.8.11 =
 
 = 2.8.10 =
@@ -98,7 +100,7 @@ When we launched 2.0, we improved how our plugin saves forms in the WordPress da
 
 = 2.8.0 =
 * Addressed connection issues with PHP7
-* Support for WordPress 5.2.2 
+* Support for WordPress 5.2.2
 * Minor issue fixes
 
 = 2.7.0 =
