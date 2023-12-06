@@ -76,10 +76,10 @@ if (!empty( $notices )) {
 
     $html = '<div id="message" class="notice-success notice is-dismissible">';
     $html .= '<h2>';
-    $html .= $notices['title'];
+    $html .= htmlspecialchars($notices['title']);
     $html .= '</h2>';
     $html .= '<p>';
-    $html .=  $notices['description'];
+    $html .=  htmlspecialchars($notices['description']);
     $html .= '</p>';
     $html .= '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>';
     $html .= '</div><!-- .updated -->';

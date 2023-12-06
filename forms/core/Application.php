@@ -119,7 +119,7 @@ class Application
             $html = '<div class="wrap">';
             $html .= '<h1>Campaign Monitor</h1>';
             $html .= '<div  id="error" class="error">';
-            $html .= $error;
+            $html .= htmlspecialchars($error);
             $html .= '</div><!-- end error-->';
             $html .= '</div><!-- end wrap-->';
 
