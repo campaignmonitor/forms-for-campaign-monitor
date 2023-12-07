@@ -77,7 +77,7 @@ if (!empty( $notices )) {
                         <tbody><tr>
                             <th><label for="client_id">Client ID</label></th>
                             <td>
-                                <input type="text" class="regular-text" value="<?php echo filter_var($clientId, FILTER_SANITIZE_STRING); ?>" id="client_id" name="client_id" <?php echo $connected ? 'disabled' : ''?>>
+                                <input type="text" class="regular-text" value="<?php echo htmlspecialchars($clientId); ?>" id="client_id" name="client_id" <?php echo $connected ? 'disabled' : ''?>>
                                 <br>
                                 <span class="description"></span>
                             </td>
@@ -85,7 +85,7 @@ if (!empty( $notices )) {
                         <tr>
                             <th><label for="client_secrect">Client Secret</label></th>
                             <td>
-                                <input type="text" class="regular-text" value="<?php echo filter_var($clientSecret, FILTER_SANITIZE_STRING); ?>" id="client_secret" name="client_secret" <?php echo $connected ? 'disabled' : ''?>>
+                                <input type="text" class="regular-text" value="<?php echo htmlspecialchars($clientSecret); ?>" id="client_secret" name="client_secret" <?php echo $connected ? 'disabled' : ''?>>
                                 <br>
                                 <span class="description"></span>
                             </td>
@@ -93,7 +93,7 @@ if (!empty( $notices )) {
                         <tr>
                             <th><label for="client_secrect">Google ReCaptcha Site Key</label></th>
                             <td>
-                                <input type="text" class="regular-text" value="<?php echo filter_var($recaptchaPublic, FILTER_SANITIZE_STRING); ?>" id="recaptcha_public" name="recaptcha_public">
+                                <input type="text" class="regular-text" value="<?php echo htmlspecialchars($recaptchaPublic); ?>" id="recaptcha_public" name="recaptcha_public">
                                 <br>
                                 <span class="description">
 
@@ -102,7 +102,7 @@ if (!empty( $notices )) {
                         </tr>                            <tr>
                             <th><label for="client_secrect">Google ReCaptcha Secret Key</label></th>
                             <td>
-                                <input type="text" class="regular-text" value="<?php echo filter_var($recaptchaKey, FILTER_SANITIZE_STRING); ?>" id="recaptcha_key" name="recaptcha_key">
+                                <input type="text" class="regular-text" value="<?php echo htmlspecialchars($recaptchaKey); ?>" id="recaptcha_key" name="recaptcha_key">
                                 <br>
                                 <span class="description">
                                     reCAPTCHA is a free service that protects your site from spam and abuse.<br>
