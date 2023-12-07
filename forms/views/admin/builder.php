@@ -5,6 +5,7 @@ use \forms\core\Log;
 use \forms\core\Settings;
 use \forms\core\FormType;
 use \forms\core\HtmlFields as Field;
+use \forms\core\Security;
 
 
 $this->sanitize();
@@ -100,14 +101,14 @@ $openTextFieldLabel = $form->getOpenTextFieldLabel();
 $hasGenderField = $form->getHasGenderField();
 $hasCampMonLogo = $form->getHasCampMonLogo();
 $submitButtonBgHex = $form->getSubmitButtonBgHex();
-$submitButtonBgHex = str_replace( '#', '', htmlspecialchars($submitButtonBgHex));
+$submitButtonBgHex = str_replace( '#', '', Security::sanitize($submitButtonBgHex));
 
 $submitButtonTextHex = $form->getSubmitButtonTextHex();
-$submitButtonTextHex = str_replace( '#', '', htmlspecialchars($submitButtonTextHex));
+$submitButtonTextHex = str_replace( '#', '', Security::sanitize($submitButtonTextHex));
 $backgroundHex = $form->getBackgroundHex();
-$backgroundHex = str_replace( '#', '', htmlspecialchars($backgroundHex));
+$backgroundHex = str_replace( '#', '', Security::sanitize($backgroundHex));
 $textHex = $form->getTextHex();
-$textHex = str_replace( '#', '', htmlspecialchars($textHex));
+$textHex = str_replace( '#', '', Security::sanitize($textHex));
 $submitButtonText = $form->getSubmitButtonText();
 $formEmbedCode = $form->getFormEmbedCode();
 $isActive = $form->getIsActive();
@@ -212,14 +213,14 @@ if ($isUpdated)
                     <form id="signupFormForm" action="<?php echo get_admin_url(); ?>admin-post.php" method="post">
                         <input type="hidden" name="action" value="handle_cm_form_request">
                         <input type="hidden" name="data[type]" value="save">
-                        <input type="hidden" name="formId" value="<?php echo htmlspecialchars($id); ?>">
+                        <input type="hidden" name="formId" value="<?php echo Security::sanitize($id); ?>">
                         <input type="hidden" name="createDate" value="<?php echo htmlDecodeEncode($createDate); ?>">
                         <input type="hidden" name="data[app_nonce]" value="<?php echo wp_create_nonce( 'app_nonce' ); ?>">
 
                         <div><label>Form name</label><?php echo Field::text('formName',htmlDecodeEncode($name), 'id="formName" maxlength="255"'); ?></div>
 
                         <div><label>Client</label><?php
-                            echo Field::select('campaignMonitorClientId',$campaignMonitorClientAr, htmlspecialchars($campaignMonitorClientId),'id="campaignMonitorClientId" class="postAjax"');
+                            echo Field::select('campaignMonitorClientId',$campaignMonitorClientAr, Security::sanitize($campaignMonitorClientId),'id="campaignMonitorClientId" class="postAjax"');
                             ?></div>
 
                         <div id="campaignMonitorListIdCon" style="display:none;"><label>List &nbsp; <span style="float:right;">
@@ -230,7 +231,7 @@ if ($isUpdated)
 
 
                             echo Field::select('campaignMonitorListId',array(), "", 'id="campaignMonitorListId"');
-                            echo Field::hidden('campaignMonitorListIdCurrent', htmlspecialchars($campaignMonitorListId),'id="campaignMonitorListIdCurrent"');
+                            echo Field::hidden('campaignMonitorListIdCurrent', Security::sanitize($campaignMonitorListId),'id="campaignMonitorListIdCurrent"');
                             ?></div>
                         <div id="campaignMonitorListUpdateMessage" style="display:none;"><em>Updating Lists...</em></div>
 
@@ -263,7 +264,7 @@ if ($isUpdated)
                         </div>
                         <div></div>
 
-                        <div><label>Form type</label><div><?php echo Field::select("formType",$typeAr, htmlspecialchars($type), 'id="formType"'); ?></div></div>
+                        <div><label>Form type</label><div><?php echo Field::select("formType",$typeAr, Security::sanitize($type), 'id="formType"'); ?></div></div>
 
                         <div><label>Page(s) this form appears on</label><div class="newPageInputCon">
                                 <?php
@@ -398,10 +399,10 @@ if ($isUpdated)
                         <div id="formAppearsLightboxCon"><label>Form appears</label>
                             <div><input type="radio" name="formAppearsLightbox" class="styledRadio" id="formAppearsLightboxSeconds" value="seconds"<?php if ($formAppearsLightbox=="seconds") {echo " checked=\"checked\"";} ?> />
                                 <label for="formAppearsLightboxSeconds" id="formAppearsLightboxSecondsLabel"><span><span></span></span>
-                                    After <?php echo Field::text("lightboxSeconds", htmlspecialchars($lightboxSeconds), 'id="lightboxSeconds" maxlength="3"'); ?> seconds</label></div>
+                                    After <?php echo Field::text("lightboxSeconds", Security::sanitize($lightboxSeconds), 'id="lightboxSeconds" maxlength="3"'); ?> seconds</label></div>
                             <div><input type="radio" name="formAppearsLightbox" class="styledRadio" id="formAppearsLightboxScroll" value="scroll"<?php if ($formAppearsLightbox=="scroll") {echo " checked=\"checked\"";} ?> />
                                 <label for="formAppearsLightboxScroll" id="formAppearsLightboxScrollLabel"><span><span></span></span>
-                                    After scrolling <?php echo Field::text("lightboxScrollPercent", htmlspecialchars($lightboxScrollPercent), 'id="lightboxScrollPercent"'); ?> %</label></div>
+                                    After scrolling <?php echo Field::text("lightboxScrollPercent", Security::sanitize($lightboxScrollPercent), 'id="lightboxScrollPercent"'); ?> %</label></div>
                         </div>
 
                         <div id="formPlacementCon"><label>Form slides out from</label>
@@ -414,7 +415,6 @@ if ($isUpdated)
                             <div><input type="radio" name="formPlacement" class="styledRadio" id="formPlacementBR" value="bottomRight"<?php if ($formPlacement=="bottomRight") {echo " checked=\"checked\"";} ?> />
                                 <label for="formPlacementBR"><span><span></span></span> Bottom right</label></div>
                         </div>
-
 
                         <div id="formPlacementBarCon"><label>Form slides out from</label>
                             <div><input type="radio" name="formPlacementBar" class="styledRadio" id="formPlacementBarTop" value="top"<?php if ($formPlacementBar=="top") {echo " checked=\"checked\"";} ?> />

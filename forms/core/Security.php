@@ -28,7 +28,7 @@ class Security
     }
     
     public static function sanitize($input){
-       return htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
+       return htmlspecialchars($input, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, 'UTF-8');
     }
 
     public static function canUseCaptcha(){

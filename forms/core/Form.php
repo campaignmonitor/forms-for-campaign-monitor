@@ -231,7 +231,7 @@ class Form
             $campaignMonitorClientAr = array();
             foreach ($clients as $client)
             {
-                $campaignMonitorClientAr[$client->ClientID] = htmlspecialchars($client->Name);
+                $campaignMonitorClientAr[$client->ClientID] = Security::sanitize($client->Name);
             }
         }
         $this->campaignMonitorClientAr = $campaignMonitorClientAr;

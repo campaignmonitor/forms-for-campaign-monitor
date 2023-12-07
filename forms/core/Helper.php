@@ -118,13 +118,13 @@ abstract class Helper {
         <div id="TB_window" class="thickbox-loading" style="visibility: visible" >
             <div id="TB_title">
             <div id="TB_ajaxWindowTitle">
-                '.htmlspecialchars($title).'
+                '.Security::sanitize($title).'
              </div>
              <div id="TB_closeAjaxWindow"><button type="button" id="TB_closeWindowButton">
                         <span class="screen-reader-text">Close</span><span class="tb-close-icon">
                         </span></button></div></div>
             <div id="TB_ajaxContent">
-            '.htmlspecialchars($body).'
+            '.Security::sanitize($body).'
             </div>
         </div>
         ';
