@@ -4,6 +4,7 @@ use forms\core\Settings;
 use forms\core\Options;
 use forms\core\Helper;
 use forms\core\Translator;
+use forms\core\Security;
 
 //\forms\core\Application::update();
 
@@ -22,10 +23,10 @@ if (!empty($error)) {
 
     $html = '<div id="message" class="notice-error notice is-dismissible">';
     $html .= '<h2>';
-    $html .= $error['title'];
+    $html .= Security::sanitize($error['title']);
     $html .= '</h2>';
     $html .= '<p>';
-    $html .=  $error['description'];
+    $html .=  Security::sanitize($error['description']);
     $html .= '</p>';
     $html .= '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>';
     $html .= '</div><!-- .updated -->';
@@ -37,10 +38,10 @@ $notices = \forms\core\Request::get( 'notice' );
 if (!empty( $notices )) {
     $html = '<div id="message" class="notice-success notice is-dismissible">';
     $html .= '<h2>';
-    $html .= $notices['title'];
+    $html .= Security::sanitize($notices['title']);
     $html .= '</h2>';
     $html .= '<p>';
-    $html .=  $notices['description'];
+    $html .=  Security::sanitize($notices['description']);
     $html .= '</p>';
     $html .= '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>';
     $html .= '</div><!-- .updated -->';
@@ -77,7 +78,7 @@ if (!empty( $notices )) {
                         <tbody><tr>
                             <th><label for="client_id">Client ID</label></th>
                             <td>
-                                <input type="text" class="regular-text" value="<?php echo filter_var($clientId, FILTER_SANITIZE_STRING); ?>" id="client_id" name="client_id" <?php echo $connected ? 'disabled' : ''?>>
+                                <input type="text" class="regular-text" value="<?php echo Security::sanitize($clientId); ?>" id="client_id" name="client_id" <?php echo $connected ? 'disabled' : ''?>>
                                 <br>
                                 <span class="description"></span>
                             </td>
@@ -85,7 +86,7 @@ if (!empty( $notices )) {
                         <tr>
                             <th><label for="client_secrect">Client Secret</label></th>
                             <td>
-                                <input type="text" class="regular-text" value="<?php echo filter_var($clientSecret, FILTER_SANITIZE_STRING); ?>" id="client_secret" name="client_secret" <?php echo $connected ? 'disabled' : ''?>>
+                                <input type="text" class="regular-text" value="<?php echo Security::sanitize($clientSecret); ?>" id="client_secret" name="client_secret" <?php echo $connected ? 'disabled' : ''?>>
                                 <br>
                                 <span class="description"></span>
                             </td>
@@ -93,7 +94,7 @@ if (!empty( $notices )) {
                         <tr>
                             <th><label for="client_secrect">Google ReCaptcha Site Key</label></th>
                             <td>
-                                <input type="text" class="regular-text" value="<?php echo filter_var($recaptchaPublic, FILTER_SANITIZE_STRING); ?>" id="recaptcha_public" name="recaptcha_public">
+                                <input type="text" class="regular-text" value="<?php echo Security::sanitize($recaptchaPublic); ?>" id="recaptcha_public" name="recaptcha_public">
                                 <br>
                                 <span class="description">
 
@@ -102,7 +103,7 @@ if (!empty( $notices )) {
                         </tr>                            <tr>
                             <th><label for="client_secrect">Google ReCaptcha Secret Key</label></th>
                             <td>
-                                <input type="text" class="regular-text" value="<?php echo filter_var($recaptchaKey, FILTER_SANITIZE_STRING); ?>" id="recaptcha_key" name="recaptcha_key">
+                                <input type="text" class="regular-text" value="<?php echo Security::sanitize($recaptchaKey); ?>" id="recaptcha_key" name="recaptcha_key">
                                 <br>
                                 <span class="description">
                                     reCAPTCHA is a free service that protects your site from spam and abuse.<br>

@@ -119,7 +119,7 @@ class Application
             $html = '<div class="wrap">';
             $html .= '<h1>Campaign Monitor</h1>';
             $html .= '<div  id="error" class="error">';
-            $html .= $error;
+            $html .= Security::sanitize($error);
             $html .= '</div><!-- end error-->';
             $html .= '</div><!-- end wrap-->';
 
@@ -615,7 +615,7 @@ class Application
         <div class="update-nag error is-dismissible notice">
             <p>
                 There seems to be a problem with your credentials please disconnect and reconnect your account on the
-                <a href="<?php echo  get_admin_url() . '/admin.php?page=campaign_monitor_settings_page&notice[description]='.filter_var($message,FILTER_SANITIZE_STRING).'&notice[title]=Notice!' ?>"> Campaign Monitor Settings </a> page
+                <a href="<?php echo  get_admin_url() . '/admin.php?page=campaign_monitor_settings_page&notice[description]='.Security::sanitize($message).'&notice[title]=Notice!' ?>"> Campaign Monitor Settings </a> page
             </p>
         </div>
         <?php

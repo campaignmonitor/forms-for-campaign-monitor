@@ -4,6 +4,7 @@ use forms\core\Helper;
 use forms\core\Request;
 use forms\core\Settings;
 use forms\core\FormType;
+use forms\core\Security;
 
 
 $appSettings  = Settings::get();
@@ -271,7 +272,7 @@ function htmlDecodeEncode($str)
                                                 <span class="edit">
                                                     <a href="<?php echo get_admin_url(); ?>admin.php?page=campaign_monitor_create_builder&formId=<?php echo urlencode($currentFormId); ?>" aria-label="Edit Form">Edit</a>
                                                      | </span><span class="trash">
-                                                    <a href="<?php echo get_admin_url(); ?>admin.php?page=campaign_monitor_create_builder&formId=<?php echo urlencode($form->getId()); ?>&amp;action=delete" data-id="submitdelete_<?php echo filter_var($currentFormId, FILTER_SANITIZE_STRING); ?>" class="submitdelete" aria-label="Move “Cart” to the Trash">Trash</a><?php /* |
+                                                    <a href="<?php echo get_admin_url(); ?>admin.php?page=campaign_monitor_create_builder&formId=<?php echo urlencode($form->getId()); ?>&amp;action=delete" data-id="submitdelete_<?php echo Security::sanitize($currentFormId); ?>" class="submitdelete" aria-label="Move “Cart” to the Trash">Trash</a><?php /* |
                                                 </span><span class="view"><a href="http://localhost/wp/cart/" rel="permalink" aria-label="View “Cart”">View</a>*/ ?>
                                                 </span></div><button type="button" class="toggle-row"><span class="screen-reader-text">Show more details</span></button></td>
                             <td class="status column-status" data-colname="Status"><?php

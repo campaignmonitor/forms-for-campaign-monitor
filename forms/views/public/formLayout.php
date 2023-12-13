@@ -1,10 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: SunriseIntegration5
- * Date: 11/14/2016
- * Time: 10:46 AM
- */
+
+use \forms\core\Security;
 
 $pageId=get_the_ID();
 $campaignMonitorViewedIds = "";
@@ -207,7 +203,7 @@ if (!is_null($form))
 
     $boxBgStyle = "";
     if (!empty($backgroundColorHex) && $formType !== 'embedded') {
-        $boxBgStyle = "background-color:#" . str_replace("#", "", filter_var($backgroundColorHex, FILTER_SANITIZE_STRING));
+        $boxBgStyle = "background-color:#" . str_replace("#", "", Security::sanitize($backgroundColorHex));
     }
 
     $submitButtonText = $form->getSubmitButtonText();
@@ -296,17 +292,17 @@ if (!is_null($form))
 
     ?>
     <div id="cmApp_modalBackground" class="cmApp_hidden"></div>
-    <div class="cmApp_signupContainer <?php echo $hasSubHeader?> cmApp_<?php echo filter_var($formType, FILTER_SANITIZE_STRING) ?> cmApp_hidden<?php echo $placementCssClasses; ?>" id="cmApp_signupContainer" style="<?php echo $boxBgStyle; ?>">
+    <div class="cmApp_signupContainer <?php echo $hasSubHeader?> cmApp_<?php echo htmlspecialchars($formType) ?> cmApp_hidden<?php echo $placementCssClasses; ?>" id="cmApp_signupContainer" style="<?php echo $boxBgStyle; ?>">
         <?php if ($formType !== 'embedded'): ?>
             <a class="cmApp_closeFormButton"></a>
         <?php endif; ?>
         <div class="cmApp_signupFormWrapper">
             <?php if ($formType == 'slideoutTab') { ?>
-                <div class="cmApp_slideOutTab" style="background-color:<?php echo filter_var($buttonColorHex, FILTER_SANITIZE_STRING); ?>;">
-                    <a href="javascript:void(0);" id="cmApp_slideoutButton" style="color:<?php echo filter_var($buttonTextColorHex, FILTER_SANITIZE_STRING); ?>;"><?php _e(htmlDecodeEncode($submitButtonText)); ?></a>
+                <div class="cmApp_slideOutTab" style="background-color:<?php echo Security::sanitize($buttonColorHex); ?>;">
+                    <a href="javascript:void(0);" id="cmApp_slideoutButton" style="color:<?php echo Security::sanitize($buttonTextColorHex); ?>;"><?php _e(htmlDecodeEncode($submitButtonText)); ?></a>
                 </div>
             <?php } ?>
-            <input type="hidden" id="cmApp_formType" value="<?php echo filter_var($formType, FILTER_SANITIZE_STRING); ?>" />
+            <input type="hidden" id="cmApp_formType" value="<?php echo Security::sanitize($formType); ?>" />
             <?php
             if (!empty($lightboxSeconds))        { ?><input type="hidden" id="lightboxSeconds" value="<?php echo intval($lightboxSeconds) ?>" /><?php }
             if (!empty($lightboxScrollPercent))  { ?><input type="hidden" id="lightboxScrollPercent" value="<?php echo intval($lightboxScrollPercent) ?>" /><?php }
@@ -333,10 +329,10 @@ if (!is_null($form))
                 <?php
                 if (!empty($formHeader)) { ?>
                     <div class="cmApp_formHeader"
-                         style="color:<?php echo filter_var($textHexColor, FILTER_SANITIZE_STRING); ?>"><?php _e(htmlDecodeEncode($formHeader)); ?></div><?php }
+                         style="color:<?php echo Security::sanitize($textHexColor); ?>"><?php _e(htmlDecodeEncode($formHeader)); ?></div><?php }
                 if (!empty($formSubHeader) && $formType !== 'bar') { ?>
                     <div class="cmApp_formSubHeader"
-                         style="color:<?php echo filter_var($textHexColor, FILTER_SANITIZE_STRING); ?>"><?php _e(htmlDecodeEncode($formSubHeader)); ?></div><?php }
+                         style="color:<?php echo Security::sanitize($textHexColor); ?>"><?php _e(htmlDecodeEncode($formSubHeader)); ?></div><?php }
                 ?>
 
                 <div class="cmApp_errorMsg" id="cmApp_errorAll"></div>
@@ -390,14 +386,14 @@ if (!is_null($form))
                         <div class="cmApp_signupGenderFields cmApp_cf cmApp_formInput">
                             <div class="cmApp_signupGenderFieldsContainer cmApp_cf">
                                 <input type="radio" name="gender" value="male" id="cmApp_radioMale" class="cmApp_styledRadio">
-                                <label for="cmApp_radioMale" style="color:<?php echo filter_var($textHexColor, FILTER_SANITIZE_STRING); ?>">
+                                <label for="cmApp_radioMale" style="color:<?php echo htmlspecialchars($textHexColor); ?>">
                                         <span>
                                             <span></span>
                                         </span>
                                     Male
                                 </label>
                                 <input type="radio" name="gender" value="female" class="cmApp_styledRadio" id="cmApp_radioFemale">
-                                <label for="cmApp_radioFemale" style="color:<?php echo filter_var($textHexColor, FILTER_SANITIZE_STRING); ?>">
+                                <label for="cmApp_radioFemale" style="color:<?php echo Security::sanitize($textHexColor); ?>">
                                         <span style="margin-left: 10px;">
                                             <span></span>
                                         </span>
@@ -433,7 +429,7 @@ if (!is_null($form))
                 <div>
                     <input type="submit" name="submit" value="<?php echo _e(htmlDecodeEncode($submitButtonText)); ?>"
                            class="cmApp_formSubmitButton post-ajax"
-                           style="background-color:<?php echo filter_var($buttonColorHex, FILTER_SANITIZE_STRING); ?>; color:<?php echo filter_var($buttonTextColorHex, FILTER_SANITIZE_STRING); ?>;" data-submit="">
+                           style="background-color:<?php echo Security::sanitize($buttonColorHex); ?>; color:<?php echo Security::sanitize($buttonTextColorHex); ?>;" data-submit="">
                 </div>
 
                 <?php if (!empty($hasCampMonLogo)) { ?>
@@ -884,7 +880,7 @@ if (!is_null($form))
             font-size: 16px;
             font-weight: normal;
             display: none;
-            color: <?php echo filter_var($textHexColor, FILTER_SANITIZE_STRING); ?>;
+            color: <?php echo Security::sanitize($textHexColor); ?>;
         }
 
         .cmApp_signupContainer div.cmApp_errorMsg {
@@ -1002,7 +998,7 @@ if (!is_null($form))
             font-size: 14px;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-weight: 400;
-            color: <?php echo filter_var($textHexColor, FILTER_SANITIZE_STRING); ?>;
+            color: <?php echo Security::sanitize($textHexColor); ?>;
             /*float: left;*/
             margin-left: 5px;
         }
@@ -1099,7 +1095,7 @@ if (!is_null($form))
 
         .cmApp_styledRadio:checked + label span:nth-child(1) span {
 
-            background: <?php echo filter_var($buttonColorHex, FILTER_SANITIZE_STRING); ?>;
+            background: <?php echo Security::sanitize($buttonColorHex); ?>;
             -webkit-transition: background-color 100ms linear, -webkit-transform 100ms linear;
             -moz-transition: background-color 100ms linear, -moz-transform 100ms linear;
             -o-transition: background-color 100ms linear, -o-transform 100ms linear;
@@ -1206,7 +1202,7 @@ if (!is_null($form))
         ?>
         <script>
 
-        cmApp_signup_writeCookie("campaignMonitorViewedIds", "<?php echo htmlspecialchars($updatedCampaignMonitorViewedIds); ?>");
+        cmApp_signup_writeCookie("campaignMonitorViewedIds", "<?php echo Security::sanitize($updatedCampaignMonitorViewedIds); ?>");
     </script>
         <?php
     }

@@ -9,7 +9,7 @@
   <script> 
         WebFont.load({
                     google: { 
-                           families: ['<?php echo filter_var($this->getName(), FILTER_SANITIZE_STRING); ?>'] 
+                           families: ['<?php echo htmlspecialchars($this->getName(), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, 'UTF-8'); ?>'] 
                      } 
          }); 
    </script>
@@ -17,6 +17,6 @@
     #cmApp_signupContainer *,
     #signupFormPreviewCon *,
     .cmApp_signupContainer.cmApp_slideoutTab .cmApp_slideOutTab #cmApp_slideoutButton {
-        font-family : '<?php echo filter_var($this->getName(), FILTER_SANITIZE_STRING); ?>';
+        font-family : '<?php echo htmlspecialchars($this->getName(), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, 'UTF-8'); ?>';
     }
    </style>

@@ -4,6 +4,7 @@ use forms\core\Request;
 use forms\core\FormType;
 use forms\core\ABTest;
 use forms\core\Helper;
+use forms\core\Security;
 
 /**
  * Delete item please see Application::abTesting();
@@ -86,7 +87,7 @@ $pages = Helper::getPages();
                     <input type="hidden" name="action" value="handle_cm_form_request">
                     <input type="hidden" name="data[type]" value="save_ab_test">
                     <input type="hidden" name="data[app_nonce]" value="<?php echo wp_create_nonce( 'app_nonce' ); ?>">
-                    <input type="hidden" name="test_id" value="<?php echo ($currentTest==null) ? "" : filter_var($currentTest->getId(), FILTER_SANITIZE_STRING); ?>" />
+                    <input type="hidden" name="test_id" value="<?php echo ($currentTest==null) ? "" : Security::sanitize($currentTest->getId()); ?>" />
 
                     <?Php if ($currentTest !== null ) : ?>
                         <lable>Test Title: </lable>
@@ -134,13 +135,13 @@ $pages = Helper::getPages();
                                             <span class="screen-reader-text">Show more details</span></button>
                                     </td>
                                     <td class="type column-type" data-colname="Type">
-                                        <?php echo filter_var($test->getImpressions(), FILTER_SANITIZE_STRING); ?>
+                                        <?php echo Security::sanitize(filter_var($test->getImpressions(), FILTER_SANITIZE_NUMBER_INT)); ?>
                                     </td>
                                     <td class="pages column-pages" data-colname="Type">
-                                        <?php echo filter_var($test->getSubmissions(), FILTER_SANITIZE_STRING);; ?>
+                                        <?php echo Security::sanitize(filter_var($test->getSubmissions(), FILTER_SANITIZE_NUMBER_INT)); ?>
                                     </td>
                                     <td class="pages column-pages" data-colname="Type">
-                                        <?php echo filter_var(round($test->getSubmissionRate(), 2) * 100, FILTER_SANITIZE_STRING); ?>%
+                                        <?php echo Security::sanitize(round(filter_var($test->getSubmissionRate(), FILTER_SANITIZE_NUMBER_INT), 2) * 100); ?>%
                                     </td>
                                 </tr>
                             <?php  endforeach; ?>
