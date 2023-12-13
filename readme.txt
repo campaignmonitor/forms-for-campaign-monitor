@@ -5,7 +5,7 @@ Tags: Campaign Monitor, Email Marketing, Sign-Up Forms, Sign Up Forms
 Requires at least: 3.9
 Requires PHP: 5.3
 Tested up to: 6.4
-Stable tag: 2.8.13
+Stable tag: 2.8.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,10 @@ When we launched 2.0, we improved how our plugin saves forms in the WordPress da
 7. Easy to add a new form. Just select the form type, choose the Campaign Monitor List where  data will be collected, and you are done.
 
 == Changelog ==
+= 2.8.14 =
+* Remove uses of FILTER_SANITIZE_STRING
+* Ensure all content displayed to users is sanitized
+
 = 2.8.13 =
 
 = 2.8.12 =
