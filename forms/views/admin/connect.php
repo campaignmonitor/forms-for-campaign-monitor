@@ -1,4 +1,5 @@
 <?php
+include_once dirname(__DIR__, 3) . '/security-check.php';
 
 use forms\core\Helper;
 use forms\core\Request;
