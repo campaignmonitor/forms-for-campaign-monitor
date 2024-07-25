@@ -1,8 +1,6 @@
 <?php
 if (!defined('ABSPATH')) {
     // Exit if accessed directly
+    http_response_code(403);
     exit;
 }
-
-// Do not display any error
-ini_set('display_errors', 0);
