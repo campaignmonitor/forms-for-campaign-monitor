@@ -1,4 +1,5 @@
 <?php
+include_once '../../../security-check.php';
 
 use forms\core\Request;
 use forms\core\FormType;

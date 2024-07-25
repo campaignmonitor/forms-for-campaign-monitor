@@ -1,4 +1,5 @@
 <?php
+include_once '../../../security-check.php';
 
 $version = '2.0';
 

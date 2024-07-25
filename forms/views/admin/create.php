@@ -1,14 +1,11 @@
 <?php
+include_once '../../../security-check.php';
 
 use forms\core\Helper;
 use forms\core\Request;
 use forms\core\Settings;
 use forms\core\Application;
 use \forms\core\FormType;
-
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 $imagesDirectory = Application::getPluginPath( 'forms/views/admin/images', true );
 
