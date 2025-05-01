@@ -541,7 +541,7 @@ isJqueryReady(function($jqueryInstance) {
             lightboxFieldElem.find("input").css("margin-left",0).css("margin-right",0);
         };
 
-        $jqueryInstance(window).on('load', function () {
+        $jqueryInstance(function () {
             $jqueryInstance(document).on('click', '.post-ajax', function (e) {
                 e.preventDefault();
 
