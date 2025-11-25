@@ -165,7 +165,7 @@ if ($isUpdated)
     <script type="text/javascript">
 
         if(typeof jQuery == 'undefined'){
-            document.write('<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></'+'script>');
+            document.write('<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></'+'script>');
         }
 
     </script>
@@ -2589,7 +2589,7 @@ if ($isUpdated)
                 var fromElem = $z('#signupFormForm');
 
                 // when elements are ready
-                $z(window).load(function () {
+                $z(window).on('load', function () {
 
                     fromElem.on('submit', function (e) {
                         return validate_signup_form_form();
@@ -2642,31 +2642,31 @@ if ($isUpdated)
                     });
                     formTypeUpdate();
 
-                    $z('#formEmbedCode').bind("focus click", function () {
+                    $z('#formEmbedCode').on("focus click", function () {
                         selectInputText(this);
                     });
 
-                    $z('#formAppearsLightboxScroll').bind("change", function () {
+                    $z('#formAppearsLightboxScroll').on("change", function () {
                         lighboxAppearsUpdate();
                     });
-                    $z('#formAppearsLightboxSeconds').bind("change", function () {
+                    $z('#formAppearsLightboxSeconds').on("change", function () {
                         lighboxAppearsUpdate();
                     });
 
-                    $z('#lightboxSeconds').bind("click focus", function () {
+                    $z('#lightboxSeconds').on("click focus", function () {
                         $z('#formAppearsLightboxSeconds').prop('checked', true);
                         lighboxAppearsUpdate();
                     });
-                    $z('#lightboxScrollPercent').bind("click focus", function () {
+                    $z('#lightboxScrollPercent').on("click focus", function () {
                         $z('#formAppearsLightboxScroll').prop('checked', true);
                         lighboxAppearsUpdate();
                     });
 
-                    $z('#formPlacementCon').find("input").bind("change", function () {
+                    $z('#formPlacementCon').find("input").on("change", function () {
                         formPositionUpdate();
                     });
 
-                    $z('#formPlacementBarCon').find("input").bind("change", function () {
+                    $z('#formPlacementBarCon').find("input").on("change", function () {
                         formPositionBarUpdate();
                     });
 
@@ -2684,7 +2684,7 @@ if ($isUpdated)
 
                     }
 
-                    $z("#lightboxScrollPercent").bind("change", function () {
+                    $z("#lightboxScrollPercent").on("change", function () {
                         var elem = $z(this);
                         elem.val(elem.val().replace("%", ""));
                     });

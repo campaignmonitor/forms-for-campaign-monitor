@@ -4,7 +4,7 @@ if(typeof jQuery === 'undefined'){
     var startingTime = new Date().getTime();
     // Load the script
     var script = document.createElement("SCRIPT");
-    script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js';
+    script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js';
     script.type = 'text/javascript';
     document.getElementsByTagName("head")[0].appendChild(script);
 }
@@ -345,7 +345,7 @@ isJqueryReady(function($jqueryInstance) {
                             }
                         }
 
-                        $jqueryInstance(document).bind("scroll", { percentScroll:percentScroll  }, function(event){
+                        $jqueryInstance(document).on("scroll", { percentScroll:percentScroll  }, function(event){
                             checkPageScroll(event.data.percentScroll);
                         });
                         //console.log("checkPageScroll("+percentScroll+")");
@@ -571,39 +571,39 @@ isJqueryReady(function($jqueryInstance) {
                     type: "POST",
                     url: ajax_request.ajax_url,
                     data: dataToSend,
-                    dataType: "text json",
-                    success: function (data, textStatus, request) {
+                    dataType: "json"
+                })
+                .done(function (data, textStatus, request) {
 
 
-                        var successMessage = $jqueryInstance('<p/>');
-                        successMessage.text('Thank You!');
+                    var successMessage = $jqueryInstance('<p/>');
+                    successMessage.text('Thank You!');
 
-                        if (typeof data.success_message != "undefined") {
-                            successMessage.css('white-space', 'normal');
-                            successMessage.text(data.success_message);
-                        }
-                        $jqueryInstance('#cmApp_thankYouCheck').show();
-                        $jqueryInstance('.cmApp_processingMsg').show().text('');
-                        $jqueryInstance('.cmApp_processingMsg').show().append(successMessage);
-                        $jqueryInstance('#cmApp_thankYouCheck').show();
-
-                    },
-                    error: function (request, textStatus, errorThrown) {
-
-                        if (request.responseText) {
-                            var errorMsg = request.responseText.replace("error:", "");
-                        }
-                        else {
-                            var errorMsg = "List Error. Email address not added.";
-                            console.log(request);
-                        }
-                        var signupContainerElem = $jqueryInstance("#cmApp_signupContainer");
-                        var formElem = signupContainerElem.find("form");
-                        var errorElem = $jqueryInstance("#cmApp_emailError");
-                        cmApp_hideProcessing();
-                        formElem.show();
-                        errorElem.html(errorMsg).slideDown(200);
+                    if (typeof data.success_message != "undefined") {
+                        successMessage.css('white-space', 'normal');
+                        successMessage.text(data.success_message);
                     }
+                    $jqueryInstance('#cmApp_thankYouCheck').show();
+                    $jqueryInstance('.cmApp_processingMsg').show().text('');
+                    $jqueryInstance('.cmApp_processingMsg').show().append(successMessage);
+                    $jqueryInstance('#cmApp_thankYouCheck').show();
+
+                })
+                .fail(function (request, textStatus, errorThrown) {
+
+                    if (request.responseText) {
+                        var errorMsg = request.responseText.replace("error:", "");
+                    }
+                    else {
+                        var errorMsg = "List Error. Email address not added.";
+                        console.log(request);
+                    }
+                    var signupContainerElem = $jqueryInstance("#cmApp_signupContainer");
+                    var formElem = signupContainerElem.find("form");
+                    var errorElem = $jqueryInstance("#cmApp_emailError");
+                    cmApp_hideProcessing();
+                    formElem.show();
+                    errorElem.html(errorMsg).slideDown(200);
                 });
             });
 
