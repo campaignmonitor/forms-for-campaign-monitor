@@ -14,7 +14,7 @@ class Application
      */
     public static $CampaignMonitor = null;
 
-    const VERSION = '2.5.6';
+    const VERSION = '2.9.0';
 
     public static $shortCodeId = '';
     /**
