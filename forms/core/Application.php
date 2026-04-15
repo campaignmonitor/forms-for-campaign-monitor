@@ -1003,7 +1003,7 @@ class Application
     public static function handleRequest()
     {
         if ( !current_user_can( 'manage_options' ) ) {
-            wp_die( 'Unauthorized', 403 );
+            wp_die( 'Unauthorized', '', array( 'response' => 403 ) );
         }
 
         status_header(200);

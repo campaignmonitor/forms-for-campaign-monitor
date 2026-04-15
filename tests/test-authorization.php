@@ -44,9 +44,9 @@ class TestAuthorization extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test that ajax_handler allows administrator users.
+	 * Test that administrator has manage_options capability required by ajax_handler.
 	 */
-	public function test_ajax_handler_allows_admin() {
+	public function test_admin_has_manage_options_for_ajax_handler() {
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $admin_id );
 
@@ -92,9 +92,9 @@ class TestAuthorization extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test that handleRequest allows administrator users.
+	 * Test that administrator has manage_options capability required by handleRequest.
 	 */
-	public function test_handleRequest_allows_admin() {
+	public function test_admin_has_manage_options_for_handleRequest() {
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $admin_id );
 

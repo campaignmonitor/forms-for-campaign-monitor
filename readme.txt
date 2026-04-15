@@ -63,7 +63,7 @@ When we launched 2.0, we improved how our plugin saves forms in the WordPress da
 
 == Changelog ==
 = 2.9.1 =
-* Support for Wordpress 6.9
+* Support for WordPress 6.9
 * Security hardening and access control enhancement
 
 = 2.9.0 =

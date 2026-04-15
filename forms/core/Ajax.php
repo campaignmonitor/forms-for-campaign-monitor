@@ -41,8 +41,7 @@ abstract class Ajax
 	public static function ajax_handler()
 	{
 		if ( !current_user_can( 'manage_options' ) ) {
-			status_header( 403 );
-			wp_die( 'Unauthorized' );
+			wp_die( 'Unauthorized', '', array( 'response' => 403 ) );
 		}
 
 		Application::refreshTokenIfNeeded();
