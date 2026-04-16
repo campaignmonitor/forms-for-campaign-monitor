@@ -14,7 +14,7 @@ class Application
      */
     public static $CampaignMonitor = null;
 
-    const VERSION = '2.9.0';
+    const VERSION = '2.9.1';
 
     public static $shortCodeId = '';
     /**
@@ -1002,6 +1002,9 @@ class Application
 
     public static function handleRequest()
     {
+        if ( !current_user_can( 'manage_options' ) ) {
+            wp_die( 'Unauthorized', '', array( 'response' => 403 ) );
+        }
 
         status_header(200);
         $data = Request::getPost('data');

@@ -40,6 +40,10 @@ abstract class Ajax
 
 	public static function ajax_handler()
 	{
+		if ( !current_user_can( 'manage_options' ) ) {
+			wp_die( 'Unauthorized', '', array( 'response' => 403 ) );
+		}
+
 		Application::refreshTokenIfNeeded();
 		// we could further optimize the plugin with one entry point for all ajax requests
 		
