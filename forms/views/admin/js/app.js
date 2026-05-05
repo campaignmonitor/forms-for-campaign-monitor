@@ -41,6 +41,7 @@ var $campaignMonitor = jQuery.noConflict();
 
         var dataToSend = {};
         dataToSend.action = action;
+        dataToSend.nonce = ajax_request.nonce;
         dataToSend.type = type;
         dataToSend.clientId = clientId;
 
@@ -172,6 +173,7 @@ var $campaignMonitor = jQuery.noConflict();
 
 
         dataToSend.action = 'handle_ajax_cm_forms';
+        dataToSend.nonce = ajax_request.nonce;
         dataToSend.type = 'get_custom_fields';
 
         $v.ajax({
@@ -459,6 +461,7 @@ $campaignMonitor(function ($v) {
             dataToSend.list_title =$v('#newListName').val();
             // ajaxCall('create_custom_list', dataToSend);
             dataToSend.action = 'handle_ajax_cm_forms';
+            dataToSend.nonce = ajax_request.nonce;
             dataToSend.type = 'create_custom_list';
             dataToSend.clientId =$v("#cliendId").val();
 

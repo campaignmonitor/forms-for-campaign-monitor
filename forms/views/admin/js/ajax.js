@@ -24,6 +24,7 @@ jQuery(document).ready(function($) {
 
         var dataToSend = {};
         dataToSend.action = 'handle_ajax_cm_forms';
+        dataToSend.nonce = ajax_request.nonce;
         dataToSend.type = type;
         dataToSend.clientId = $("#cliendId").val();
 
@@ -79,6 +80,7 @@ function ajaxCall(type, dataToSend, action) {
     action = action || 'handle_ajax_cm_forms';
 
     dataToSend.action = action;
+    dataToSend.nonce = ajax_request.nonce;
     dataToSend.type = type;
 
     var response = {};
