@@ -44,6 +44,8 @@ abstract class Ajax
 			wp_die( 'Unauthorized', '', array( 'response' => 403 ) );
 		}
 
+		check_ajax_referer( 'cm_forms_ajax', 'nonce' );
+
 		Application::refreshTokenIfNeeded();
 		// we could further optimize the plugin with one entry point for all ajax requests
 		

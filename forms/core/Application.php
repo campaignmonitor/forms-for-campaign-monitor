@@ -14,7 +14,7 @@ class Application
      */
     public static $CampaignMonitor = null;
 
-    const VERSION = '2.9.1';
+    const VERSION = '2.9.2';
 
     public static $shortCodeId = '';
     /**
@@ -971,7 +971,8 @@ class Application
             
             // in JavaScript, object properties are accessed as ajax_object.ajax_url, ajax_object.we_value
             wp_localize_script(Helper::tokenize('ajax-script'), 'ajax_request', array(
-                'ajax_url' => admin_url('admin-ajax.php')
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce'    => wp_create_nonce('cm_forms_ajax'),
             ));
         }
     }
