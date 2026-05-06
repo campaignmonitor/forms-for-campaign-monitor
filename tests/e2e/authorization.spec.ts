@@ -10,7 +10,7 @@ test.describe('Authorization - Admin (has manage_options)', () => {
     // Should not get a 403 or "Unauthorized"
     const content = await page.content();
     expect(content).not.toContain('Unauthorized');
-    expect(page.url()).toContain('campaign-monitor');
+    expect(page.url()).toContain('campaign_monitor');
   });
 
   test('admin can reach ajax_handler endpoint', async ({ page, request }) => {
