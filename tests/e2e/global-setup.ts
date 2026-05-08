@@ -1,5 +1,6 @@
 import { test as setup, expect } from '@playwright/test';
 import { execSync } from 'child_process';
+import { mkdirSync } from 'fs';
 
 const WP_URL = 'http://localhost:8080';
 const ADMIN_USER = 'admin';
@@ -28,7 +29,7 @@ setup('start docker and configure WordPress', async ({ request }) => {
   setup.setTimeout(180_000);
   // 1. Ensure Docker containers are running
   try {
-    execSync('docker compose ps --format json | grep -q wordpress', {
+    execSync('docker compose ps --status running --format json | grep -q wordpress', {
       cwd: process.cwd(),
       stdio: 'pipe',
     });
@@ -72,7 +73,8 @@ setup('start docker and configure WordPress', async ({ request }) => {
 
   // 4. Save admin auth state
   console.log('Saving admin auth state...');
-  const loginPage = await request.get(`${WP_URL}/wp-login.php`);
+  mkdirSync('./tests/e2e/.auth', { recursive: true });
+  await request.get(`${WP_URL}/wp-login.php`);
   const loginResponse = await request.post(`${WP_URL}/wp-login.php`, {
     form: {
       log: ADMIN_USER,
