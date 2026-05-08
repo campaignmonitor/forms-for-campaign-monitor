@@ -35,6 +35,7 @@ test.describe('Form Creation and Rendering', () => {
     await page.goto('/wp-admin/admin.php?page=campaign_monitor_create_builder');
 
     // Fill form name
+    await page.locator('#formName').waitFor({ state: 'visible', timeout: 60000 });
     await page.fill('#formName', 'e2e-test-form');
 
     // Select first available list from dropdown (first non-empty option)
@@ -104,6 +105,7 @@ test.describe('Form Creation and Rendering', () => {
     // 2. Create a new Bar form assigned to this page
     await page.goto('/wp-admin/admin.php?page=campaign_monitor_create_builder');
 
+    await page.locator('#formName').waitFor({ state: 'visible', timeout: 60000 });
     await page.fill('#formName', 'e2e-test-subscribe-form');
 
     const listDropdown = page.locator('#campaignMonitorListId');

@@ -42,6 +42,7 @@ test.describe('A/B Testing', () => {
   async function createForm(page: import('@playwright/test').Page, name: string, header: string, type: string = 'bar'): Promise<string> {
     await page.goto('/wp-admin/admin.php?page=campaign_monitor_create_builder');
 
+    await page.locator('#formName').waitFor({ state: 'visible', timeout: 60000 });
     await page.fill('#formName', name);
     await page.fill('#formHeader', header);
 
