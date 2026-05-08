@@ -7,6 +7,7 @@ export default defineConfig({
   testDir: './tests/e2e',
   timeout: 60_000,
   retries: 0,
+  reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: 'http://localhost:8080',
     extraHTTPHeaders: {

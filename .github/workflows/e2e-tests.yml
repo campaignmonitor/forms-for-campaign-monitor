@@ -33,11 +33,13 @@ jobs:
           for i in $(seq 1 30); do
             if curl -s http://localhost:8080 > /dev/null 2>&1; then
               echo "WordPress is ready"
-              break
+              exit 0
             fi
             echo "Waiting for WordPress... ($i/30)"
             sleep 2
           done
+          echo "WordPress failed to start within 60 seconds"
+          exit 1
 
       - name: Run E2E tests
         env:

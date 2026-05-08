@@ -47,10 +47,10 @@ npm run test:e2e:setup
 
 ## Test Accounts
 
-| User             | Password         | Role        |
-|------------------|------------------|-------------|
-| admin            | admin            | Administrator |
-| testsubscriber   | testsubscriber   | Subscriber  |
+| User           | Password       | Role          |
+|----------------|----------------|---------------|
+| admin          | admin          | Administrator |
+| testsubscriber | testsubscriber | Subscriber    |
 
 ## Test Structure
 

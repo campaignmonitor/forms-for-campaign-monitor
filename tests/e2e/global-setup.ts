@@ -44,19 +44,31 @@ setup('start docker and configure WordPress', async ({ request }) => {
 
   // 3. Install WordPress via WP-CLI in the container
   console.log('Installing WordPress...');
-  try {
-    execSync(
-      `docker compose exec -T wordpress bash -c "` +
-        `apt-get update -qq && apt-get install -y -qq less > /dev/null 2>&1; ` +
-        `curl -sO https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp; ` +
-        `wp core install --url='${WP_URL}' --title='Test Site' --admin_user='${ADMIN_USER}' --admin_password='${ADMIN_PASS}' --admin_email='admin@example.com' --skip-email --allow-root 2>/dev/null || true; ` +
-        `wp plugin activate forms-for-campaign-monitor --allow-root 2>/dev/null || true; ` +
-        `wp user create ${SUBSCRIBER_USER} subscriber@example.com --role=subscriber --user_pass=${SUBSCRIBER_PASS} --allow-root 2>/dev/null || true"`,
-      { cwd: process.cwd(), stdio: 'inherit', timeout: 120_000 }
-    );
-  } catch (e) {
-    console.log('WP setup command completed (some steps may have already been done)');
-  }
+  const dockerExec = (cmd: string) =>
+    execSync(`docker compose exec -T wordpress bash -c "${cmd}"`, {
+      cwd: process.cwd(), stdio: 'inherit', timeout: 120_000,
+    });
+
+  // Install system deps and WP-CLI
+  dockerExec(
+    `apt-get update -qq && apt-get install -y -qq less > /dev/null 2>&1; ` +
+    `test -f /usr/local/bin/wp || (curl -sO https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp)`
+  );
+
+  // Install WP core (idempotent)
+  dockerExec(
+    `wp core is-installed --allow-root 2>/dev/null || ` +
+    `wp core install --url='${WP_URL}' --title='Test Site' --admin_user='${ADMIN_USER}' --admin_password='${ADMIN_PASS}' --admin_email='admin@example.com' --skip-email --allow-root`
+  );
+
+  // Activate plugin (idempotent)
+  dockerExec(`wp plugin activate forms-for-campaign-monitor --allow-root 2>/dev/null || true`);
+
+  // Create subscriber user (idempotent)
+  dockerExec(
+    `wp user get ${SUBSCRIBER_USER} --allow-root 2>/dev/null || ` +
+    `wp user create ${SUBSCRIBER_USER} subscriber@example.com --role=subscriber --user_pass=${SUBSCRIBER_PASS} --allow-root`
+  );
 
   // 4. Save admin auth state
   console.log('Saving admin auth state...');
@@ -109,6 +121,11 @@ setup('start docker and configure WordPress', async ({ request }) => {
   })();
 
   if (!isConnected) {
+    if (!CM_CLIENT_ID || !CM_CLIENT_SECRET || !CM_EMAIL || !CM_PASSWORD) {
+      console.log('⚠ Skipping CM connection: CM_CLIENT_ID, CM_CLIENT_SECRET, CM_EMAIL, and CM_PASSWORD must be set');
+      console.log('Setup complete! (without CM connection)');
+      return;
+    }
     console.log('Connecting to Campaign Monitor via OAuth...');
     const { chromium } = await import('@playwright/test');
     const browser = await chromium.launch();
