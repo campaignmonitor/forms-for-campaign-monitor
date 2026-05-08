@@ -46,6 +46,19 @@ test.describe('Form Creation and Rendering', () => {
     await page.locator('#formName').waitFor({ state: 'visible', timeout: 60000 });
     await page.fill('#formName', 'e2e-test-form');
 
+    // Select first available client (triggers list dropdown to appear)
+    const clientDropdown = page.locator('#campaignMonitorClientId');
+    if (await clientDropdown.isVisible()) {
+      const clientOptions = await clientDropdown.locator('option').all();
+      for (const option of clientOptions) {
+        const value = await option.getAttribute('value');
+        if (value && value !== '') {
+          await clientDropdown.selectOption(value);
+          break;
+        }
+      }
+    }
+
     // Select first available list from dropdown (first non-empty option)
     const listDropdown = page.locator('#campaignMonitorListId');
     await listDropdown.waitFor({ state: 'visible', timeout: 60000 });
@@ -122,6 +135,19 @@ test.describe('Form Creation and Rendering', () => {
 
     await page.locator('#formName').waitFor({ state: 'visible', timeout: 60000 });
     await page.fill('#formName', 'e2e-test-subscribe-form');
+
+    // Select first available client (triggers list dropdown to appear)
+    const clientDropdown2 = page.locator('#campaignMonitorClientId');
+    if (await clientDropdown2.isVisible()) {
+      const clientOptions2 = await clientDropdown2.locator('option').all();
+      for (const option of clientOptions2) {
+        const value = await option.getAttribute('value');
+        if (value && value !== '') {
+          await clientDropdown2.selectOption(value);
+          break;
+        }
+      }
+    }
 
     const listDropdown = page.locator('#campaignMonitorListId');
     await listDropdown.waitFor();

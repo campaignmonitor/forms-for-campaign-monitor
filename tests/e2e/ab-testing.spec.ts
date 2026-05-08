@@ -54,6 +54,20 @@ test.describe('A/B Testing', () => {
     await page.fill('#formName', name);
     await page.fill('#formHeader', header);
 
+    // Select first available client (triggers list dropdown to appear)
+    const clientDropdown = page.locator('#campaignMonitorClientId');
+    if (await clientDropdown.isVisible()) {
+      await clientDropdown.waitFor({ state: 'visible', timeout: 30000 });
+      const clientOptions = await clientDropdown.locator('option').all();
+      for (const option of clientOptions) {
+        const value = await option.getAttribute('value');
+        if (value && value !== '') {
+          await clientDropdown.selectOption(value);
+          break;
+        }
+      }
+    }
+
     // Select first available list (may take time for CM API to respond)
     const listDropdown = page.locator('#campaignMonitorListId');
     await listDropdown.waitFor({ state: 'visible', timeout: 60000 });
