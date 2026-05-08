@@ -49,6 +49,8 @@ test.describe('Form Creation and Rendering', () => {
     // Select first available client (triggers list dropdown to appear)
     const clientDropdown = page.locator('#campaignMonitorClientId');
     if (await clientDropdown.isVisible()) {
+      // Wait for AJAX to populate client options
+      await clientDropdown.locator('option:not([value=""])').first().waitFor({ state: 'attached', timeout: 60000 });
       const clientOptions = await clientDropdown.locator('option').all();
       for (const option of clientOptions) {
         const value = await option.getAttribute('value');
@@ -139,6 +141,8 @@ test.describe('Form Creation and Rendering', () => {
     // Select first available client (triggers list dropdown to appear)
     const clientDropdown2 = page.locator('#campaignMonitorClientId');
     if (await clientDropdown2.isVisible()) {
+      // Wait for AJAX to populate client options
+      await clientDropdown2.locator('option:not([value=""])').first().waitFor({ state: 'attached', timeout: 60000 });
       const clientOptions2 = await clientDropdown2.locator('option').all();
       for (const option of clientOptions2) {
         const value = await option.getAttribute('value');

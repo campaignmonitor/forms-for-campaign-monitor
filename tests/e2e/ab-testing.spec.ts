@@ -57,7 +57,8 @@ test.describe('A/B Testing', () => {
     // Select first available client (triggers list dropdown to appear)
     const clientDropdown = page.locator('#campaignMonitorClientId');
     if (await clientDropdown.isVisible()) {
-      await clientDropdown.waitFor({ state: 'visible', timeout: 30000 });
+      // Wait for AJAX to populate client options
+      await clientDropdown.locator('option:not([value=""])').first().waitFor({ state: 'attached', timeout: 60000 });
       const clientOptions = await clientDropdown.locator('option').all();
       for (const option of clientOptions) {
         const value = await option.getAttribute('value');
