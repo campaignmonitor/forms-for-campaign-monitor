@@ -41,6 +41,14 @@ test.describe('A/B Testing', () => {
    */
   async function createForm(page: import('@playwright/test').Page, name: string, header: string, type: string = 'bar'): Promise<string> {
     await page.goto('/wp-admin/admin.php?page=campaign_monitor_create_builder');
+    await page.waitForLoadState('networkidle');
+
+    // Debug: log where we actually landed
+    console.log('Form builder URL:', page.url());
+    if (!page.url().includes('campaign_monitor_create_builder')) {
+      console.log('Page content:', await page.content());
+      throw new Error(`Redirected away from form builder to: ${page.url()}`);
+    }
 
     await page.locator('#formName').waitFor({ state: 'visible', timeout: 60000 });
     await page.fill('#formName', name);

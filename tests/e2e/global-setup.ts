@@ -65,6 +65,9 @@ setup('start docker and configure WordPress', async ({ request }) => {
   // Activate plugin (idempotent)
   dockerExec(`wp plugin activate forms-for-campaign-monitor --allow-root 2>/dev/null || true`);
 
+  // Dismiss the plugin update/welcome screen (prevents redirect to update page)
+  dockerExec(`wp option update forms_for_campaign_monitor_plugin_update 1 --allow-root`);
+
   // Create subscriber user (idempotent)
   dockerExec(
     `wp user get ${SUBSCRIBER_USER} --allow-root 2>/dev/null || ` +
