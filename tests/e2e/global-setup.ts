@@ -230,37 +230,38 @@ setup('start docker and configure WordPress', async ({ request }) => {
     console.log('Campaign Monitor already connected.');
   }
 
-  // Fetch CM clients and store them in WP options so the form builder dropdown is populated
-  console.log('Fetching Campaign Monitor clients...');
-  const fetchClientsResult = wpCli(`eval '
-    \$settings = get_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings", array());
-    if (empty(\$settings["access_token"])) {
-      echo "ERROR:no access token";
-      return;
+  // Fetch CM clients by visiting the main plugin page (triggers generateConnectPage which stores clients)
+  console.log('Fetching Campaign Monitor clients by visiting plugin page...');
+  const { chromium: chromiumForClients } = await import('@playwright/test');
+  const clientsBrowser = await chromiumForClients.launch();
+  const clientsContext = await clientsBrowser.newContext({
+    storageState: './tests/e2e/.auth/admin.json',
+  });
+  const clientsPage = await clientsContext.newPage();
+  await clientsPage.goto(`${WP_URL}/wp-admin/admin.php?page=campaign-monitor-for-wordpress`);
+  await clientsPage.waitForLoadState('networkidle');
+
+  // Verify clients were loaded by checking the page content
+  const pageContent = await clientsPage.content();
+  const hasConnectedContent = pageContent.includes('Create New Form') || pageContent.includes('formId');
+  console.log('Plugin page loaded, has connected content:', hasConnectedContent);
+
+  await clientsContext.close();
+  await clientsBrowser.close();
+
+  // Verify clients are actually stored in the WP option
+  const clientsCheck = wpCli(`eval '
+    \$settings = get_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings");
+    \$clients = isset(\$settings["campaign_monitor_clients"]) ? \$settings["campaign_monitor_clients"] : null;
+    if (\$clients && count(\$clients) > 0) {
+      echo "OK:" . count(\$clients) . " clients";
+    } else {
+      echo "EMPTY";
     }
-    \$response = wp_remote_get("https://api.createsend.com/api/v3.1/clients.json", array(
-      "timeout" => 30,
-      "headers" => array(
-        "Authorization" => "Bearer " . \$settings["access_token"]
-      )
-    ));
-    if (is_wp_error(\$response)) {
-      echo "ERROR:" . \$response->get_error_message();
-      return;
-    }
-    \$body = wp_remote_retrieve_body(\$response);
-    \$clients = json_decode(\$body);
-    if (!is_array(\$clients) || empty(\$clients)) {
-      echo "ERROR:no clients returned - " . \$body;
-      return;
-    }
-    \$settings["campaign_monitor_clients"] = \$clients;
-    update_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings", \$settings);
-    echo "OK:" . count(\$clients) . " clients";
   '`);
-  console.log('Fetch clients result:', fetchClientsResult);
-  if (!fetchClientsResult.startsWith('OK:')) {
-    console.warn('Warning: Could not fetch CM clients. Form creation tests may fail.');
+  console.log('Clients stored in WP option:', clientsCheck);
+  if (clientsCheck.startsWith('EMPTY')) {
+    throw new Error('No Campaign Monitor clients were stored after visiting plugin page');
   }
 
   console.log('Setup complete!');

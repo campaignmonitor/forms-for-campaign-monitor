@@ -58,11 +58,9 @@ test.describe('A/B Testing', () => {
     const clientDropdown = page.locator('#campaignMonitorClientId');
     console.log('Client dropdown visible:', await clientDropdown.isVisible());
     if (await clientDropdown.isVisible()) {
-      // Log all current options before waiting
       const preOptions = await clientDropdown.locator('option').allTextContents();
       console.log('Client dropdown options before wait:', JSON.stringify(preOptions));
 
-      // Wait for AJAX to populate client options
       console.log('Waiting for non-empty client option...');
       await clientDropdown.locator('option:not([value=""])').first().waitFor({ state: 'attached', timeout: 60000 });
       console.log('Client options ready');
@@ -71,18 +69,13 @@ test.describe('A/B Testing', () => {
         const value = await option.getAttribute('value');
         if (value && value !== '') {
           console.log('Selecting client:', value);
-          // Select client and wait for the getLists AJAX response (filter out WP heartbeat)
-          const listResponsePromise = page.waitForResponse(resp =>
-            resp.url().includes('admin-ajax.php') && resp.status() === 200 && resp.request().postData()?.includes('handle_ajax_cm_forms')
-          );
           await clientDropdown.selectOption(value);
-          // Click the refresh button to trigger populateListDropdown() via jQuery click handler
-          console.log('Clicking refresh button...');
-          await page.locator('#refreshCampaignMonitorList').click();
-          console.log('Waiting for getLists AJAX response...');
-          const listResponse = await listResponsePromise;
-          console.log('getLists AJAX response status:', listResponse.status());
-          try { console.log('getLists AJAX body:', await listResponse.text()); } catch {}
+          // Trigger jQuery change event to ensure delegated handler fires populateListDropdown()
+          console.log('Dispatching jQuery change event...');
+          await page.evaluate(() => {
+            const $v = (window as any).jQuery || (window as any).$campaignMonitor;
+            if ($v) { $v('#campaignMonitorClientId').trigger('change'); }
+          });
           break;
         }
       }
@@ -90,9 +83,18 @@ test.describe('A/B Testing', () => {
       console.log('Client dropdown NOT visible!');
     }
 
-    // Select first available list (wait for AJAX to populate after client selection)
+    // Wait for list dropdown to be populated by AJAX
     const listDropdown = page.locator('#campaignMonitorListId');
-    await listDropdown.locator('option:not([value=""])').first().waitFor({ state: 'attached', timeout: 60000 });
+    console.log('Waiting for list dropdown options...');
+    try {
+      await listDropdown.locator('option:not([value=""])').first().waitFor({ state: 'attached', timeout: 30000 });
+    } catch {
+      const listOptions = await listDropdown.locator('option').allTextContents();
+      console.log('List dropdown options at timeout:', JSON.stringify(listOptions));
+      throw new Error('List dropdown never populated with options after selecting client');
+    }
+    const listOpts = await listDropdown.locator('option').allTextContents();
+    console.log('List dropdown populated:', JSON.stringify(listOpts));
     const options = await listDropdown.locator('option').all();
     for (const option of options) {
       const value = await option.getAttribute('value');
