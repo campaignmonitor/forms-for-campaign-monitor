@@ -230,38 +230,122 @@ setup('start docker and configure WordPress', async ({ request }) => {
     console.log('Campaign Monitor already connected.');
   }
 
-  // Fetch CM clients by visiting the main plugin page (triggers generateConnectPage which stores clients)
-  console.log('Fetching Campaign Monitor clients by visiting plugin page...');
-  const { chromium: chromiumForClients } = await import('@playwright/test');
-  const clientsBrowser = await chromiumForClients.launch();
-  const clientsContext = await clientsBrowser.newContext({
-    storageState: './tests/e2e/.auth/admin.json',
-  });
-  const clientsPage = await clientsContext.newPage();
-  await clientsPage.goto(`${WP_URL}/wp-admin/admin.php?page=campaign-monitor-for-wordpress`);
-  await clientsPage.waitForLoadState('networkidle');
-
-  // Verify clients were loaded by checking the page content
-  const pageContent = await clientsPage.content();
-  const hasConnectedContent = pageContent.includes('Create New Form') || pageContent.includes('formId');
-  console.log('Plugin page loaded, has connected content:', hasConnectedContent);
-
-  await clientsContext.close();
-  await clientsBrowser.close();
-
-  // Verify clients are actually stored in the WP option
-  const clientsCheck = wpCli(`eval '
+  // Fetch CM clients directly via WP-CLI (more reliable than browser visit in CI)
+  console.log('Fetching Campaign Monitor clients via WP-CLI...');
+  const fetchClientsResult = wpCli(`eval '
     \$settings = get_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings");
-    \$clients = isset(\$settings["campaign_monitor_clients"]) ? \$settings["campaign_monitor_clients"] : null;
-    if (\$clients && count(\$clients) > 0) {
-      echo "OK:" . count(\$clients) . " clients";
-    } else {
-      echo "EMPTY";
+    if (empty(\$settings) || empty(\$settings["access_token"])) {
+      echo "ERROR:no_token";
+      return;
     }
+    \$accessToken = \$settings["access_token"];
+
+    // Call CM API directly
+    \$response = wp_remote_get("https://api.createsend.com/api/v3.3/clients.json", array(
+      "timeout" => 30,
+      "headers" => array(
+        "Authorization" => "Bearer " . \$accessToken,
+      ),
+    ));
+
+    if (is_wp_error(\$response)) {
+      echo "ERROR:wp_error:" . \$response->get_error_message();
+      return;
+    }
+
+    \$code = wp_remote_retrieve_response_code(\$response);
+    \$body = wp_remote_retrieve_body(\$response);
+
+    if (\$code === 401) {
+      // Token might be expired, try refreshing
+      echo "EXPIRED:" . \$body;
+      return;
+    }
+
+    if (\$code !== 200) {
+      echo "ERROR:http_" . \$code . ":" . \$body;
+      return;
+    }
+
+    \$clients = json_decode(\$body);
+    if (empty(\$clients)) {
+      echo "ERROR:empty_clients:" . \$body;
+      return;
+    }
+
+    // Store clients in the settings (same as generateConnectPage does)
+    \$settings["campaign_monitor_clients"] = \$clients;
+    update_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings", \$settings);
+
+    // If only one client, set it as default
+    if (count(\$clients) === 1 && !empty(\$clients[0]->ClientID)) {
+      \$settings["default_client"] = \$clients[0]->ClientID;
+      update_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings", \$settings);
+    }
+
+    echo "OK:" . count(\$clients) . " clients";
   '`);
-  console.log('Clients stored in WP option:', clientsCheck);
-  if (clientsCheck.startsWith('EMPTY')) {
-    throw new Error('No Campaign Monitor clients were stored after visiting plugin page');
+  console.log('Fetch clients result:', fetchClientsResult);
+
+  if (fetchClientsResult.startsWith('EXPIRED')) {
+    // Try token refresh
+    console.log('Token expired, attempting refresh...');
+    const refreshResult = wpCli(`eval '
+      \$settings = get_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings");
+      \$params = array(
+        "grant_type" => "refresh_token",
+        "refresh_token" => \$settings["refresh_token"],
+      );
+      \$response = wp_remote_post("https://api.createsend.com/oauth/token", array(
+        "body" => http_build_query(\$params),
+        "timeout" => 30,
+        "headers" => array("Content-Type" => "application/x-www-form-urlencoded"),
+      ));
+      if (is_wp_error(\$response)) {
+        echo "ERROR:" . \$response->get_error_message();
+        return;
+      }
+      \$body = wp_remote_retrieve_body(\$response);
+      \$creds = json_decode(\$body);
+      if (isset(\$creds->access_token)) {
+        \$settings["access_token"] = \$creds->access_token;
+        \$settings["refresh_token"] = \$creds->refresh_token;
+        \$settings["expiry"] = time() + \$creds->expires_in;
+        update_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings", \$settings);
+        echo "OK";
+      } else {
+        echo "ERROR:" . \$body;
+      }
+    '`);
+    console.log('Token refresh result:', refreshResult);
+    if (!refreshResult.startsWith('OK')) {
+      throw new Error(`Token refresh failed: ${refreshResult}`);
+    }
+
+    // Retry fetching clients with new token
+    const retryResult = wpCli(`eval '
+      \$settings = get_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings");
+      \$response = wp_remote_get("https://api.createsend.com/api/v3.3/clients.json", array(
+        "timeout" => 30,
+        "headers" => array("Authorization" => "Bearer " . \$settings["access_token"]),
+      ));
+      if (is_wp_error(\$response)) { echo "ERROR:" . \$response->get_error_message(); return; }
+      \$body = wp_remote_retrieve_body(\$response);
+      \$clients = json_decode(\$body);
+      if (empty(\$clients)) { echo "ERROR:empty:" . \$body; return; }
+      \$settings["campaign_monitor_clients"] = \$clients;
+      if (count(\$clients) === 1 && !empty(\$clients[0]->ClientID)) {
+        \$settings["default_client"] = \$clients[0]->ClientID;
+      }
+      update_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings", \$settings);
+      echo "OK:" . count(\$clients) . " clients";
+    '`);
+    console.log('Retry fetch clients result:', retryResult);
+    if (!retryResult.startsWith('OK')) {
+      throw new Error(`Failed to fetch clients after token refresh: ${retryResult}`);
+    }
+  } else if (!fetchClientsResult.startsWith('OK')) {
+    throw new Error(`Failed to fetch CM clients: ${fetchClientsResult}`);
   }
 
   console.log('Setup complete!');
