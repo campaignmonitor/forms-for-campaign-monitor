@@ -61,9 +61,9 @@ test.describe('Form Creation and Rendering', () => {
       }
     }
 
-    // Select first available list from dropdown (first non-empty option)
+    // Select first available list from dropdown (wait for AJAX to populate after client selection)
     const listDropdown = page.locator('#campaignMonitorListId');
-    await listDropdown.waitFor({ state: 'visible', timeout: 60000 });
+    await listDropdown.locator('option:not([value=""])').first().waitFor({ state: 'attached', timeout: 60000 });
     const options = await listDropdown.locator('option').all();
     let selectedList = false;
     for (const option of options) {
@@ -154,7 +154,7 @@ test.describe('Form Creation and Rendering', () => {
     }
 
     const listDropdown = page.locator('#campaignMonitorListId');
-    await listDropdown.waitFor();
+    await listDropdown.locator('option:not([value=""])').first().waitFor({ state: 'attached', timeout: 60000 });
     const options = await listDropdown.locator('option').all();
     let selectedList = false;
     for (const option of options) {

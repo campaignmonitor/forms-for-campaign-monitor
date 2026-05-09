@@ -69,9 +69,9 @@ test.describe('A/B Testing', () => {
       }
     }
 
-    // Select first available list (may take time for CM API to respond)
+    // Select first available list (wait for AJAX to populate after client selection)
     const listDropdown = page.locator('#campaignMonitorListId');
-    await listDropdown.waitFor({ state: 'visible', timeout: 60000 });
+    await listDropdown.locator('option:not([value=""])').first().waitFor({ state: 'attached', timeout: 60000 });
     const options = await listDropdown.locator('option').all();
     for (const option of options) {
       const value = await option.getAttribute('value');
