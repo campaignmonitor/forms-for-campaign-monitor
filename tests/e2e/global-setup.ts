@@ -230,5 +230,38 @@ setup('start docker and configure WordPress', async ({ request }) => {
     console.log('Campaign Monitor already connected.');
   }
 
+  // Fetch CM clients and store them in WP options so the form builder dropdown is populated
+  console.log('Fetching Campaign Monitor clients...');
+  const fetchClientsResult = wpCli(`eval '
+    \$settings = get_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings", array());
+    if (empty(\$settings["access_token"])) {
+      echo "ERROR:no access token";
+      return;
+    }
+    \$response = wp_remote_get("https://api.createsend.com/api/v3.1/clients.json", array(
+      "timeout" => 30,
+      "headers" => array(
+        "Authorization" => "Bearer " . \$settings["access_token"]
+      )
+    ));
+    if (is_wp_error(\$response)) {
+      echo "ERROR:" . \$response->get_error_message();
+      return;
+    }
+    \$body = wp_remote_retrieve_body(\$response);
+    \$clients = json_decode(\$body);
+    if (!is_array(\$clients) || empty(\$clients)) {
+      echo "ERROR:no clients returned - " . \$body;
+      return;
+    }
+    \$settings["campaign_monitor_clients"] = \$clients;
+    update_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings", \$settings);
+    echo "OK:" . count(\$clients) . " clients";
+  '`);
+  console.log('Fetch clients result:', fetchClientsResult);
+  if (!fetchClientsResult.startsWith('OK:')) {
+    console.warn('Warning: Could not fetch CM clients. Form creation tests may fail.');
+  }
+
   console.log('Setup complete!');
 });
