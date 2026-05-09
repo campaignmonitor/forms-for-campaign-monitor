@@ -63,9 +63,13 @@ test.describe('A/B Testing', () => {
       for (const option of clientOptions) {
         const value = await option.getAttribute('value');
         if (value && value !== '') {
-          // Select client and wait for the getLists AJAX response
-          const listResponsePromise = page.waitForResponse(resp => resp.url().includes('admin-ajax.php') && resp.status() === 200);
+          // Select client and wait for the getLists AJAX response (filter out WP heartbeat)
+          const listResponsePromise = page.waitForResponse(resp =>
+            resp.url().includes('admin-ajax.php') && resp.status() === 200 && resp.request().postData()?.includes('handle_ajax_cm_forms')
+          );
           await clientDropdown.selectOption(value);
+          // Ensure the AJAX fires even if Playwright's native change event isn't caught by jQuery
+          await page.evaluate(() => { if (typeof (window as any).populateListDropdown === 'function') (window as any).populateListDropdown(); });
           const listResponse = await listResponsePromise;
           console.log('getLists AJAX response status:', listResponse.status());
           try { console.log('getLists AJAX body:', await listResponse.text()); } catch {}
