@@ -65,6 +65,11 @@ setup('start docker and configure WordPress', async ({ request }) => {
   // Activate plugin (idempotent)
   dockerExec(`wp plugin activate forms-for-campaign-monitor --allow-root 2>/dev/null || true`);
 
+  // Enable WP_DEBUG for better error logging
+  dockerExec(`wp config set WP_DEBUG true --raw --allow-root 2>/dev/null || true`);
+  dockerExec(`wp config set WP_DEBUG_LOG true --raw --allow-root 2>/dev/null || true`);
+  dockerExec(`wp config set WP_DEBUG_DISPLAY false --raw --allow-root 2>/dev/null || true`);
+
   // Dismiss the plugin update/welcome screen (prevents redirect to update page)
   dockerExec(`wp option update forms_for_campaign_monitor_plugin_update 1 --allow-root`);
 
@@ -347,6 +352,45 @@ setup('start docker and configure WordPress', async ({ request }) => {
   } else if (!fetchClientsResult.startsWith('OK')) {
     throw new Error(`Failed to fetch CM clients: ${fetchClientsResult}`);
   }
+
+  // Verify getLists works through the plugin's SDK (same path as the AJAX call)
+  console.log('Testing getLists via plugin SDK...');
+  const sdkTestResult = wpCli(`eval '
+    require_once ABSPATH . "wp-content/plugins/forms-for-campaign-monitor/campaign-monitor.php";
+    \$settings = get_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings");
+    \$clients = \$settings["campaign_monitor_clients"];
+    if (empty(\$clients)) { echo "ERROR:no_clients"; return; }
+    \$clientId = \$clients[0]->ClientID;
+    echo "Testing with clientId: " . \$clientId . "\\n";
+
+    // Test via wp_remote_get (our approach)
+    \$response = wp_remote_get("https://api.createsend.com/api/v3.1/clients/" . \$clientId . "/lists.json", array(
+      "timeout" => 30,
+      "headers" => array("Authorization" => "Bearer " . \$settings["access_token"]),
+    ));
+    if (is_wp_error(\$response)) { echo "wp_remote_get ERROR:" . \$response->get_error_message(); return; }
+    \$httpCode = wp_remote_retrieve_response_code(\$response);
+    \$body = wp_remote_retrieve_body(\$response);
+    echo "wp_remote_get: status=" . \$httpCode . " body=" . substr(\$body, 0, 200) . "\\n";
+
+    // Test via SDK (same path as AJAX handler)
+    try {
+      \$cm = \\forms\\core\\Application::\$CampaignMonitor;
+      if (\$cm === null) {
+        \$cm = new \\forms\\core\\CampaignMonitor(\$settings["access_token"], \$settings["refresh_token"]);
+      }
+      \$lists = \$cm->get_client_list(\$clientId);
+      echo "SDK: " . json_encode(\$lists) . "\\n";
+      echo "OK";
+    } catch (\\Exception \$e) {
+      echo "SDK ERROR:" . \$e->getMessage() . "\\n";
+      echo "SDK TRACE:" . \$e->getTraceAsString();
+    } catch (\\Error \$e) {
+      echo "SDK FATAL:" . \$e->getMessage() . "\\n";
+      echo "SDK TRACE:" . \$e->getTraceAsString();
+    }
+  '`);
+  console.log('SDK test result:', sdkTestResult);
 
   console.log('Setup complete!');
 });

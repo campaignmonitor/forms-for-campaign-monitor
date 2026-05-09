@@ -49,6 +49,10 @@ jobs:
           CM_PASSWORD: ${{ secrets.CM_PASSWORD }}
         run: npx playwright test --workers=1
 
+      - name: Dump WordPress debug log
+        if: failure()
+        run: docker compose exec -T wordpress cat /var/www/html/wp-content/debug.log 2>/dev/null || echo "No debug.log found"
+
       - name: Upload test results
         if: failure()
         uses: actions/upload-artifact@v4
