@@ -91,8 +91,10 @@ setup('start docker and configure WordPress', async ({ request }) => {
       redirect_to: `${WP_URL}/wp-admin/`,
       testcookie: '1',
     },
+    maxRedirects: 0,
   });
-  expect(loginResponse.ok() || loginResponse.status() === 302).toBeTruthy();
+  // WordPress returns 302 to wp-admin on successful login; 200 means login form re-rendered (bad credentials)
+  expect(loginResponse.status()).toBe(302);
 
   await request.storageState({ path: './tests/e2e/.auth/admin.json' });
 
@@ -108,8 +110,10 @@ setup('start docker and configure WordPress', async ({ request }) => {
       redirect_to: `${WP_URL}/wp-admin/`,
       testcookie: '1',
     },
+    maxRedirects: 0,
   });
-  expect(subLogin.ok() || subLogin.status() === 302).toBeTruthy();
+  // WordPress returns 302 on successful login; 200 means bad credentials
+  expect(subLogin.status()).toBe(302);
   await subRequest.storageState({ path: './tests/e2e/.auth/subscriber.json' });
   await subRequest.dispose();
 
@@ -192,6 +196,10 @@ setup('start docker and configure WordPress', async ({ request }) => {
     console.log('Captured auth code, exchanging for tokens...');
 
     // Exchange the code for tokens inside the WordPress container
+    // Sanitize authCode: OAuth codes are alphanumeric with possible hyphens/underscores
+    if (!/^[a-zA-Z0-9._~+\/-]+=*$/.test(authCode)) {
+      throw new Error('Invalid characters in OAuth auth code');
+    }
     const exchangeResult = wpCli(`eval '
       \$settings = get_option("forms_for_campaign_monitor_campaign_monitor_forms_account_settings");
       \$clientId = \$settings["client_id"];

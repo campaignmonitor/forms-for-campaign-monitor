@@ -116,7 +116,7 @@ test.describe('Authorization - Subscriber (no manage_options)', () => {
   });
 
   test('subscriber cannot access plugin admin page', async ({ page }) => {
-    const response = await page.goto('/wp-admin/admin.php?page=campaign-monitor-for-wordpress');
+    await page.goto('/wp-admin/admin.php?page=campaign-monitor-for-wordpress');
     // WordPress menu uses 'administrator' capability, so subscriber can't access
     const content = await page.content();
     // Should either redirect or show insufficient permissions

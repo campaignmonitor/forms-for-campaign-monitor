@@ -7,6 +7,10 @@ End-to-end tests use Playwright against a local WordPress Docker environment.
 - Docker & Docker Compose
 - Node.js (18+)
 - Playwright browsers: `npx playwright install`
+- Campaign Monitor OAuth credentials (for form creation and A/B tests):
+  - Copy `.env.example` to `.env` (or export the variables)
+  - Set `CM_CLIENT_ID`, `CM_CLIENT_SECRET`, `CM_EMAIL`, and `CM_PASSWORD`
+  - Without these, authorization tests still run but form/AB tests will be skipped
 
 ## Setup
 
