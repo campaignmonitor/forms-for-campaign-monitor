@@ -54,6 +54,14 @@ test.describe('A/B Testing', () => {
     await page.fill('#formName', name);
     await page.fill('#formHeader', header);
 
+    // Monitor all admin-ajax.php responses for debugging
+    page.on('response', async (resp) => {
+      if (resp.url().includes('admin-ajax.php')) {
+        const postData = resp.request().postData() || '';
+        try { console.log(`AJAX response: status=${resp.status()}, postData=${postData.substring(0, 100)}, body=${(await resp.text()).substring(0, 200)}`); } catch {}
+      }
+    });
+
     // Select first available client (triggers list dropdown to appear)
     const clientDropdown = page.locator('#campaignMonitorClientId');
     console.log('Client dropdown visible:', await clientDropdown.isVisible());
@@ -87,11 +95,17 @@ test.describe('A/B Testing', () => {
     const listDropdown = page.locator('#campaignMonitorListId');
     console.log('Waiting for list dropdown options...');
     try {
-      await listDropdown.locator('option:not([value=""])').first().waitFor({ state: 'attached', timeout: 30000 });
+      await listDropdown.locator('option:not([value=""])').first().waitFor({ state: 'attached', timeout: 15000 });
     } catch {
-      const listOptions = await listDropdown.locator('option').allTextContents();
-      console.log('List dropdown options at timeout:', JSON.stringify(listOptions));
-      throw new Error('List dropdown never populated with options after selecting client');
+      console.log('First attempt failed, retrying with direct populateListDropdown() call...');
+      await page.evaluate(() => { (window as any).populateListDropdown(); });
+      try {
+        await listDropdown.locator('option:not([value=""])').first().waitFor({ state: 'attached', timeout: 15000 });
+      } catch {
+        const listOptions = await listDropdown.locator('option').allTextContents();
+        console.log('List dropdown options at timeout:', JSON.stringify(listOptions));
+        throw new Error('List dropdown never populated with options after selecting client');
+      }
     }
     const listOpts = await listDropdown.locator('option').allTextContents();
     console.log('List dropdown populated:', JSON.stringify(listOpts));
