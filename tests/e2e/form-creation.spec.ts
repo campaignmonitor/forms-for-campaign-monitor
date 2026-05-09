@@ -55,7 +55,12 @@ test.describe('Form Creation and Rendering', () => {
       for (const option of clientOptions) {
         const value = await option.getAttribute('value');
         if (value && value !== '') {
+          // Select client and wait for the getLists AJAX response
+          const listResponsePromise = page.waitForResponse(resp => resp.url().includes('admin-ajax.php') && resp.status() === 200);
           await clientDropdown.selectOption(value);
+          const listResponse = await listResponsePromise;
+          console.log('getLists AJAX response status:', listResponse.status());
+          try { console.log('getLists AJAX body:', await listResponse.text()); } catch {}
           break;
         }
       }
@@ -147,7 +152,11 @@ test.describe('Form Creation and Rendering', () => {
       for (const option of clientOptions2) {
         const value = await option.getAttribute('value');
         if (value && value !== '') {
+          const listResponsePromise2 = page.waitForResponse(resp => resp.url().includes('admin-ajax.php') && resp.status() === 200);
           await clientDropdown2.selectOption(value);
+          const listResponse2 = await listResponsePromise2;
+          console.log('getLists AJAX response status:', listResponse2.status());
+          try { console.log('getLists AJAX body:', await listResponse2.text()); } catch {}
           break;
         }
       }
