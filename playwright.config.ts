@@ -1,5 +1,5 @@
 import { defineConfig } from '@playwright/test';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 

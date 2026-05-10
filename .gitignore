@@ -5,7 +5,7 @@
 vendor/
 composer.lock
 node_modules/
-package-lock.json
+
 test-results/
 playwright-report/
 tests/e2e/.auth/

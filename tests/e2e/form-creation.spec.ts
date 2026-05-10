@@ -38,7 +38,7 @@ test.describe('Form Creation and Rendering', () => {
     // Debug: log where we actually landed
     console.log('Form builder URL:', page.url());
     if (!page.url().includes('campaign_monitor_create_builder')) {
-      console.log('Page content:', await page.content());
+      console.log('Redirected to:', page.url());
       throw new Error(`Redirected away from form builder to: ${page.url()}`);
     }
 
@@ -50,7 +50,7 @@ test.describe('Form Creation and Rendering', () => {
     page.on('response', async (resp) => {
       if (resp.url().includes('admin-ajax.php')) {
         const postData = resp.request().postData() || '';
-        try { console.log(`AJAX response: status=${resp.status()}, postData=${postData.substring(0, 100)}, body=${(await resp.text()).substring(0, 200)}`); } catch {}
+        try { console.log(`AJAX response: status=${resp.status()}, postData=${postData.substring(0, 100)}`); } catch {}
       }
     });
 
@@ -171,7 +171,7 @@ test.describe('Form Creation and Rendering', () => {
 
     console.log('Form builder URL:', page.url());
     if (!page.url().includes('campaign_monitor_create_builder')) {
-      console.log('Page content:', await page.content());
+      console.log('Redirected to:', page.url());
       throw new Error(`Redirected away from form builder to: ${page.url()}`);
     }
 
@@ -182,7 +182,7 @@ test.describe('Form Creation and Rendering', () => {
     page.on('response', async (resp) => {
       if (resp.url().includes('admin-ajax.php')) {
         const postData = resp.request().postData() || '';
-        try { console.log(`AJAX response (test 2): status=${resp.status()}, postData=${postData.substring(0, 100)}, body=${(await resp.text()).substring(0, 200)}`); } catch {}
+        try { console.log(`AJAX response (test 2): status=${resp.status()}, postData=${postData.substring(0, 100)}`); } catch {}
       }
     });
 

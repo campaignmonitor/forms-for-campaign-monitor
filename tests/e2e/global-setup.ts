@@ -62,8 +62,8 @@ setup('start docker and configure WordPress', async ({ request }) => {
     `wp core install --url='${WP_URL}' --title='Test Site' --admin_user='${ADMIN_USER}' --admin_password='${ADMIN_PASS}' --admin_email='admin@example.com' --skip-email --allow-root`
   );
 
-  // Activate plugin (idempotent)
-  dockerExec(`wp plugin activate forms-for-campaign-monitor --allow-root 2>/dev/null || true`);
+  // Activate plugin (idempotent — check first, activate if needed)
+  dockerExec(`wp plugin is-active forms-for-campaign-monitor --allow-root 2>/dev/null || wp plugin activate forms-for-campaign-monitor --allow-root`);
 
   // Enable WP_DEBUG for better error logging
   dockerExec(`wp config set WP_DEBUG true --raw --allow-root 2>/dev/null || true`);

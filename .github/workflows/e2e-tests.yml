@@ -8,6 +8,8 @@ on:
 
 jobs:
   e2e:
+    # Skip on fork PRs where CM secrets are unavailable
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -20,7 +22,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
